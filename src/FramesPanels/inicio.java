@@ -1,6 +1,8 @@
 
 package FramesPanels;
 
+import java.awt.event.KeyEvent;
+import javafx.scene.input.KeyCode;
 import javax.swing.JOptionPane;
 import metodos_sql.metodos_sql;
 
@@ -57,11 +59,7 @@ public class inicio extends javax.swing.JFrame {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("CONTRASEÑA");
         jpanel_main.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 210, -1, -1));
-
-        jSeparator4.setBackground(new java.awt.Color(255, 255, 255));
         jpanel_main.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 190, 230, 10));
-
-        jSeparator5.setBackground(new java.awt.Color(255, 255, 255));
         jpanel_main.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 260, 230, 10));
 
         txt_pass.setBackground(new java.awt.Color(47, 34, 23));
@@ -74,6 +72,11 @@ public class inicio extends javax.swing.JFrame {
                 txt_passFocusGained(evt);
             }
         });
+        txt_pass.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_passKeyPressed(evt);
+            }
+        });
         jpanel_main.add(txt_pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 230, 230, 30));
 
         txt_nick.setBackground(new java.awt.Color(47, 34, 23));
@@ -83,6 +86,11 @@ public class inicio extends javax.swing.JFrame {
         txt_nick.setToolTipText("");
         txt_nick.setBorder(null);
         txt_nick.setDisabledTextColor(new java.awt.Color(204, 204, 204));
+        txt_nick.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                txt_nickFocusGained(evt);
+            }
+        });
         txt_nick.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 txt_nickMouseClicked(evt);
@@ -93,10 +101,15 @@ public class inicio extends javax.swing.JFrame {
                 txt_nickActionPerformed(evt);
             }
         });
+        txt_nick.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_nickKeyPressed(evt);
+            }
+        });
         jpanel_main.add(txt_nick, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 160, 230, 30));
 
         btn_regis.setBackground(new java.awt.Color(255, 102, 0));
-        btn_regis.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_regis.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btn_regis.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_regisMouseClicked(evt);
@@ -120,7 +133,7 @@ public class inicio extends javax.swing.JFrame {
         jButton2.setBorder(null);
         jButton2.setBorderPainted(false);
         jButton2.setContentAreaFilled(false);
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon/cerrar1x1B.png"))); // NOI18N
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -140,11 +153,7 @@ public class inicio extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/box blanca.png"))); // NOI18N
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, -1, -1));
-
-        jSeparator2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 460, 190, 10));
-
-        jSeparator3.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 430, 230, 10));
 
         jLabel10.setFont(new java.awt.Font("Century Gothic", 1, 18)); // NOI18N
@@ -166,7 +175,6 @@ public class inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_passFocusGained
 
     private void txt_nickMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_nickMouseClicked
-        txt_nick.setText("");
 
     }//GEN-LAST:event_txt_nickMouseClicked
 
@@ -212,6 +220,24 @@ public class inicio extends javax.swing.JFrame {
     private void btn_regisMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_regisMouseEntered
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_regisMouseEntered
+
+    private void txt_passKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_passKeyPressed
+        // TODO add your handling code here:
+        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+            btn_regisMouseClicked(null);
+        }
+    }//GEN-LAST:event_txt_passKeyPressed
+
+    private void txt_nickKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_nickKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            txt_pass.requestFocus();
+        }
+    }//GEN-LAST:event_txt_nickKeyPressed
+
+    private void txt_nickFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_nickFocusGained
+        txt_nick.setText("");
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_nickFocusGained
 
     /**
      * @param args the command line arguments
