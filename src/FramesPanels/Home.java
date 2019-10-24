@@ -5,7 +5,6 @@
  */
 package FramesPanels;
 
-import AppPackage.AnimationClass;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
@@ -15,7 +14,6 @@ public class Home extends javax.swing.JFrame implements ActionListener{
    clientes clientes = new clientes();
    Inventario Inventario = new Inventario();
    ventas ventas = new ventas();
-   Login Login = new Login();
    proveedores proveedores = new proveedores();
    compras compras = new compras();
    usuarios usuarios = new usuarios();
@@ -397,7 +395,6 @@ public class Home extends javax.swing.JFrame implements ActionListener{
         
         if(evt.equals(btn_clientes)){
             
-            Login.setVisible(false);
             clientes.setVisible(true);
             Inventario.setVisible(false);
             ventas.setVisible(false);
@@ -408,7 +405,6 @@ public class Home extends javax.swing.JFrame implements ActionListener{
             
             contenedor.validate(); //actualizar el contenedor
         }else if (evt.equals(btn_inven)) {
-            Login.setVisible(false);
             clientes.setVisible(false);
             Inventario.setVisible(true);
             ventas.setVisible(false);
@@ -419,7 +415,6 @@ public class Home extends javax.swing.JFrame implements ActionListener{
             
             contenedor.validate();
         }else if (evt.equals(btn_ventas)) {
-            Login.setVisible(false);
             clientes.setVisible(false);
             Inventario.setVisible(false);
             ventas.setVisible(true);
@@ -430,7 +425,6 @@ public class Home extends javax.swing.JFrame implements ActionListener{
             
             contenedor.validate();
         }else if (evt.equals(btn_prove)) {
-            Login.setVisible(false);
             clientes.setVisible(false);
             Inventario.setVisible(false);
             ventas.setVisible(false);
@@ -441,7 +435,6 @@ public class Home extends javax.swing.JFrame implements ActionListener{
             
             contenedor.validate();
     }else if (evt.equals(btn_compras)) {
-            Login.setVisible(false);
             clientes.setVisible(false);
             Inventario.setVisible(false);
             ventas.setVisible(false);
@@ -452,7 +445,6 @@ public class Home extends javax.swing.JFrame implements ActionListener{
             
             contenedor.validate();
     }else if (evt.equals(btn_us)) {
-            Login.setVisible(false);
             clientes.setVisible(false);
             Inventario.setVisible(false);
             ventas.setVisible(false);

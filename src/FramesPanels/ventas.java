@@ -5,17 +5,29 @@
  */
 package FramesPanels;
 
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ernes
  */
 public class ventas extends javax.swing.JPanel {
+    DefaultTableModel modeloTabla = new DefaultTableModel();
 
     /**
      * Creates new form ventas
      */
     public ventas() {
         initComponents();
+    }
+    
+    private void cargarModeloTabla() {
+        modeloTabla.addColumn("COD");
+        modeloTabla.addColumn("NOMBRE");
+        modeloTabla.addColumn("PRECIO");
+        modeloTabla.addColumn("STOCK");
+        tabla.setModel(modeloTabla);
+        
     }
 
     /**
@@ -35,9 +47,11 @@ public class ventas extends javax.swing.JPanel {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabla = new javax.swing.JTable();
         txt_tel_cli9 = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
+        btn_regis = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(47, 34, 23));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -78,8 +92,8 @@ public class ventas extends javax.swing.JPanel {
 
         jScrollPane1.setForeground(new java.awt.Color(255, 255, 255));
 
-        jTable1.setForeground(new java.awt.Color(255, 255, 255));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabla.setForeground(new java.awt.Color(255, 255, 255));
+        tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -90,7 +104,8 @@ public class ventas extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        cargarModeloTabla();
+        jScrollPane1.setViewportView(tabla);
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 600, 290));
 
@@ -103,20 +118,41 @@ public class ventas extends javax.swing.JPanel {
         jLabel16.setForeground(new java.awt.Color(255, 255, 255));
         jLabel16.setText("Imagen");
         add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 430, -1, -1));
+
+        btn_regis.setBackground(new java.awt.Color(255, 102, 0));
+        btn_regis.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_regisMouseClicked(evt);
+            }
+        });
+        btn_regis.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel12.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("+");
+        btn_regis.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 30, -1));
+
+        add(btn_regis, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 30, 70, 40));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_regisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_regisMouseClicked
+
+    }//GEN-LAST:event_btn_regisMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel btn_regis;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tabla;
     private javax.swing.JTextField txt_tel_cli9;
     // End of variables declaration//GEN-END:variables
 }

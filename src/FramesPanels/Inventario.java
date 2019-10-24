@@ -199,7 +199,17 @@ public class Inventario extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_regisMouseClicked
 
     private void btn_regis1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_regis1MouseClicked
+<<<<<<< HEAD
         int i = metodos.guardar_inv(txt_nom_inv.getText(), txt_pre_com_inv.getText(),txt_pre_ven_inv.getText(), txt_id_prove.getText(), txt_cant_inv.getText(),txt_url_inv.getText(),txt_descr_inv.getText());
+=======
+        int i = metodos.guardar_inv(
+                txt_nom_inv.getText(), 
+                txt_pre_com_inv.getText(),
+                txt_pre_ven_inv.getText(), 
+                txt_cant_inv.getText(), 
+                txt_url_inv.getText(),
+                txt_descr_inv.getText());
+>>>>>>> bb83e9de56322be4452e4b1d962aeb0fe6dfc132
         if (i > 0) {
             JOptionPane.showMessageDialog(this, "Datos guardados corectamente");
         } else {
