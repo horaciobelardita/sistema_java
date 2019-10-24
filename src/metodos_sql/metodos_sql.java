@@ -39,7 +39,14 @@ public class metodos_sql {
     
     }
     
-    public int guardar_inv(String nombre, String pre_com, String pre_ven, String cant_inv, String url_inv, String descr_inv){
+    public int guardar_inv(
+            String nombre, 
+            String pre_com, 
+            String pre_ven, 
+            String cant_inv, 
+            String url_inv, 
+            String descr_inv
+             ){
         int resultado=0;
         Connection conexion=null;
         String sentencia_guardar=("INSERT INTO inventario (nombre ,pre_com, pre_ven, cantidad, id_prove, descripcion, imagen) VALUES (?,?,?,?,?,?,?)");
@@ -105,4 +112,6 @@ public class metodos_sql {
         }
         return busqueda_usuario;
     }
+
+   
 }
