@@ -69,6 +69,33 @@ public class metodos_sql {
     
     }
     
+    public int guardar_prove(String nombre, String direccion, String telefono, String cuit_cuil, String productos){
+
+        int resultado=0;
+        Connection conexion=null;
+        String sentencia_guardar=("INSERT INTO proveedores (nombre ,direccion, telefono, cuit_cuil, productos) VALUES (?,?,?,?,?)");
+        
+        try {
+            conexion=conexion_bd.conectar();
+            sentencia_preparada= conexion.prepareStatement(sentencia_guardar);
+            sentencia_preparada.setString(1, nombre);
+            sentencia_preparada.setString(2, direccion);
+            sentencia_preparada.setString(3, telefono);
+            sentencia_preparada.setString(4, cuit_cuil);
+            sentencia_preparada.setString(5, productos);
+            
+            resultado=sentencia_preparada.executeUpdate();
+            sentencia_preparada.close();
+
+            conexion.close();
+        } catch (Exception e) {
+            System.out.print(e);
+        }
+        
+        return resultado;
+    
+    }
+    
     public static String buscar_nombre(String nick){
         String busqueda_nombre=null;
         Connection conexion=null;
