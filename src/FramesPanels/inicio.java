@@ -1,21 +1,19 @@
-
 package FramesPanels;
 
 import java.awt.event.KeyEvent;
 import javafx.scene.input.KeyCode;
 import javax.swing.JOptionPane;
-import metodos_sql.metodos_sql;
-
+import db.MetodosSQL;
 
 public class inicio extends javax.swing.JFrame {
 
     public inicio() {
         initComponents();
         setLocationRelativeTo(null);
-         
+
     }
-    
-    metodos_sql metodos = new metodos_sql();
+
+    MetodosSQL metodos = new MetodosSQL();
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -183,36 +181,34 @@ public class inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_nickActionPerformed
 
     private void btn_regisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_regisMouseClicked
-              
-        String busqueda_usuario = metodos.buscar_usuario(txt_nick.getText(), txt_pass.getText());
-        
+
+        boolean existeUsuario = MetodosSQL.buscarUsuario(txt_nick.getText(), txt_pass.getText());
+
         if (txt_nick.getText().equals("root") && txt_pass.getText().equals("root")) {
             JOptionPane.showMessageDialog(this, "Bienvenido iniciaste sesion como root (Administrador)");
             Home Home = new Home();
             Home.jl_nombre.setText("Administrador");
-            Home.setVisible(true); 
+            Home.setVisible(true);
             this.dispose();
-            
-            
-        }else if(busqueda_usuario.equals("Usuario encontrado")){
-            String busqueda_nombre = metodos.buscar_nombre(txt_nick.getText());
-            JOptionPane.showMessageDialog(this, "Bienvenid@ \n" + busqueda_nombre);
+
+        } else if (existeUsuario) {
+            String nombreUsuario = MetodosSQL.buscarNombreUsuario(txt_nick.getText());
+            JOptionPane.showMessageDialog(this, "Bienvenid@ \n" + nombreUsuario);
             Home Home = new Home();
             Home.setVisible(true);
-            Home.jl_nombre.setText(busqueda_nombre);
+            Home.jl_nombre.setText(nombreUsuario);
             this.dispose();
-            }else{
-                JOptionPane.showMessageDialog(this, "Usuario no registrado");
-                }
-         
-        
-        
+        } else {
+            JOptionPane.showMessageDialog(this, "Usuario no registrado");
+        }
+
+
     }//GEN-LAST:event_btn_regisMouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
         int dialog = JOptionPane.YES_NO_OPTION;
-        int result = JOptionPane.showConfirmDialog(null,"Desea cerrar el programa?","Exit",dialog);
-        if (result==0) {
+        int result = JOptionPane.showConfirmDialog(null, "Desea cerrar el programa?", "Exit", dialog);
+        if (result == 0) {
             System.exit(0);
         }
     }//GEN-LAST:event_jButton2MouseClicked
@@ -223,7 +219,7 @@ public class inicio extends javax.swing.JFrame {
 
     private void txt_passKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_passKeyPressed
         // TODO add your handling code here:
-        if (evt.getKeyCode()==KeyEvent.VK_ENTER){
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             btn_regisMouseClicked(null);
         }
     }//GEN-LAST:event_txt_passKeyPressed

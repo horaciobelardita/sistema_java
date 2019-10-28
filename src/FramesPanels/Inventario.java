@@ -2,7 +2,7 @@
 package FramesPanels;
 
 import javax.swing.JOptionPane;
-import metodos_sql.metodos_sql;
+import db.MetodosSQL;
 
 public class Inventario extends javax.swing.JPanel {
 
@@ -10,7 +10,7 @@ public class Inventario extends javax.swing.JPanel {
         initComponents();
     }
     
-    metodos_sql metodos = new metodos_sql();
+    MetodosSQL metodos = new MetodosSQL();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -199,7 +199,7 @@ public class Inventario extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_regisMouseClicked
 
     private void btn_regis1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_regis1MouseClicked
-
+        /*
         int i = metodos.guardar_inv(txt_nom_inv.getText(), txt_pre_com_inv.getText(),txt_pre_ven_inv.getText(), txt_id_prove.getText(), txt_cant_inv.getText(),txt_url_inv.getText(),txt_descr_inv.getText());
 
         if (i > 0) {
@@ -207,6 +207,7 @@ public class Inventario extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo guardar los datos");
         }
+        */
     }//GEN-LAST:event_btn_regis1MouseClicked
 
 

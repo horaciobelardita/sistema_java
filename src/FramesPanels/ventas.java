@@ -5,7 +5,10 @@
  */
 package FramesPanels;
 
+import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
+import db.MetodosSQL;
+import modelos.Producto;
 
 /**
  *
@@ -27,7 +30,11 @@ public class ventas extends javax.swing.JPanel {
         modeloTabla.addColumn("PRECIO");
         modeloTabla.addColumn("STOCK");
         tabla.setModel(modeloTabla);
-        
+        MetodosSQL ms =  new MetodosSQL();
+        ArrayList<Producto> productos = ms.obtenerProductos();
+        for (Producto producto : productos) {
+            System.out.println(producto);
+        }
     }
 
     /**

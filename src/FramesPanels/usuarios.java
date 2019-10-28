@@ -1,7 +1,7 @@
 package FramesPanels;
 
 import javax.swing.JOptionPane;
-import metodos_sql.metodos_sql;
+import db.MetodosSQL;
 
 public class usuarios extends javax.swing.JPanel {
 
@@ -9,7 +9,6 @@ public class usuarios extends javax.swing.JPanel {
         initComponents();
     }
 
-    metodos_sql metodos = new metodos_sql();
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -136,8 +135,8 @@ public class usuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_txt_nickActionPerformed
 
     private void btn_regisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_regisMouseClicked
-        int i = metodos.guardar_us(txt_nick.getText(), txt_nombre.getText(), txt_email_user.getText(), txt_pass.getText(),(String) cb_permisos.getSelectedItem());
-        if (i > 0) {
+        int filasAfectadas = MetodosSQL.guardarUsuario(txt_nick.getText(), txt_nombre.getText(), txt_email_user.getText(), txt_pass.getText(),(String) cb_permisos.getSelectedItem());
+        if (filasAfectadas > 0) {
             JOptionPane.showMessageDialog(this, "Datos guardados corectamente");
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo guardar los datos");
