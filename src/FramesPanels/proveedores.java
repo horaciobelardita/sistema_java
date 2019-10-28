@@ -1,7 +1,6 @@
 
 package FramesPanels;
 import javax.swing.JOptionPane;
-import metodos_sql.metodos_sql;
 
 public class proveedores extends javax.swing.JPanel {
 
@@ -9,7 +8,6 @@ public class proveedores extends javax.swing.JPanel {
     public proveedores() {
         initComponents();
     }
-    metodos_sql metodos =new metodos_sql();
 
 
     @SuppressWarnings("unchecked")
@@ -148,13 +146,14 @@ public class proveedores extends javax.swing.JPanel {
 
     private void btn_regis1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_regis1MouseClicked
 
-        int i = metodos.guardar_prove(txt_nom_prove.getText(), txt_dir_prove.getText(),txt_tel_prove.getText(), txt_cuil_cuit.getText(), txt_rubro.getText());
-
+//        int i = metodos.guardar_prove(txt_nom_prove.getText(), txt_dir_prove.getText(),txt_tel_prove.getText(), txt_cuil_cuit.getText(), txt_rubro.getText());
+/*
         if (i > 0) {
             JOptionPane.showMessageDialog(this, "Datos guardados corectamente");
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo guardar los datos");
         }
+*/
     }//GEN-LAST:event_btn_regis1MouseClicked
 
     private void txt_cuil_cuitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cuil_cuitActionPerformed

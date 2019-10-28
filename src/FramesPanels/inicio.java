@@ -13,7 +13,6 @@ public class inicio extends javax.swing.JFrame {
 
     }
 
-    MetodosSQL metodos = new MetodosSQL();
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

@@ -9,20 +9,29 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 
-public class Home extends javax.swing.JFrame implements ActionListener{
+public class Home extends javax.swing.JFrame implements ActionListener {
 
+
+    /*
    clientes clientes = new clientes();
    Inventario Inventario = new Inventario();
    ventas ventas = new ventas();
    proveedores proveedores = new proveedores();
    compras compras = new compras();
    usuarios usuarios = new usuarios();
-
-   
+     */
     public Home() {
         initComponents();
         setLocationRelativeTo(null);
-        
+   contenedor.setBackground(new java.awt.Color(47, 34, 23));
+        contenedor.setForeground(new java.awt.Color(255, 255, 255));
+        contenedor.setAlignmentX(0.0F);
+        contenedor.setAlignmentY(0.0F);
+        contenedor.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        contenedor.setPreferredSize(new java.awt.Dimension(950, 550));
+        contenedor.setLayout(new java.awt.BorderLayout());
+        getContentPane().add(contenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 950, 550));
+
         btn_clientes.addActionListener(this);
         btn_inven.addActionListener(this);
         btn_ventas.addActionListener(this);
@@ -30,7 +39,6 @@ public class Home extends javax.swing.JFrame implements ActionListener{
         btn_compras.addActionListener(this);
         btn_us.addActionListener(this);
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,19 +57,18 @@ public class Home extends javax.swing.JFrame implements ActionListener{
         btn_compras = new javax.swing.JButton();
         btn_us = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        contenedor = new javax.swing.JPanel();
         min_cer = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        jl_nombre = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jl_nombre = new javax.swing.JLabel();
+        contenedor = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
         setForeground(java.awt.Color.white);
         setMinimumSize(new java.awt.Dimension(600, 400));
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(1050, 580));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -79,11 +86,16 @@ public class Home extends javax.swing.JFrame implements ActionListener{
         btn_inven.setText("Inventario");
         btn_inven.setBorder(null);
         btn_inven.setContentAreaFilled(false);
-        btn_inven.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_inven.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btn_inven.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_inven.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon/inventario2x2B.png"))); // NOI18N
         btn_inven.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         btn_inven.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        btn_inven.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_invenActionPerformed(evt);
+            }
+        });
         jpmenu.add(btn_inven, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 100, 90));
 
         btn_clientes.setBackground(new java.awt.Color(255, 102, 0));
@@ -94,7 +106,7 @@ public class Home extends javax.swing.JFrame implements ActionListener{
         btn_clientes.setBorder(null);
         btn_clientes.setBorderPainted(false);
         btn_clientes.setContentAreaFilled(false);
-        btn_clientes.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_clientes.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btn_clientes.setDefaultCapable(false);
         btn_clientes.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_clientes.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon/clientes2x2B.png"))); // NOI18N
@@ -120,7 +132,7 @@ public class Home extends javax.swing.JFrame implements ActionListener{
         btn_ventas.setBorder(null);
         btn_ventas.setBorderPainted(false);
         btn_ventas.setContentAreaFilled(false);
-        btn_ventas.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_ventas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btn_ventas.setDefaultCapable(false);
         btn_ventas.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_ventas.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon/ventas2x2B_1.png"))); // NOI18N
@@ -142,7 +154,7 @@ public class Home extends javax.swing.JFrame implements ActionListener{
         btn_prove.setBorder(null);
         btn_prove.setBorderPainted(false);
         btn_prove.setContentAreaFilled(false);
-        btn_prove.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_prove.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btn_prove.setDefaultCapable(false);
         btn_prove.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_prove.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon/proveedores2x2B.png"))); // NOI18N
@@ -164,7 +176,7 @@ public class Home extends javax.swing.JFrame implements ActionListener{
         btn_compras.setBorder(null);
         btn_compras.setBorderPainted(false);
         btn_compras.setContentAreaFilled(false);
-        btn_compras.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_compras.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btn_compras.setDefaultCapable(false);
         btn_compras.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_compras.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon/compras2x2B.png"))); // NOI18N
@@ -185,7 +197,7 @@ public class Home extends javax.swing.JFrame implements ActionListener{
         btn_us.setBorder(null);
         btn_us.setBorderPainted(false);
         btn_us.setContentAreaFilled(false);
-        btn_us.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_us.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btn_us.setDefaultCapable(false);
         btn_us.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         btn_us.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon/usuarios2x2b.png"))); // NOI18N
@@ -205,15 +217,6 @@ public class Home extends javax.swing.JFrame implements ActionListener{
         jpmenu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 90, 20));
 
         getContentPane().add(jpmenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 580));
-
-        contenedor.setBackground(new java.awt.Color(47, 34, 23));
-        contenedor.setForeground(new java.awt.Color(255, 255, 255));
-        contenedor.setAlignmentX(0.0F);
-        contenedor.setAlignmentY(0.0F);
-        contenedor.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        contenedor.setPreferredSize(new java.awt.Dimension(950, 550));
-        contenedor.setLayout(new java.awt.BorderLayout());
-        getContentPane().add(contenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 950, 550));
 
         min_cer.setBackground(new java.awt.Color(255, 102, 0));
 
@@ -240,7 +243,7 @@ public class Home extends javax.swing.JFrame implements ActionListener{
         jButton2.setBorder(null);
         jButton2.setBorderPainted(false);
         jButton2.setContentAreaFilled(false);
-        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        jButton2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jButton2.setRolloverIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon/cerrar1x1B.png"))); // NOI18N
         jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -253,12 +256,12 @@ public class Home extends javax.swing.JFrame implements ActionListener{
             }
         });
 
-        jl_nombre.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jl_nombre.setForeground(new java.awt.Color(255, 255, 255));
-
         jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText("Usuario:");
+
+        jl_nombre.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jl_nombre.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout min_cerLayout = new javax.swing.GroupLayout(min_cer);
         min_cer.setLayout(min_cerLayout);
@@ -267,9 +270,9 @@ public class Home extends javax.swing.JFrame implements ActionListener{
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, min_cerLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jl_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 401, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 388, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
@@ -279,15 +282,29 @@ public class Home extends javax.swing.JFrame implements ActionListener{
             min_cerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(min_cerLayout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(min_cerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jl_nombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(min_cerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jl_nombre, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, min_cerLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jButton1)
+                        .addComponent(jButton2)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
 
         getContentPane().add(min_cer, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 0, 950, 30));
+
+        javax.swing.GroupLayout contenedorLayout = new javax.swing.GroupLayout(contenedor);
+        contenedor.setLayout(contenedorLayout);
+        contenedorLayout.setHorizontalGroup(
+            contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 950, Short.MAX_VALUE)
+        );
+        contenedorLayout.setVerticalGroup(
+            contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 550, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(contenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 950, 550));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -321,9 +338,9 @@ public class Home extends javax.swing.JFrame implements ActionListener{
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        int dialog =JOptionPane.YES_NO_OPTION;
-        int result = JOptionPane.showConfirmDialog(null,"Desea cerrar el programa?","Exit",dialog);
-        if (result==0) {
+        int dialog = JOptionPane.YES_NO_OPTION;
+        int result = JOptionPane.showConfirmDialog(null, "Desea cerrar el programa?", "Exit", dialog);
+        if (result == 0) {
             System.exit(0);
         }
     }//GEN-LAST:event_jButton2MouseClicked
@@ -335,6 +352,10 @@ public class Home extends javax.swing.JFrame implements ActionListener{
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void btn_invenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_invenActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_invenActionPerformed
 
     /**
      * @param args the command line arguments
@@ -390,11 +411,11 @@ public class Home extends javax.swing.JFrame implements ActionListener{
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        
+
         Object evt = ae.getSource(); //variable comparadora
-        
-        if(evt.equals(btn_clientes)){
-            
+
+        if (evt.equals(btn_clientes)) {
+            /*
             clientes.setVisible(true);
             Inventario.setVisible(false);
             ventas.setVisible(false);
@@ -402,19 +423,20 @@ public class Home extends javax.swing.JFrame implements ActionListener{
             compras.setVisible(false);
             usuarios.setVisible(false);
             contenedor.add(clientes);
-            
             contenedor.validate(); //actualizar el contenedor
-        }else if (evt.equals(btn_inven)) {
-            clientes.setVisible(false);
-            Inventario.setVisible(true);
-            ventas.setVisible(false);
-            proveedores.setVisible(false);
-            compras.setVisible(false);
-            usuarios.setVisible(false);
-            contenedor.add(Inventario);
-            
-            contenedor.validate();
+            */
+        } else if (evt.equals(btn_inven)) {
+            Inventario inventario = new Inventario();
+//            clientes.setVisible(true);
+            inventario.setVisible(true);
+//            ventas.setVisible(false);
+//            proveedores.setVisible(false);
+//            compras.setVisible(false);
+//            usuarios.setVisible(false);
+            contenedor.add(inventario);
+            contenedor.validate(); //actualizar el contenedor
         }else if (evt.equals(btn_ventas)) {
+            /*
             clientes.setVisible(false);
             Inventario.setVisible(false);
             ventas.setVisible(true);
@@ -424,36 +446,37 @@ public class Home extends javax.swing.JFrame implements ActionListener{
             contenedor.add(ventas);
             
             contenedor.validate();
+*/
         }else if (evt.equals(btn_prove)) {
-            clientes.setVisible(false);
-            Inventario.setVisible(false);
-            ventas.setVisible(false);
-            proveedores.setVisible(true);
-            compras.setVisible(false);
-            usuarios.setVisible(false);
-            contenedor.add(proveedores);
+//            clientes.setVisible(false);
+//            Inventario.setVisible(false);
+//            ventas.setVisible(false);
+//            proveedores.setVisible(true);
+//            compras.setVisible(false);
+//            usuarios.setVisible(false);
+//            contenedor.add(proveedores);
             
-            contenedor.validate();
+//            contenedor.validate();
     }else if (evt.equals(btn_compras)) {
-            clientes.setVisible(false);
-            Inventario.setVisible(false);
-            ventas.setVisible(false);
-            proveedores.setVisible(false);
-            compras.setVisible(true);
-            usuarios.setVisible(false);
-            contenedor.add(compras);
-            
-            contenedor.validate();
+//            clientes.setVisible(false);
+//            Inventario.setVisible(false);
+//            ventas.setVisible(false);
+//            proveedores.setVisible(false);
+//            compras.setVisible(true);
+//            usuarios.setVisible(false);
+//            contenedor.add(compras);
+//            
+//            contenedor.validate();
     }else if (evt.equals(btn_us)) {
-            clientes.setVisible(false);
-            Inventario.setVisible(false);
-            ventas.setVisible(false);
-            proveedores.setVisible(false);
-            compras.setVisible(false);
-            usuarios.setVisible(true);
-            contenedor.add(usuarios);
-            
-            contenedor.validate();
+//            clientes.setVisible(false);
+//            Inventario.setVisible(false);
+//            ventas.setVisible(false);
+//            proveedores.setVisible(false);
+//            compras.setVisible(false);
+//            usuarios.setVisible(true);
+//            contenedor.add(usuarios);
+//            
+//            contenedor.validate();
     }
-}
+        }
 }

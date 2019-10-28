@@ -15,11 +15,11 @@ public class Producto {
     private String codigo;
     private String nombre;
     private String descripcion;
-    private int stock;
+    private Integer stock;
     private File foto;
     private Double precioCompra;
     private Double precioVenta;
-    private int idProveedor;
+    private String idProveedor;
 
     public String getCodigo() {
         return codigo;
@@ -79,13 +79,15 @@ public class Producto {
         this.precioVenta = precioVenta;
     }
 
-    public int getIdProveedor() {
+    public String getIdProveedor() {
         return idProveedor;
     }
 
-    public void setIdProveedor(int idProveedor) {
+    public void setIdProveedor(String idProveedor) {
         this.idProveedor = idProveedor;
     }
+
+    
 
     @Override
     public String toString() {

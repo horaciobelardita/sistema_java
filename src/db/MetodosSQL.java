@@ -34,7 +34,6 @@ public class MetodosSQL {
         } catch (SQLException e) {
         } finally {
             BaseDatos.cerrarStatement(pstm);
-            BaseDatos.cerrarConexion(conexion);
         }
 
         return filasAfectadas;
@@ -43,13 +42,14 @@ public class MetodosSQL {
 
     public static ArrayList<Producto> obtenerProductos() {
         Connection conexion = null;
-        ArrayList<Producto> productos = new ArrayList();
-        java.sql.Statement stmt = null;
+        ArrayList<Producto> productos = new ArrayList<>();
+       Statement stmt = null;
         ResultSet rs = null;
         try {
             conexion = BaseDatos.obtenerConexion();
             stmt = conexion.createStatement();
-            rs = stmt.executeQuery("SELECT * FROM inventario");
+            String sql = "SELECT * FROM productos";
+            rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 Producto p = new Producto();
                 p.setCodigo(rs.getString("codigo"));
@@ -64,7 +64,6 @@ public class MetodosSQL {
         } finally {
             BaseDatos.cerrarResultSet(rs);
             BaseDatos.cerrarStatement(stmt);
-            BaseDatos.cerrarConexion(conexion);
         }
         return productos;
 
@@ -101,22 +100,23 @@ public class MetodosSQL {
 */
     public static String buscarNombreUsuario(String nick) {
         Connection conexion = null;
-        Statement st = null;
+        PreparedStatement pstm = null;
         ResultSet rs = null;
         String username = "";
         try {
             conexion = BaseDatos.obtenerConexion();
-            String sql = "SELECT nombre_us FROM usuarios WHERE nick='" + nick + "' ";
-            st = conexion.createStatement();
-            rs = st.executeQuery(sql);
-            if (rs.next()) {
-                username = rs.getString("nombre_us");
+            String sql = "SELECT nombre FROM usuarios WHERE nick=? ";
+            
+            pstm = conexion.prepareStatement(sql);
+            pstm.setString(1, nick);
+            rs = pstm.executeQuery();
+            while (rs.next()) {
+                username = rs.getString("nombre");
             }
         } catch (SQLException e) {
         } finally {
             BaseDatos.cerrarResultSet(rs);
-            BaseDatos.cerrarStatement(st);
-            BaseDatos.cerrarConexion(conexion);
+            BaseDatos.cerrarStatement(pstm);
         }
         return username;
     }
@@ -141,7 +141,6 @@ public class MetodosSQL {
         } finally {
             BaseDatos.cerrarResultSet(rs);
             BaseDatos.cerrarStatement(pstm);
-            BaseDatos.cerrarConexion(conexion);
         }
         return existeUsuario;
     }
