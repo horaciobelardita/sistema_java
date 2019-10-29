@@ -1,14 +1,16 @@
 package FramesPanels;
 
 import java.awt.event.KeyEvent;
-import javafx.scene.input.KeyCode;
 import javax.swing.JOptionPane;
 import db.MetodosSQL;
+import modelos.Usuario;
 
 public class inicio extends javax.swing.JFrame {
 
     public inicio() {
         initComponents();
+        txtNick.setText("root");
+        txtPassword.setText("root");
         setLocationRelativeTo(null);
 
     }
@@ -24,8 +26,8 @@ public class inicio extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jSeparator4 = new javax.swing.JSeparator();
         jSeparator5 = new javax.swing.JSeparator();
-        txt_pass = new javax.swing.JPasswordField();
-        txt_nick = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JPasswordField();
+        txtNick = new javax.swing.JTextField();
         btn_regis = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
@@ -59,51 +61,51 @@ public class inicio extends javax.swing.JFrame {
         jpanel_main.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 190, 230, 10));
         jpanel_main.add(jSeparator5, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 260, 230, 10));
 
-        txt_pass.setBackground(new java.awt.Color(47, 34, 23));
-        txt_pass.setForeground(new java.awt.Color(255, 255, 255));
-        txt_pass.setText("jPasswordField1");
-        txt_pass.setBorder(null);
-        txt_pass.setDisabledTextColor(new java.awt.Color(204, 204, 204));
-        txt_pass.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtPassword.setBackground(new java.awt.Color(47, 34, 23));
+        txtPassword.setForeground(new java.awt.Color(255, 255, 255));
+        txtPassword.setText("jPasswordField1");
+        txtPassword.setBorder(null);
+        txtPassword.setDisabledTextColor(new java.awt.Color(204, 204, 204));
+        txtPassword.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txt_passFocusGained(evt);
+                txtPasswordFocusGained(evt);
             }
         });
-        txt_pass.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txt_passKeyPressed(evt);
+                txtPasswordKeyPressed(evt);
             }
         });
-        jpanel_main.add(txt_pass, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 230, 230, 30));
+        jpanel_main.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 230, 230, 30));
 
-        txt_nick.setBackground(new java.awt.Color(47, 34, 23));
-        txt_nick.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        txt_nick.setForeground(new java.awt.Color(255, 255, 255));
-        txt_nick.setText("Ingresa tu nick");
-        txt_nick.setToolTipText("");
-        txt_nick.setBorder(null);
-        txt_nick.setDisabledTextColor(new java.awt.Color(204, 204, 204));
-        txt_nick.addFocusListener(new java.awt.event.FocusAdapter() {
+        txtNick.setBackground(new java.awt.Color(47, 34, 23));
+        txtNick.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        txtNick.setForeground(new java.awt.Color(255, 255, 255));
+        txtNick.setText("Ingresa tu nick");
+        txtNick.setToolTipText("");
+        txtNick.setBorder(null);
+        txtNick.setDisabledTextColor(new java.awt.Color(204, 204, 204));
+        txtNick.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                txt_nickFocusGained(evt);
+                txtNickFocusGained(evt);
             }
         });
-        txt_nick.addMouseListener(new java.awt.event.MouseAdapter() {
+        txtNick.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                txt_nickMouseClicked(evt);
+                txtNickMouseClicked(evt);
             }
         });
-        txt_nick.addActionListener(new java.awt.event.ActionListener() {
+        txtNick.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_nickActionPerformed(evt);
+                txtNickActionPerformed(evt);
             }
         });
-        txt_nick.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtNick.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txt_nickKeyPressed(evt);
+                txtNickKeyPressed(evt);
             }
         });
-        jpanel_main.add(txt_nick, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 160, 230, 30));
+        jpanel_main.add(txtNick, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 160, 230, 30));
 
         btn_regis.setBackground(new java.awt.Color(255, 102, 0));
         btn_regis.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -167,39 +169,21 @@ public class inicio extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txt_passFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_passFocusGained
-        txt_pass.setText("");
-    }//GEN-LAST:event_txt_passFocusGained
+    private void txtPasswordFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtPasswordFocusGained
+        txtPassword.setText("");
+    }//GEN-LAST:event_txtPasswordFocusGained
 
-    private void txt_nickMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_nickMouseClicked
+    private void txtNickMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtNickMouseClicked
 
-    }//GEN-LAST:event_txt_nickMouseClicked
+    }//GEN-LAST:event_txtNickMouseClicked
 
-    private void txt_nickActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_nickActionPerformed
+    private void txtNickActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNickActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_nickActionPerformed
+    }//GEN-LAST:event_txtNickActionPerformed
 
     private void btn_regisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_regisMouseClicked
-
-        boolean existeUsuario = MetodosSQL.buscarUsuario(txt_nick.getText(), txt_pass.getText());
-
-        if (txt_nick.getText().equals("root") && txt_pass.getText().equals("root")) {
-            JOptionPane.showMessageDialog(this, "Bienvenido iniciaste sesion como root (Administrador)");
-            Home Home = new Home();
-            Home.jl_nombre.setText("Administrador");
-            Home.setVisible(true);
-            this.dispose();
-
-        } else if (existeUsuario) {
-            String nombreUsuario = MetodosSQL.buscarNombreUsuario(txt_nick.getText());
-            JOptionPane.showMessageDialog(this, "Bienvenid@ \n" + nombreUsuario);
-            Home Home = new Home();
-            Home.setVisible(true);
-            Home.jl_nombre.setText(nombreUsuario);
-            this.dispose();
-        } else {
-            JOptionPane.showMessageDialog(this, "Usuario no registrado");
-        }
+        validar();
+       
 
 
     }//GEN-LAST:event_btn_regisMouseClicked
@@ -216,23 +200,23 @@ public class inicio extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btn_regisMouseEntered
 
-    private void txt_passKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_passKeyPressed
+    private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
         // TODO add your handling code here:
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
             btn_regisMouseClicked(null);
         }
-    }//GEN-LAST:event_txt_passKeyPressed
+    }//GEN-LAST:event_txtPasswordKeyPressed
 
-    private void txt_nickKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_nickKeyPressed
+    private void txtNickKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNickKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-            txt_pass.requestFocus();
+            txtPassword.requestFocus();
         }
-    }//GEN-LAST:event_txt_nickKeyPressed
+    }//GEN-LAST:event_txtNickKeyPressed
 
-    private void txt_nickFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_nickFocusGained
-        txt_nick.setText("");
+    private void txtNickFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txtNickFocusGained
+        txtNick.setText("");
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_nickFocusGained
+    }//GEN-LAST:event_txtNickFocusGained
 
     /**
      * @param args the command line arguments
@@ -285,8 +269,29 @@ public class inicio extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
     private javax.swing.JPanel jpanel_main;
-    private javax.swing.JTextField txt_nick;
-    private javax.swing.JPasswordField txt_pass;
+    private javax.swing.JTextField txtNick;
+    private javax.swing.JPasswordField txtPassword;
     // End of variables declaration//GEN-END:variables
+
+    private void validar() {
+        String nombreUsuario = txtNick.getText();
+        String password = txtPassword.getText();
+        if (nombreUsuario.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Debe completar los campos");
+            txtNick.requestFocus();
+            return;
+        }
+         Usuario usuario = MetodosSQL.buscarUsuario(txtNick.getText(), txtPassword.getText());
+
+        if (usuario.getNombre() != null && usuario.getId() != null) {
+            JOptionPane.showMessageDialog(this, "Bienvenid@ \n" + usuario.getNick());
+            Home Home = new Home();
+            Home.setVisible(true);
+            Home.jl_nombre.setText(usuario.getNick());
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(this, "Usuario no registrado");
+        }
+    }
 
 }

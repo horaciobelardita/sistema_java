@@ -65,6 +65,3 @@ $RECYCLE.BIN/
 
 # End of https://www.gitignore.io/api/java,windows,netbeans
 
-#config
-
-db.properties

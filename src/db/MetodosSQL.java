@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import modelos.Producto;
+import modelos.Usuario;
 
 public class MetodosSQL {
 
@@ -98,51 +99,56 @@ public class MetodosSQL {
 
     }
 */
-    public static String buscarNombreUsuario(String nick) {
-        Connection conexion = null;
-        PreparedStatement pstm = null;
-        ResultSet rs = null;
-        String username = "";
-        try {
-            conexion = BaseDatos.obtenerConexion();
-            String sql = "SELECT nombre FROM usuarios WHERE nick=? ";
-            
-            pstm = conexion.prepareStatement(sql);
-            pstm.setString(1, nick);
-            rs = pstm.executeQuery();
-            while (rs.next()) {
-                username = rs.getString("nombre");
-            }
-        } catch (SQLException e) {
-        } finally {
-            BaseDatos.cerrarResultSet(rs);
-            BaseDatos.cerrarStatement(pstm);
-        }
-        return username;
-    }
+//    public static String buscarNombreUsuario(String nick) {
+//        Connection conexion = null;
+//        PreparedStatement pstm = null;
+//        ResultSet rs = null;
+//        String username = "";
+//        try {
+//            conexion = BaseDatos.obtenerConexion();
+//            String sql = "SELECT nombre FROM usuarios WHERE nick=? ";
+//            
+//            pstm = conexion.prepareStatement(sql);
+//            pstm.setString(1, nick);
+//            rs = pstm.executeQuery();
+//            while (rs.next()) {
+//                username = rs.getString("nombre");
+//            }
+//        } catch (SQLException e) {
+//        } finally {
+//            BaseDatos.cerrarResultSet(rs);
+//            BaseDatos.cerrarStatement(pstm);
+//        }
+//        return username;
+//    }
 
-    public static boolean buscarUsuario(String nick, String password) {
-        boolean existeUsuario = false;
+    public static Usuario buscarUsuario(String nick, String password) {
         Connection conexion = null;
         PreparedStatement pstm = null;
         ResultSet rs = null;
+        Usuario usuario = null;
         try {
             conexion = BaseDatos.obtenerConexion();
-            String sql = "SELECT nick, password "
-                    + "FROM usuarios WHERE nick=? && password=?";
+            String sql = "SELECT * "
+                    + "FROM usuarios WHERE nick=? AND password=?";
             pstm = conexion.prepareStatement(sql);
             pstm.setString(1, nick);
             pstm.setString(2, password);
             rs = pstm.executeQuery();
-            if (rs.next()) {
-                existeUsuario = true;
+            usuario = new Usuario();
+            while (rs.next()) {
+                usuario.setId(rs.getInt("id"));
+                usuario.setNick(rs.getString("nick"));
+                usuario.setNombre(rs.getString("nombre"));
+                usuario.setPassword(rs.getString("password"));
+                usuario.setTipoUsuario(rs.getString("tipo_usuario"));
             } 
         } catch (SQLException e) {
         } finally {
             BaseDatos.cerrarResultSet(rs);
             BaseDatos.cerrarStatement(pstm);
         }
-        return existeUsuario;
+        return usuario;
     }
 
 }
