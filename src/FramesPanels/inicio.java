@@ -9,10 +9,9 @@ public class inicio extends javax.swing.JFrame {
 
     public inicio() {
         initComponents();
-        txtNick.setText("root");
-        txtPassword.setText("root");
         setLocationRelativeTo(null);
-
+         txtNick.setText("root");
+         txtPassword.setText("root");
     }
 
 

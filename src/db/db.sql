@@ -34,9 +34,10 @@ create table productos (
     precio_venta float(8,2) not null,
     precio_compra float(8,2) not null,
     stock int unsigned not null,
+imagen MEDIUMBLOB default null,
    id_proveedor varchar(11) not null,
    foreign key (id_proveedor) references proveedores(cuit)
 );
 
-insert into productos values ('123456789101', 'Coca-cola', 'bebida', 150.5, 110.0, 10, '11111111111');
-insert into productos values ('123456789102', 'Pan Blanco', 'panificado', 65.0, 45.0, 10, '11111111111');
+insert into productos values ('123456789101', 'Coca-cola', 'bebida', 150.5, 110.0, 10, null, '11111111111');
+insert into productos values ('123456789102', 'Pan Blanco', 'panificado', 65.0, 45.0, 10, null, '11111111111');

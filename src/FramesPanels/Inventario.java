@@ -5,9 +5,14 @@
  */
 package FramesPanels;
 
+import static FramesPanels.Home.contenedor;
 import db.MetodosSQL;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import modelos.Producto;
 
@@ -17,26 +22,45 @@ import modelos.Producto;
  */
 public class Inventario extends javax.swing.JPanel {
 
-   DefaultTableModel modeloTabla = new DefaultTableModel();
+    static DefaultTableModel modeloTabla = new DefaultTableModel();
+    private Producto productoSeleccionado = null;
 
-     public Inventario() {
-          cargarColumnasTabla();
-        ArrayList<Producto> productos = MetodosSQL.obtenerProductos();
-        cargarModeloTabla(productos);
+    public Inventario() {
+        cargarColumnasTabla();
+        cargarModeloTabla(null);
         initComponents();
-        initComponents();
+
     }
-     private void cargarColumnasTabla() {
-          modeloTabla.addColumn("#");
+
+    private static void limpiarTabla() {
+        int numFilas = modeloTabla.getRowCount();
+        if (numFilas > 0) {
+            for (int i = numFilas - 1; i >= 0; i--) {
+                modeloTabla.removeRow(i);
+            }
+        }
+    }
+
+    private void cargarColumnasTabla() {
+        modeloTabla.addColumn("#");
         modeloTabla.addColumn("Nombre");
         modeloTabla.addColumn("Precio Compra");
         modeloTabla.addColumn("Precio Venta");
         modeloTabla.addColumn("Stock");
     }
-    private void cargarModeloTabla(ArrayList<Producto> productos) {
-      
-              int numeroFilas = productos.size();
-              modeloTabla.setNumRows(numeroFilas);
+
+    public static void cargarModeloTabla(String filtro) {
+        limpiarTabla();
+        ArrayList<Producto> productos;
+        if (filtro == null) {
+            productos = MetodosSQL.obtenerProductos();
+        } else {
+            productos = MetodosSQL.obtenerProductosPorCriterio(filtro);
+
+        }
+        int numeroFilas = productos.size();
+       
+        modeloTabla.setNumRows(numeroFilas);
         for (int i = 0; i < numeroFilas; i++) {
             Producto p = productos.get(i);
             String codigo = p.getCodigo();
@@ -44,13 +68,13 @@ public class Inventario extends javax.swing.JPanel {
             Double precioCompra = p.getPrecioCompra();
             Double precioVenta = p.getPrecioVenta();
             Integer stock = p.getStock();
-            modeloTabla.setValueAt(p, i, 0);
-            modeloTabla.setValueAt(nombre, i, 1);
+            modeloTabla.setValueAt(codigo, i, 0);
+            modeloTabla.setValueAt(p, i, 1);
             modeloTabla.setValueAt(precioCompra, i, 2);
             modeloTabla.setValueAt(precioVenta, i, 3);
             modeloTabla.setValueAt(stock, i, 4);
         }
-       
+
     }
 
     /**
@@ -75,19 +99,40 @@ public class Inventario extends javax.swing.JPanel {
         btnNuevoProducto1 = new javax.swing.JPanel();
         btn_regis4 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        txtNombreProducto = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
+        txtCodigoProducto = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(47, 34, 23));
+        setPreferredSize(new java.awt.Dimension(1066, 768));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tablaProductos.setModel(modeloTabla);
+        tablaProductos.getSelectionModel().addListSelectionListener(
+            new ListSelectionListener() {
+                public void valueChanged(ListSelectionEvent event) {
+                    if (!event.getValueIsAdjusting() && (tablaProductos.getSelectedRow()>= 0)) {//This line prevents double events
+                        int filaSeleccionada = tablaProductos.getSelectedRow();
+                        Producto producto = (Producto)modeloTabla.getValueAt(filaSeleccionada, 1);
+                        txtNombreProducto.setText(producto.getNombre().toUpperCase());
+                        txtCodigoProducto.setText(producto.getCodigo().toUpperCase());
+                        productoSeleccionado = producto;
+
+                    }
+                }
+            }
+        );
         jScrollPane1.setViewportView(tablaProductos);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, 680, -1));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 280, 680, -1));
 
         jLabel14.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("Buscar:");
-        add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, -1, -1));
+        jLabel14.setText("Nombre:");
+        add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 90, -1, -1));
 
         btnEliminarProducto.setBackground(new java.awt.Color(255, 102, 0));
         btnEliminarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -113,8 +158,14 @@ public class Inventario extends javax.swing.JPanel {
         jLabel12.setText("Eliminar");
         btnEliminarProducto.add(jLabel12, new java.awt.GridBagConstraints());
 
-        add(btnEliminarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 400, 110, 40));
-        add(txtBuscarProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 340, -1));
+        add(btnEliminarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 470, 110, 40));
+
+        txtBuscarProd.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtBuscarProdKeyReleased(evt);
+            }
+        });
+        add(txtBuscarProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 230, 340, -1));
 
         btnModificarProducto.setBackground(new java.awt.Color(255, 102, 0));
         btnModificarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -140,7 +191,7 @@ public class Inventario extends javax.swing.JPanel {
         jLabel11.setText("Modificar");
         btnModificarProducto.add(jLabel11, new java.awt.GridBagConstraints());
 
-        add(btnModificarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 310, 110, 40));
+        add(btnModificarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 380, 110, 40));
 
         btnNuevoProducto1.setBackground(new java.awt.Color(255, 102, 0));
         btnNuevoProducto1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -166,7 +217,33 @@ public class Inventario extends javax.swing.JPanel {
         jLabel13.setText("Nuevo");
         btnNuevoProducto1.add(jLabel13, new java.awt.GridBagConstraints());
 
-        add(btnNuevoProducto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 30, 110, 40));
+        add(btnNuevoProducto1, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 110, 40));
+
+        jPanel2.setBackground(new java.awt.Color(255, 102, 0));
+        jPanel2.setMinimumSize(new java.awt.Dimension(245, 345));
+        jPanel2.setPreferredSize(new java.awt.Dimension(233, 575));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/inventario.png"))); // NOI18N
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, -1));
+
+        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 700));
+
+        txtNombreProducto.setEnabled(false);
+        add(txtNombreProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 130, 380, -1));
+
+        jLabel16.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel16.setText("Codigo:");
+        add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, -1, -1));
+
+        txtCodigoProducto.setEnabled(false);
+        add(txtCodigoProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 130, 270, -1));
+
+        jLabel17.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel17.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel17.setText("Buscar:");
+        add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_regis3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_regis3MouseClicked
@@ -174,7 +251,18 @@ public class Inventario extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_regis3MouseClicked
 
     private void btnEliminarProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarProductoMouseClicked
-        // TODO add your handling code here:
+        if (productoSeleccionado != null) {
+
+            int opcion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de borrar el producto "
+                    + productoSeleccionado + " ?");
+
+            if (opcion == 0) {
+                modeloTabla.removeRow(tablaProductos.getSelectedRow());
+                MetodosSQL.borrarProducto(productoSeleccionado);
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un producto de la tabla");
+        }
     }//GEN-LAST:event_btnEliminarProductoMouseClicked
 
     private void btn_regis2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_regis2MouseClicked
@@ -190,7 +278,7 @@ public class Inventario extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(this, "No se pudo guardar los datos");
         }
-        */
+         */
     }//GEN-LAST:event_btnModificarProductoMouseClicked
 
     private void btn_regis4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_regis4MouseClicked
@@ -199,12 +287,19 @@ public class Inventario extends javax.swing.JPanel {
 
     private void btnNuevoProducto1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNuevoProducto1MouseClicked
         //        true para abrir como ventana modal
-        ProductoFrame productoFrame = new ProductoFrame(null, true, null, null, "Nuevo Producto", false);
+        Home.Inventario.setVisible(false);
+        ProductoFrame productoFrame = new ProductoFrame();
         productoFrame.setVisible(true);
-        productoFrame.setDefaultCloseOperation(JDialog.EXIT_ON_CLOSE);
-        productoFrame.setLocation(600, 150);
-        productoFrame.setAlwaysOnTop(true);
+
+        Home.contenedor.add(productoFrame);
+        Home.contenedor.validate();
     }//GEN-LAST:event_btnNuevoProducto1MouseClicked
+
+    private void txtBuscarProdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarProdKeyReleased
+        String cadenaBusqueda = txtBuscarProd.getText().toLowerCase();
+        cargarModeloTabla(cadenaBusqueda);
+
+    }//GEN-LAST:event_txtBuscarProdKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -218,8 +313,14 @@ public class Inventario extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tablaProductos;
     private javax.swing.JTextField txtBuscarProd;
+    private javax.swing.JTextField txtCodigoProducto;
+    private javax.swing.JTextField txtNombreProducto;
     // End of variables declaration//GEN-END:variables
 }

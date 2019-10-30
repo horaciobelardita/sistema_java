@@ -5,6 +5,7 @@
  */
 package FramesPanels;
 
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
@@ -14,8 +15,10 @@ public class Home extends javax.swing.JFrame implements ActionListener {
 
     /*
    clientes clientes = new clientes();
-   Inventario Inventario = new Inventario();
-   ventas ventas = new ventas();
+    */
+   public static final Inventario Inventario = new Inventario();
+//   ventas ventas = new ventas();
+   /*
    proveedores proveedores = new proveedores();
    compras compras = new compras();
    usuarios usuarios = new usuarios();
@@ -28,9 +31,8 @@ public class Home extends javax.swing.JFrame implements ActionListener {
         contenedor.setAlignmentX(0.0F);
         contenedor.setAlignmentY(0.0F);
         contenedor.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        contenedor.setPreferredSize(new java.awt.Dimension(950, 550));
         contenedor.setLayout(new java.awt.BorderLayout());
-        getContentPane().add(contenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 950, 550));
+        contenedor.setPreferredSize(new Dimension(1366, 768));
 
         btn_clientes.addActionListener(this);
         btn_inven.addActionListener(this);
@@ -67,15 +69,16 @@ public class Home extends javax.swing.JFrame implements ActionListener {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 0));
         setForeground(java.awt.Color.white);
-        setMinimumSize(new java.awt.Dimension(600, 400));
+        setMinimumSize(new java.awt.Dimension(600, 768));
         setUndecorated(true);
+        setPreferredSize(new java.awt.Dimension(1366, 768));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jpmenu.setBackground(new java.awt.Color(255, 102, 0));
         jpmenu.setForeground(new java.awt.Color(255, 255, 255));
         jpmenu.setMinimumSize(new java.awt.Dimension(100, 600));
-        jpmenu.setPreferredSize(new java.awt.Dimension(290, 575));
+        jpmenu.setPreferredSize(new java.awt.Dimension(290, 768));
         jpmenu.setRequestFocusEnabled(false);
         jpmenu.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -216,7 +219,7 @@ public class Home extends javax.swing.JFrame implements ActionListener {
         jLabel1.setText("Gestion V 0.1");
         jpmenu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 90, 20));
 
-        getContentPane().add(jpmenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 580));
+        getContentPane().add(jpmenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 800));
 
         min_cer.setBackground(new java.awt.Color(255, 102, 0));
 
@@ -272,7 +275,7 @@ public class Home extends javax.swing.JFrame implements ActionListener {
                 .addComponent(jLabel2)
                 .addGap(18, 18, 18)
                 .addComponent(jl_nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 388, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 708, Short.MAX_VALUE)
                 .addComponent(jButton1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jButton2)
@@ -291,20 +294,23 @@ public class Home extends javax.swing.JFrame implements ActionListener {
                 .addContainerGap())
         );
 
-        getContentPane().add(min_cer, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 0, 950, 30));
+        getContentPane().add(min_cer, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 0, 1270, 30));
+
+        contenedor.setBackground(new java.awt.Color(47, 34, 23));
+        contenedor.setPreferredSize(new java.awt.Dimension(950, 768));
 
         javax.swing.GroupLayout contenedorLayout = new javax.swing.GroupLayout(contenedor);
         contenedor.setLayout(contenedorLayout);
         contenedorLayout.setHorizontalGroup(
             contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 950, Short.MAX_VALUE)
+            .addGap(0, 1270, Short.MAX_VALUE)
         );
         contenedorLayout.setVerticalGroup(
             contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 550, Short.MAX_VALUE)
+            .addGap(0, 768, Short.MAX_VALUE)
         );
 
-        getContentPane().add(contenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 950, 550));
+        getContentPane().add(contenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 1270, 768));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -369,7 +375,7 @@ public class Home extends javax.swing.JFrame implements ActionListener {
     private javax.swing.JButton btn_prove;
     private javax.swing.JButton btn_us;
     private javax.swing.JButton btn_ventas;
-    private javax.swing.JPanel contenedor;
+    public static javax.swing.JPanel contenedor;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -396,14 +402,14 @@ public class Home extends javax.swing.JFrame implements ActionListener {
             contenedor.validate(); //actualizar el contenedor
             */
         } else if (evt.equals(btn_inven)) {
-            Inventario inventario = new Inventario();
 //            clientes.setVisible(true);
-            inventario.setVisible(true);
+            Home.Inventario.setVisible(true);
 //            ventas.setVisible(false);
 //            proveedores.setVisible(false);
 //            compras.setVisible(false);
 //            usuarios.setVisible(false);
-            contenedor.add(inventario);
+            contenedor.removeAll();
+            contenedor.add(Home.Inventario);
             contenedor.validate(); //actualizar el contenedor
         }else if (evt.equals(btn_ventas)) {
             /*

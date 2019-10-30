@@ -17,10 +17,7 @@ import modelos.Producto;
  */
 public class Programa {
     public static void main(String[] args) {
-        String username = MetodosSQL.buscarNombreUsuario("vampi");
-        System.out.println(username);
-        System.out.println(MetodosSQL.buscarUsuario("root", "root"));
-        ArrayList<Producto> productos = MetodosSQL.obtenerProductos();
+        ArrayList<Producto> productos = MetodosSQL.obtenerProductosPorCriterio("pep");
         for (Producto producto : productos) {
             System.out.println(producto.getNombre());
         }
