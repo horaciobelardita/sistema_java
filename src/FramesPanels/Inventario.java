@@ -8,7 +8,12 @@ package FramesPanels;
 import static FramesPanels.Home.contenedor;
 import db.MetodosSQL;
 import java.awt.Dimension;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
@@ -59,7 +64,7 @@ public class Inventario extends javax.swing.JPanel {
 
         }
         int numeroFilas = productos.size();
-       
+
         modeloTabla.setNumRows(numeroFilas);
         for (int i = 0; i < numeroFilas; i++) {
             Producto p = productos.get(i);
@@ -270,15 +275,33 @@ public class Inventario extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_regis2MouseClicked
 
     private void btnModificarProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnModificarProductoMouseClicked
-        /*
-        int i = metodos.guardar_inv(txt_nom_inv.getText(), txt_pre_com_inv.getText(),txt_pre_ven_inv.getText(), txt_id_prove.getText(), txt_cant_inv.getText(),txt_url_inv.getText(),txt_descr_inv.getText());
+        if (productoSeleccionado != null) {
+            ImageIcon imagenProducto = null;
+            ProductoFrame productoFrame = null;
+            try {
+                /*obtener imagen*/
+                InputStream is = MetodosSQL.buscarFoto(productoSeleccionado);
+                if (is != null) {
+                BufferedImage bi = ImageIO.read(is);
+                imagenProducto = new ImageIcon(bi);
 
-        if (i > 0) {
-            JOptionPane.showMessageDialog(this, "Datos guardados corectamente");
+                /*crear ventana de actualización*/
+                Home.Inventario.setVisible(false);
+                    productoFrame = new ProductoFrame(productoSeleccionado, imagenProducto, true);
+                } else {
+                    productoFrame = new ProductoFrame(productoSeleccionado,null, true);
+                }
+                productoFrame.setVisible(true);
+                
+                Home.contenedor.add(productoFrame);
+                Home.contenedor.validate();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+
         } else {
-            JOptionPane.showMessageDialog(this, "No se pudo guardar los datos");
+            JOptionPane.showMessageDialog(this, "Debe seleccionar un producto de la tabla");
         }
-         */
     }//GEN-LAST:event_btnModificarProductoMouseClicked
 
     private void btn_regis4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_regis4MouseClicked
@@ -288,7 +311,7 @@ public class Inventario extends javax.swing.JPanel {
     private void btnNuevoProducto1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNuevoProducto1MouseClicked
         //        true para abrir como ventana modal
         Home.Inventario.setVisible(false);
-        ProductoFrame productoFrame = new ProductoFrame();
+        ProductoFrame productoFrame = new ProductoFrame(null, null, false);
         productoFrame.setVisible(true);
 
         Home.contenedor.add(productoFrame);

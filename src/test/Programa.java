@@ -17,10 +17,9 @@ import modelos.Producto;
  */
 public class Programa {
     public static void main(String[] args) {
-        ArrayList<Producto> productos = MetodosSQL.obtenerProductosPorCriterio("pep");
-        for (Producto producto : productos) {
-            System.out.println(producto.getNombre());
-        }
+        Producto p = new Producto();
+        p.setCodigo("123456789104");
+        MetodosSQL.buscarFoto(p);
         
     }
 }

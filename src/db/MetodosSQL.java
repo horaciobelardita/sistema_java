@@ -1,9 +1,12 @@
 package db;
 
+import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -60,6 +63,7 @@ public class MetodosSQL {
                 Producto p = new Producto();
                 p.setCodigo(rs.getString("codigo"));
                 p.setNombre(rs.getString("nombre"));
+                 p.setDescripcion(rs.getString("descripcion"));
                 p.setPrecioCompra(rs.getDouble("precio_compra"));
                 p.setPrecioVenta(rs.getDouble("precio_venta"));
                 p.setStock(rs.getInt("stock"));
@@ -252,6 +256,7 @@ public class MetodosSQL {
                 Producto p = new Producto();
                 p.setCodigo(rs.getString("codigo"));
                 p.setNombre(rs.getString("nombre"));
+                p.setDescripcion(rs.getString("descripcion"));
                 p.setPrecioCompra(rs.getDouble("precio_compra"));
                 p.setPrecioVenta(rs.getDouble("precio_venta"));
                 p.setStock(rs.getInt("stock"));
@@ -282,6 +287,37 @@ public class MetodosSQL {
             BaseDatos.cerrarStatement(stmt);
         }
         return filasAfectadas;   
+    }
+
+    public static InputStream buscarFoto(Producto p) {
+           InputStream streamFoto = null;
+        Connection conn = null;
+        PreparedStatement prepSt = null;
+        ResultSet rs = null;
+        try {
+            conn = BaseDatos.obtenerConexion();
+            String sql = "SELECT imagen FROM productos WHERE codigo = ?";
+            
+            prepSt = conn.prepareStatement(sql);
+            prepSt.setString(1, p.getCodigo());
+                       
+            rs = prepSt.executeQuery();
+            
+            if (rs.next()){
+                streamFoto = rs.getBinaryStream(1);
+            }
+            
+            
+            
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        finally{
+           BaseDatos.cerrarResultSet(rs);
+           BaseDatos.cerrarStatement(prepSt);
+        }
+        return streamFoto;
+    
     }
 
 

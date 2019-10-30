@@ -7,6 +7,7 @@ package FramesPanels;
 
 import db.MetodosSQL;
 import java.awt.Image;
+import java.awt.MediaTracker;
 import java.io.File;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
@@ -22,14 +23,21 @@ import modelos.Proveedor;
  * @author Horacio
  */
 public class ProductoFrame extends javax.swing.JPanel {
+
     DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel<>();
     private File imgProducto;
+    public boolean estaActualizando;
+
     /**
      * Creates new form ProductoFrame1
      */
-    public ProductoFrame() {
+    public ProductoFrame(Producto producto, ImageIcon icon, boolean actualizando) {
         cargarModeloCombo();
         initComponents();
+        this.estaActualizando = actualizando;
+        if (producto != null) {
+            cargarProducto(producto, icon);
+        }
     }
 
     /**
@@ -41,7 +49,7 @@ public class ProductoFrame extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txt_id_inv = new javax.swing.JTextField();
+        txtCodigoProd = new javax.swing.JTextField();
         txt_nom_inv = new javax.swing.JTextField();
         txt_pre_com_inv = new javax.swing.JTextField();
         txt_pre_ven_inv = new javax.swing.JTextField();
@@ -70,15 +78,15 @@ public class ProductoFrame extends javax.swing.JPanel {
         setBackground(new java.awt.Color(47, 34, 23));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        txt_id_inv.setBackground(new java.awt.Color(47, 34, 23));
-        txt_id_inv.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txt_id_inv.setForeground(new java.awt.Color(255, 255, 255));
-        txt_id_inv.addActionListener(new java.awt.event.ActionListener() {
+        txtCodigoProd.setBackground(new java.awt.Color(47, 34, 23));
+        txtCodigoProd.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtCodigoProd.setForeground(new java.awt.Color(255, 255, 255));
+        txtCodigoProd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_id_invActionPerformed(evt);
+                txtCodigoProdActionPerformed(evt);
             }
         });
-        add(txt_id_inv, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, 70, -1));
+        add(txtCodigoProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, 260, -1));
 
         txt_nom_inv.setBackground(new java.awt.Color(47, 34, 23));
         txt_nom_inv.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -115,7 +123,7 @@ public class ProductoFrame extends javax.swing.JPanel {
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Codigo:");
         jLabel1.setInheritsPopupMenu(false);
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 100, -1, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 100, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
@@ -227,24 +235,17 @@ public class ProductoFrame extends javax.swing.JPanel {
                 jPanel1MouseClicked(evt);
             }
         });
+        jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblImagenProducto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblImagenProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
-        );
+        lblImagenProducto.setPreferredSize(getMaximumSize());
+        jPanel1.add(lblImagenProducto, new java.awt.GridBagConstraints());
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 340, 260, -1));
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 340, 260, 100));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txt_id_invActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_id_invActionPerformed
+    private void txtCodigoProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoProdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_id_invActionPerformed
+    }//GEN-LAST:event_txtCodigoProdActionPerformed
 
     private void txt_cant_invActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cant_invActionPerformed
         // TODO add your handling code here:
@@ -256,18 +257,10 @@ public class ProductoFrame extends javax.swing.JPanel {
 
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
         Home.Inventario.setVisible(true);
-        this.setVisible(false);
+        
         Home.contenedor.add(Home.Inventario);
         Home.contenedor.validate();
-        /*
-        int i = metodos.guardar_inv(txt_nom_inv.getText(), txt_pre_com_inv.getText(),txt_pre_ven_inv.getText(), txt_id_prove.getText(), txt_cant_inv.getText(),txt_url_inv.getText(),txt_descr_inv.getText());
 
-        if (i > 0) {
-            JOptionPane.showMessageDialog(this, "Datos guardados corectamente");
-        } else {
-            JOptionPane.showMessageDialog(this, "No se pudo guardar los datos");
-        }
-        */
     }//GEN-LAST:event_btnCancelarMouseClicked
 
     private void btn_regis4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_regis4MouseClicked
@@ -275,9 +268,9 @@ public class ProductoFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_regis4MouseClicked
 
     private void btnGuardarProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarProductoMouseClicked
-          String codigo = txt_id_inv.getText();
+        String codigo = txtCodigoProd.getText();
         String nombre = txt_nom_inv.getText();
-        Integer stock =   Integer.parseInt( txt_cant_inv.getText());
+        Integer stock = Integer.parseInt(txt_cant_inv.getText());
         String descripcion = txt_descr_inv.getText();
         double precioVenta = Double.parseDouble(txt_pre_ven_inv.getText());
         double precioCompra = Double.parseDouble(txt_pre_com_inv.getText());
@@ -305,18 +298,18 @@ public class ProductoFrame extends javax.swing.JPanel {
             producto.setIdProveedor(proveedor.getCuit());
             producto.setStock(stock);
             filasAfectadas = MetodosSQL.guardarProducto(producto, true);
-          
-        }
-          if (filasAfectadas > 0) {
-                JOptionPane.showMessageDialog(null, "Producto agregado con exito!");
-                this.setVisible(false);
-                Home.Inventario.setVisible(true);
-                Home.contenedor.add(Home.Inventario);
-                Home.contenedor.validate();
-                
-                Inventario.cargarModeloTabla(null);
 
-            }
+        }
+        if (filasAfectadas > 0) {
+            JOptionPane.showMessageDialog(null, "Producto agregado con exito!");
+            Home.contenedor.remove(this);
+            Home.Inventario.setVisible(true);
+            Home.contenedor.add(Home.Inventario);
+            Home.contenedor.validate();
+
+            Inventario.cargarModeloTabla(null);
+
+        }
     }//GEN-LAST:event_btnGuardarProductoMouseClicked
 
     private void btnCancelarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseEntered
@@ -324,7 +317,7 @@ public class ProductoFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_btnCancelarMouseEntered
 
     private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
-         JFileChooser chooser = new JFileChooser();
+        JFileChooser chooser = new JFileChooser();
         FileNameExtensionFilter filter = new FileNameExtensionFilter(
                 "Archivos de imagen (.jpg, .png, .gif)", "jpg", "jpeg", "png", "gif");
         chooser.setFileFilter(filter);
@@ -363,9 +356,9 @@ public class ProductoFrame extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblImagenProducto;
+    private javax.swing.JTextField txtCodigoProd;
     private javax.swing.JTextField txt_cant_inv;
     private javax.swing.JTextField txt_descr_inv;
-    private javax.swing.JTextField txt_id_inv;
     private javax.swing.JTextField txt_nom_inv;
     private javax.swing.JTextField txt_pre_com_inv;
     private javax.swing.JTextField txt_pre_ven_inv;
@@ -376,5 +369,40 @@ public class ProductoFrame extends javax.swing.JPanel {
         for (Proveedor proveedor : proveedores) {
             modeloCombo.addElement(proveedor);
         }
+    }
+
+    private void cargarProducto(Producto producto, ImageIcon icon) {
+        if (icon != null) {
+            //Redimensión de imagen para ajustarla al tamaño del JLabel.
+            Image imgProd = icon.getImage();
+            int anchoEtiqueta = lblImagenProducto.getWidth(); //Obtiene ancho de la imagen
+            int altoEtiqueta = lblImagenProducto.getHeight(); //Obtiene alto de la imagen
+
+            //Se crea un nuevo objeto Image con la imagen redimensionada.
+            Image imgRedimensionada = imgProd.getScaledInstance(150,150, Image.SCALE_DEFAULT);
+           
+
+            //Se crea un nuevo objeto ImageIcon a partir de la imagen redimensionada.
+            ImageIcon iconRedimensionado = new ImageIcon(imgRedimensionada);
+
+            lblImagenProducto.setIcon(iconRedimensionado);
+            lblImagenProducto.updateUI();
+        }
+        String codigo = producto.getCodigo();
+        String nombre = producto.getNombre();
+        String descripcion = producto.getDescripcion();
+        int stock = producto.getStock();
+        double precioCompra = producto.getPrecioCompra();
+        double precioVenta = producto.getPrecioVenta();
+        txtCodigoProd.setText(codigo);
+        txt_nom_inv.setText(nombre);
+        txt_descr_inv.setText(descripcion);
+        txt_cant_inv.setText(String.valueOf(stock));
+        txt_pre_com_inv.setText(String.valueOf(precioCompra));
+        txt_pre_ven_inv.setText(String.valueOf(precioVenta));
+
+        txtCodigoProd.setEnabled(false);
+        txt_nom_inv.setEnabled(false);
+
     }
 }
