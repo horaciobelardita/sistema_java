@@ -235,10 +235,17 @@ public class ProductoFrame extends javax.swing.JPanel {
                 jPanel1MouseClicked(evt);
             }
         });
-        jPanel1.setLayout(new java.awt.GridBagLayout());
 
-        lblImagenProducto.setPreferredSize(getMaximumSize());
-        jPanel1.add(lblImagenProducto, new java.awt.GridBagConstraints());
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblImagenProducto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblImagenProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+        );
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 340, 260, 100));
     }// </editor-fold>//GEN-END:initComponents
@@ -256,10 +263,11 @@ public class ProductoFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_regis2MouseClicked
 
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
-        Home.Inventario.setVisible(true);
-        
-        Home.contenedor.add(Home.Inventario);
-        Home.contenedor.validate();
+        Home.INVENTARIO.setVisible(true);
+        Home.contenedor.remove(this);
+        Home.contenedor.add(Home.INVENTARIO);
+        Home.contenedor.revalidate();
+        Home.contenedor.repaint();
 
     }//GEN-LAST:event_btnCancelarMouseClicked
 
@@ -303,9 +311,10 @@ public class ProductoFrame extends javax.swing.JPanel {
         if (filasAfectadas > 0) {
             JOptionPane.showMessageDialog(null, "Producto agregado con exito!");
             Home.contenedor.remove(this);
-            Home.Inventario.setVisible(true);
-            Home.contenedor.add(Home.Inventario);
-            Home.contenedor.validate();
+            Home.INVENTARIO.setVisible(true);
+            Home.contenedor.add(Home.INVENTARIO);
+            Home.contenedor.revalidate();
+            Home.contenedor.repaint();
 
             Inventario.cargarModeloTabla(null);
 
@@ -370,8 +379,20 @@ public class ProductoFrame extends javax.swing.JPanel {
             modeloCombo.addElement(proveedor);
         }
     }
+    
+    public void reiniciarPanel() {
+        txtCodigoProd.setText("");
+        txt_nom_inv.setText("");
+        txt_descr_inv.setText("");
+        txt_cant_inv.setText("");
+        txt_pre_com_inv.setText("");
+        txt_pre_ven_inv.setText("");
+        lblImagenProducto.setIcon(null);
+        txtCodigoProd.setEnabled(true);
+        txt_nom_inv.setEnabled(true);
+    }
 
-    private void cargarProducto(Producto producto, ImageIcon icon) {
+    public void cargarProducto(Producto producto, ImageIcon icon) {
         if (icon != null) {
             //Redimensión de imagen para ajustarla al tamaño del JLabel.
             Image imgProd = icon.getImage();

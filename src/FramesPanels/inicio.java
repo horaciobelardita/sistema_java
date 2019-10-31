@@ -123,7 +123,7 @@ public class inicio extends javax.swing.JFrame {
         jLabel9.setText("Iniciar sesión");
         btn_regis.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        jpanel_main.add(btn_regis, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 290, 110, 40));
+        jpanel_main.add(btn_regis, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 290, 130, 40));
 
         jButton2.setBackground(new java.awt.Color(255, 102, 0));
         jButton2.setForeground(new java.awt.Color(255, 102, 0));
