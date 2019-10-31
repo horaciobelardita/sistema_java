@@ -17,7 +17,7 @@ public class Home extends javax.swing.JFrame implements ActionListener {
    clientes clientes = new clientes();
     */
    public static final Inventario INVENTARIO = new Inventario();
-      public static final ProductoFrame PRODUCTO_FRAME = new ProductoFrame(null, null, false);
+   public static final ProductoFrame PRODUCTO_FRAME = new ProductoFrame(null, null, false);
 //   ventas ventas = new ventas();
    /*
    proveedores proveedores = new proveedores();
@@ -351,7 +351,7 @@ public class Home extends javax.swing.JFrame implements ActionListener {
             System.exit(0);
         }
     }//GEN-LAST:event_jButton2MouseClicked
-
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -409,9 +409,10 @@ public class Home extends javax.swing.JFrame implements ActionListener {
 //            proveedores.setVisible(false);
 //            compras.setVisible(false);
 //            usuarios.setVisible(false);
-            contenedor.removeAll();
+            contenedor.remove(this);
             contenedor.add(Home.INVENTARIO);
-            contenedor.validate(); //actualizar el contenedor
+            contenedor.revalidate();
+            contenedor.repaint();//actualizar el contenedor
         }else if (evt.equals(btn_ventas)) {
             /*
             clientes.setVisible(false);

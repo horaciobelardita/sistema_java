@@ -63,7 +63,7 @@ public class MetodosSQL {
                 Producto p = new Producto();
                 p.setCodigo(rs.getString("codigo"));
                 p.setNombre(rs.getString("nombre"));
-                 p.setDescripcion(rs.getString("descripcion"));
+                p.setDescripcion(rs.getString("descripcion"));
                 p.setPrecioCompra(rs.getDouble("precio_compra"));
                 p.setPrecioVenta(rs.getDouble("precio_venta"));
                 p.setStock(rs.getInt("stock"));
@@ -157,9 +157,10 @@ public class MetodosSQL {
             BaseDatos.cerrarStatement(pstm);
         }
 
-            return filasAfectadas;
-        }
-        /*
+        return filasAfectadas;
+    }
+
+    /*
     public int guardar_inv(String nombre, String pre_com, String pre_ven, String cant_inv, String id_prove, String url_inv, String descr_inv) {
 
         int resultado = 0;
@@ -188,29 +189,29 @@ public class MetodosSQL {
         return resultado;
 
     }
-         */
-        //    public static String buscarNombreUsuario(String nick) {
-        //        Connection conexion = null;
-        //        PreparedStatement pstm = null;
-        //        ResultSet rs = null;
-        //        String username = "";
-        //        try {
-        //            conexion = BaseDatos.obtenerConexion();
-        //            String sql = "SELECT nombre FROM usuarios WHERE nick=? ";
-        //            
-        //            pstm = conexion.prepareStatement(sql);
-        //            pstm.setString(1, nick);
-        //            rs = pstm.executeQuery();
-        //            while (rs.next()) {
-        //                username = rs.getString("nombre");
-        //            }
-        //        } catch (SQLException e) {
-        //        } finally {
-        //            BaseDatos.cerrarResultSet(rs);
-        //            BaseDatos.cerrarStatement(pstm);
-        //        }
-        //        return username;
-        //    }
+     */
+    //    public static String buscarNombreUsuario(String nick) {
+    //        Connection conexion = null;
+    //        PreparedStatement pstm = null;
+    //        ResultSet rs = null;
+    //        String username = "";
+    //        try {
+    //            conexion = BaseDatos.obtenerConexion();
+    //            String sql = "SELECT nombre FROM usuarios WHERE nick=? ";
+    //            
+    //            pstm = conexion.prepareStatement(sql);
+    //            pstm.setString(1, nick);
+    //            rs = pstm.executeQuery();
+    //            while (rs.next()) {
+    //                username = rs.getString("nombre");
+    //            }
+    //        } catch (SQLException e) {
+    //        } finally {
+    //            BaseDatos.cerrarResultSet(rs);
+    //            BaseDatos.cerrarStatement(pstm);
+    //        }
+    //        return username;
+    //    }
     public static Usuario buscarUsuario(String nick, String password) {
         Connection conexion = null;
         PreparedStatement pstm = null;
@@ -241,15 +242,15 @@ public class MetodosSQL {
     }
 
     public static ArrayList<Producto> obtenerProductosPorCriterio(String filtro) {
-     Connection conexion = null;
+        Connection conexion = null;
         ArrayList<Producto> productos = new ArrayList<>();
         Statement stmt = null;
         ResultSet rs = null;
         try {
             conexion = BaseDatos.obtenerConexion();
-            String sql = "SELECT * FROM productos WHERE codigo LIKE '%"+
-                     filtro + "%' "
-                    + "OR nombre LIKE '%"+ filtro +"%'";
+            String sql = "SELECT * FROM productos WHERE codigo LIKE '%"
+                    + filtro + "%' "
+                    + "OR nombre LIKE '%" + filtro + "%'";
             stmt = conexion.createStatement();
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
@@ -268,11 +269,11 @@ public class MetodosSQL {
             BaseDatos.cerrarResultSet(rs);
             BaseDatos.cerrarStatement(stmt);
         }
-        return productos;   
+        return productos;
     }
 
     public static int borrarProducto(Producto p) {
-         Connection conexion = null;
+        Connection conexion = null;
         PreparedStatement stmt = null;
         int filasAfectadas = 0;
         try {
@@ -286,39 +287,85 @@ public class MetodosSQL {
         } finally {
             BaseDatos.cerrarStatement(stmt);
         }
-        return filasAfectadas;   
+        return filasAfectadas;
     }
 
     public static InputStream buscarFoto(Producto p) {
-           InputStream streamFoto = null;
+        InputStream streamFoto = null;
         Connection conn = null;
         PreparedStatement prepSt = null;
         ResultSet rs = null;
         try {
             conn = BaseDatos.obtenerConexion();
             String sql = "SELECT imagen FROM productos WHERE codigo = ?";
-            
+
             prepSt = conn.prepareStatement(sql);
             prepSt.setString(1, p.getCodigo());
-                       
+
             rs = prepSt.executeQuery();
-            
-            if (rs.next()){
+
+            if (rs.next()) {
                 streamFoto = rs.getBinaryStream(1);
             }
-            
-            
-            
+
         } catch (SQLException ex) {
             ex.printStackTrace();
-        }
-        finally{
-           BaseDatos.cerrarResultSet(rs);
-           BaseDatos.cerrarStatement(prepSt);
+        } finally {
+            BaseDatos.cerrarResultSet(rs);
+            BaseDatos.cerrarStatement(prepSt);
         }
         return streamFoto;
-    
+
     }
 
+    public static int actualizarProducto(Producto p, boolean actualizarFoto) {
+        int filasAfectadas = 0;
+        Connection conexion = null;
+        PreparedStatement pstm = null;
+
+        try {
+
+            conexion = BaseDatos.obtenerConexion();
+            String sql = "";
+            if (!actualizarFoto) {
+                sql = "UPDATE productos "
+                        + "SET nombre = ?, descripcion = ? ,"
+                        + "precio_venta = ?, precio_compra = ?, stock = ? , "
+                        + "id_proveedor = ? ";
+            } else {
+                sql += ", imagen = ?";
+            }
+            sql += " WHERE codigo = ?";
+
+            pstm = conexion.prepareStatement(sql);
+            pstm.setString(1, p.getNombre());
+            pstm.setString(2, p.getDescripcion());
+            pstm.setDouble(3, p.getPrecioVenta());
+            pstm.setDouble(4, p.getPrecioCompra());
+            pstm.setInt(5, p.getStock());
+            pstm.setString(6, p.getIdProveedor());
+            int codigo = 7;
+            if (actualizarFoto) {
+                File fileFoto = p.getFoto();
+                FileInputStream fis = new FileInputStream(fileFoto);
+                long size = p.getFoto().length();
+                pstm.setBinaryStream(6, fis, size);
+                codigo++;
+            }
+
+            pstm.setString(codigo, p.getCodigo());
+
+            filasAfectadas = pstm.executeUpdate();
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            BaseDatos.cerrarStatement(pstm);
+        }
+
+        return filasAfectadas;
+    }
 
 }

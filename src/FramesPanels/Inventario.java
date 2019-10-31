@@ -330,7 +330,11 @@ public class Inventario extends javax.swing.JPanel {
         cargarModeloTabla(cadenaBusqueda);
 
     }//GEN-LAST:event_txtBuscarProdKeyReleased
-
+    public void reiniciarPanel() {
+        txtCodigoProducto.setText("");
+        txtNombreProducto.setText("");
+        txtBuscarProd.requestFocus();
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnEliminarProducto;

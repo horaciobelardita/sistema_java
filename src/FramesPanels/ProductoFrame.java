@@ -276,6 +276,7 @@ public class ProductoFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_regis4MouseClicked
 
     private void btnGuardarProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarProductoMouseClicked
+//        obtener los valores ingresados en los campos
         String codigo = txtCodigoProd.getText();
         String nombre = txt_nom_inv.getText();
         Integer stock = Integer.parseInt(txt_cant_inv.getText());
@@ -283,41 +284,54 @@ public class ProductoFrame extends javax.swing.JPanel {
         double precioVenta = Double.parseDouble(txt_pre_ven_inv.getText());
         double precioCompra = Double.parseDouble(txt_pre_com_inv.getText());
         Proveedor proveedor = (Proveedor) cboProveedor.getSelectedItem();
+        int filasAfectadas = 0;
+//      instancia de un nuevo producto con los valores
         Producto producto;
-        int filasAfectadas;
+        producto = new Producto();
+        producto.setCodigo(codigo);
+        producto.setNombre(nombre);
+        producto.setDescripcion(descripcion);
+        producto.setPrecioCompra(precioCompra);
+        producto.setPrecioVenta(precioVenta);
+        producto.setIdProveedor(proveedor.getCuit());
+        producto.setStock(stock);
         if (imgProducto == null) {
-            producto = new Producto();
-            producto.setCodigo(codigo);
-            producto.setNombre(nombre);
-            producto.setDescripcion(descripcion);
-            producto.setPrecioCompra(precioCompra);
-            producto.setPrecioVenta(precioVenta);
-            producto.setIdProveedor(proveedor.getCuit());
-            producto.setStock(stock);
-            filasAfectadas = MetodosSQL.guardarProducto(producto, false);
+            producto.setFoto(null);
         } else {
-            producto = new Producto();
-            producto.setCodigo(codigo);
-            producto.setNombre(nombre);
-            producto.setDescripcion(descripcion);
             producto.setFoto(imgProducto);
-            producto.setPrecioCompra(precioCompra);
-            producto.setPrecioVenta(precioVenta);
-            producto.setIdProveedor(proveedor.getCuit());
-            producto.setStock(stock);
-            filasAfectadas = MetodosSQL.guardarProducto(producto, true);
-
+        }
+        String msg = "";
+        if (!estaActualizando) {
+            // guardar producto
+            if (producto.getFoto() == null) {
+                // guardar producto sin foto
+                filasAfectadas = MetodosSQL.guardarProducto(producto, false);
+            } else {
+                // guardar producto con foto
+                filasAfectadas = MetodosSQL.guardarProducto(producto, true);
+            }
+            msg = "Producto agregado con exito!";
+        } else {
+            // actualizar
+               if (producto.getFoto() == null) {
+                // actualizar producto sin foto
+               filasAfectadas = MetodosSQL.actualizarProducto(producto, false);
+            } else {
+                // actualizar producto con foto
+               filasAfectadas = MetodosSQL.actualizarProducto(producto, true);
+            }
+             msg = "Producto actualizado con exito!";
         }
         if (filasAfectadas > 0) {
-            JOptionPane.showMessageDialog(null, "Producto agregado con exito!");
+            JOptionPane.showMessageDialog(null, msg);
             Home.contenedor.remove(this);
             Home.INVENTARIO.setVisible(true);
+            Home.INVENTARIO.reiniciarPanel();
             Home.contenedor.add(Home.INVENTARIO);
             Home.contenedor.revalidate();
             Home.contenedor.repaint();
 
             Inventario.cargarModeloTabla(null);
-
         }
     }//GEN-LAST:event_btnGuardarProductoMouseClicked
 
@@ -379,7 +393,7 @@ public class ProductoFrame extends javax.swing.JPanel {
             modeloCombo.addElement(proveedor);
         }
     }
-    
+
     public void reiniciarPanel() {
         txtCodigoProd.setText("");
         txt_nom_inv.setText("");
@@ -390,9 +404,11 @@ public class ProductoFrame extends javax.swing.JPanel {
         lblImagenProducto.setIcon(null);
         txtCodigoProd.setEnabled(true);
         txt_nom_inv.setEnabled(true);
+        estaActualizando = false;
     }
 
     public void cargarProducto(Producto producto, ImageIcon icon) {
+        estaActualizando = true;
         if (icon != null) {
             //Redimensión de imagen para ajustarla al tamaño del JLabel.
             Image imgProd = icon.getImage();
@@ -400,8 +416,7 @@ public class ProductoFrame extends javax.swing.JPanel {
             int altoEtiqueta = lblImagenProducto.getHeight(); //Obtiene alto de la imagen
 
             //Se crea un nuevo objeto Image con la imagen redimensionada.
-            Image imgRedimensionada = imgProd.getScaledInstance(150,150, Image.SCALE_DEFAULT);
-           
+            Image imgRedimensionada = imgProd.getScaledInstance(150, 150, Image.SCALE_DEFAULT);
 
             //Se crea un nuevo objeto ImageIcon a partir de la imagen redimensionada.
             ImageIcon iconRedimensionado = new ImageIcon(imgRedimensionada);
@@ -423,7 +438,6 @@ public class ProductoFrame extends javax.swing.JPanel {
         txt_pre_ven_inv.setText(String.valueOf(precioVenta));
 
         txtCodigoProd.setEnabled(false);
-        txt_nom_inv.setEnabled(false);
 
     }
 }

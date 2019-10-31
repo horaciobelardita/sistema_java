@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
+import javax.swing.JOptionPane;
 
 public class BaseDatos {
 
@@ -25,6 +26,7 @@ public class BaseDatos {
             return con;
         } catch (ClassNotFoundException | SQLException ex) {
             ex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error al crear la conexion");
             throw new RuntimeException("Error al crear la conexion", ex);
         }
     }

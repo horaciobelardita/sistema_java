@@ -10,10 +10,9 @@ public class inicio extends javax.swing.JFrame {
     public inicio() {
         initComponents();
         setLocationRelativeTo(null);
-         txtNick.setText("root");
-         txtPassword.setText("root");
+        txtNick.setText("root");
+        txtPassword.setText("root");
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -182,7 +181,6 @@ public class inicio extends javax.swing.JFrame {
 
     private void btn_regisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_regisMouseClicked
         validar();
-       
 
 
     }//GEN-LAST:event_btn_regisMouseClicked
@@ -280,7 +278,8 @@ public class inicio extends javax.swing.JFrame {
             txtNick.requestFocus();
             return;
         }
-         Usuario usuario = MetodosSQL.buscarUsuario(txtNick.getText(), txtPassword.getText());
+
+        Usuario usuario = MetodosSQL.buscarUsuario(txtNick.getText(), txtPassword.getText());
 
         if (usuario.getNombre() != null && usuario.getId() != null) {
             JOptionPane.showMessageDialog(this, "Bienvenid@ \n" + usuario.getNick());
