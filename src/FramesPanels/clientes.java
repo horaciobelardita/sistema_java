@@ -114,9 +114,9 @@ public class clientes extends javax.swing.JPanel {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clientes.png"))); // NOI18N
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 220, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, -1, -1));
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 600));
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 740));
 
         jLabel6.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
@@ -134,7 +134,7 @@ public class clientes extends javax.swing.JPanel {
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 340, -1, -1));
 
         cb_iva.setForeground(new java.awt.Color(255, 255, 255));
-        cb_iva.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Monotributista", "Responsable inscripto", "Exento", "Consumidor final" }));
+        cb_iva.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Consumidor final", "Exento", "Exterior", "IVA no alcanzado", "Monotributista", "Responsable inscripto", " ", " " }));
         add(cb_iva, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 340, 150, -1));
     }// </editor-fold>//GEN-END:initComponents
 

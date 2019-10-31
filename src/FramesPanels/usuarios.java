@@ -45,7 +45,7 @@ public class usuarios extends javax.swing.JPanel {
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/usuarios.png"))); // NOI18N
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, -1, -1));
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 600));
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 740));
 
         txt_nick.setBackground(new java.awt.Color(47, 34, 23));
         txt_nick.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -108,7 +108,7 @@ public class usuarios extends javax.swing.JPanel {
         add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 220, -1, -1));
 
         btn_regis.setBackground(new java.awt.Color(255, 102, 0));
-        btn_regis.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_regis.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btn_regis.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btn_regisMouseClicked(evt);
@@ -121,7 +121,7 @@ public class usuarios extends javax.swing.JPanel {
         jLabel10.setText("Guardar");
         btn_regis.add(jLabel10, new java.awt.GridBagConstraints());
 
-        add(btn_regis, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 430, 110, 40));
+        add(btn_regis, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 290, 110, 40));
 
         cb_permisos.setBackground(new java.awt.Color(47, 34, 23));
         cb_permisos.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N

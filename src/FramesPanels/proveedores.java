@@ -30,6 +30,8 @@ public class proveedores extends javax.swing.JPanel {
         jLabel11 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         txt_cuil_cuit = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setBackground(new java.awt.Color(47, 34, 23));
         setPreferredSize(new java.awt.Dimension(1050, 575));
@@ -100,9 +102,9 @@ public class proveedores extends javax.swing.JPanel {
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/proveedores.png"))); // NOI18N
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, -1, -1));
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 600));
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 740));
 
         btn_regis1.setBackground(new java.awt.Color(255, 102, 0));
         btn_regis1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -118,12 +120,12 @@ public class proveedores extends javax.swing.JPanel {
         jLabel11.setText("Guardar");
         btn_regis1.add(jLabel11, new java.awt.GridBagConstraints());
 
-        add(btn_regis1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 360, 110, 40));
+        add(btn_regis1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 400, 110, 40));
 
         jLabel6.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel6.setText("Cuit/Cuil");
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 300, -1, -1));
+        jLabel6.setText("Tipo de indentificacion");
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 340, -1, -1));
 
         txt_cuil_cuit.setBackground(new java.awt.Color(47, 34, 23));
         txt_cuil_cuit.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -134,6 +136,14 @@ public class proveedores extends javax.swing.JPanel {
             }
         });
         add(txt_cuil_cuit, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 300, 240, -1));
+
+        jLabel7.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel7.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel7.setText("Cuit/Cuil");
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 300, -1, -1));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CUIT", "CUIL", "DNI" }));
+        add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 340, 240, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_id_proveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_id_proveActionPerformed
@@ -163,6 +173,7 @@ public class proveedores extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btn_regis1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
@@ -170,6 +181,7 @@ public class proveedores extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txt_cuil_cuit;

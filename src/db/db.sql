@@ -1,6 +1,6 @@
-drop database if exists gestor_comercio;
-create database gestor_comercio;
-use gestor_comercio;
+drop database if exists gestor_comercio2;
+create database gestor_comercio2;
+use gestor_comercio2;
 create table usuarios (
 	id int auto_increment primary key,
     nombre varchar(30) not null,

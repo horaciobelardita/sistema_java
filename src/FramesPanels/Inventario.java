@@ -112,7 +112,7 @@ public class Inventario extends javax.swing.JPanel {
         jLabel17 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(47, 34, 23));
-        setPreferredSize(new java.awt.Dimension(1066, 768));
+        setPreferredSize(new java.awt.Dimension(1270, 740));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tablaProductos.setModel(modeloTabla);
@@ -230,9 +230,9 @@ public class Inventario extends javax.swing.JPanel {
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/inventario.png"))); // NOI18N
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, -1, -1));
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, -1, -1));
 
-        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 700));
+        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 740));
 
         txtNombreProducto.setEnabled(false);
         add(txtNombreProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 130, 380, -1));

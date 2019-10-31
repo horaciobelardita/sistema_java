@@ -220,7 +220,7 @@ public class Home extends javax.swing.JFrame implements ActionListener {
         jLabel1.setText("Gestion V 0.1");
         jpmenu.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 90, 20));
 
-        getContentPane().add(jpmenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 800));
+        getContentPane().add(jpmenu, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 100, 780));
 
         min_cer.setBackground(new java.awt.Color(255, 102, 0));
 
@@ -298,7 +298,7 @@ public class Home extends javax.swing.JFrame implements ActionListener {
         getContentPane().add(min_cer, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 0, 1270, 30));
 
         contenedor.setBackground(new java.awt.Color(47, 34, 23));
-        contenedor.setPreferredSize(new java.awt.Dimension(950, 768));
+        contenedor.setPreferredSize(new java.awt.Dimension(850, 768));
 
         javax.swing.GroupLayout contenedorLayout = new javax.swing.GroupLayout(contenedor);
         contenedor.setLayout(contenedorLayout);
@@ -308,10 +308,10 @@ public class Home extends javax.swing.JFrame implements ActionListener {
         );
         contenedorLayout.setVerticalGroup(
             contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 768, Short.MAX_VALUE)
+            .addGap(0, 740, Short.MAX_VALUE)
         );
 
-        getContentPane().add(contenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 1270, 768));
+        getContentPane().add(contenedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 1270, 740));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
