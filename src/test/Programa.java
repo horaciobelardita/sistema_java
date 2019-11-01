@@ -10,6 +10,7 @@ import db.MetodosSQL;
 import java.sql.Connection;
 import java.util.ArrayList;
 import modelos.Producto;
+import modelos.Proveedor;
 
 /**
  *
@@ -17,9 +18,10 @@ import modelos.Producto;
  */
 public class Programa {
     public static void main(String[] args) {
-        Producto p = new Producto();
-        p.setCodigo("123456789104");
-        MetodosSQL.buscarFoto(p);
+        ArrayList<Producto> proveedores = MetodosSQL.obtenerProductos();
+        for (Producto proveedor : proveedores) {
+            System.out.println(proveedor);
+        }
         
     }
 }

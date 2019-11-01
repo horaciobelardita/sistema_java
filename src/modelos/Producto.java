@@ -19,7 +19,7 @@ public class Producto {
     private File foto;
     private Double precioCompra;
     private Double precioVenta;
-    private String idProveedor;
+    private Integer idProveedor;
 
     public String getCodigo() {
         return codigo;
@@ -79,13 +79,15 @@ public class Producto {
         this.precioVenta = precioVenta;
     }
 
-    public String getIdProveedor() {
+    public Integer getIdProveedor() {
         return idProveedor;
     }
 
-    public void setIdProveedor(String idProveedor) {
+    public void setIdProveedor(Integer idProveedor) {
         this.idProveedor = idProveedor;
     }
+
+   
 
     
 

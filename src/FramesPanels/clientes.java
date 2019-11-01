@@ -51,13 +51,12 @@ public class clientes extends javax.swing.JPanel {
         txt_id_cli.setBackground(new java.awt.Color(47, 34, 23));
         txt_id_cli.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txt_id_cli.setForeground(new java.awt.Color(255, 255, 255));
-        txt_id_cli.setText("muestr sifguiente id");
         txt_id_cli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_id_cliActionPerformed(evt);
             }
         });
-        add(txt_id_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 100, 80, -1));
+        add(txt_id_cli, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 100, 240, -1));
 
         txt_nom_cli.setBackground(new java.awt.Color(47, 34, 23));
         txt_nom_cli.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -135,7 +134,7 @@ public class clientes extends javax.swing.JPanel {
 
         cb_iva.setForeground(new java.awt.Color(255, 255, 255));
         cb_iva.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Consumidor final", "Exento", "Exterior", "IVA no alcanzado", "Monotributista", "Responsable inscripto", " ", " " }));
-        add(cb_iva, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 340, 150, -1));
+        add(cb_iva, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 340, 240, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_id_cliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_id_cliActionPerformed

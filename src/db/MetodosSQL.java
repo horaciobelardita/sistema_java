@@ -66,6 +66,7 @@ public class MetodosSQL {
                 p.setDescripcion(rs.getString("descripcion"));
                 p.setPrecioCompra(rs.getDouble("precio_compra"));
                 p.setPrecioVenta(rs.getDouble("precio_venta"));
+                p.setIdProveedor(rs.getInt("id_proveedor"));
                 p.setStock(rs.getInt("stock"));
                 productos.add(p);
             }
@@ -87,11 +88,11 @@ public class MetodosSQL {
         try {
             conexion = BaseDatos.obtenerConexion();
             stmt = conexion.createStatement();
-            String sql = "SELECT * FROM proveedores ORDER BY nombre_empresa";
+            String sql = "SELECT * FROM proveedores ORDER BY id";
             rs = stmt.executeQuery(sql);
             while (rs.next()) {
                 Proveedor prov = new Proveedor();
-                prov.setCuit(rs.getString("cuit"));
+                prov.setId(rs.getInt("id"));
                 prov.setNombreEmpresa(rs.getString("nombre_empresa"));
                 prov.setNombreContacto(rs.getString("nombre_contacto"));
                 prov.setDireccion(rs.getString("direccion"));
@@ -132,7 +133,7 @@ public class MetodosSQL {
                 pstm.setInt(6, p.getStock());
                 long size = p.getFoto().length();
                 pstm.setBinaryStream(7, fis, size);
-                pstm.setString(8, p.getIdProveedor());
+                pstm.setInt(8, p.getIdProveedor());
             } else {
                 String sql = "INSERT INTO productos "
                         + "(codigo ,nombre, descripcion, "
@@ -145,7 +146,7 @@ public class MetodosSQL {
                 pstm.setDouble(4, p.getPrecioVenta());
                 pstm.setDouble(5, p.getPrecioCompra());
                 pstm.setInt(6, p.getStock());
-                pstm.setString(7, p.getIdProveedor());
+                pstm.setInt(7, p.getIdProveedor());
             }
             filasAfectadas = pstm.executeUpdate();
         } catch (FileNotFoundException ex) {
@@ -343,7 +344,7 @@ public class MetodosSQL {
             pstm.setDouble(3, p.getPrecioVenta());
             pstm.setDouble(4, p.getPrecioCompra());
             pstm.setInt(5, p.getStock());
-            pstm.setString(6, p.getIdProveedor());
+            pstm.setInt(6, p.getIdProveedor());
             int codigo = 7;
             if (actualizarFoto) {
                 File fileFoto = p.getFoto();

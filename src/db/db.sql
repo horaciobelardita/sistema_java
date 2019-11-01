@@ -16,7 +16,7 @@ insert into usuarios values (null, 'root', 'root', 'root', 'Admin');
 insert into usuarios values (null, 'vampi', 'vampi', '1234', 'Admin');
 
 create table proveedores (
-    cuit varchar(11) not null unique primary key,
+    id int auto_increment  primary key,
     nombre_empresa varchar(40) not null,
     nombre_contacto varchar(40) ,
    direccion varchar(100),
@@ -24,7 +24,8 @@ create table proveedores (
    email varchar(30) not null
 );
 
-insert into proveedores values ('11111111111', 'Distribuidora uno', 'Juan Perez', 'alguna calle', '460333', 'uno@gmail.com');
+insert into proveedores values (NULL, 'Distribuidora uno', 'Juan Perez', 'alguna calle', '460333', 'uno@gmail.com'),
+ (NULL, 'Distribuidora dos', 'Ramon Garcia', 'alguna calle', '460333', 'dos@gmail.com');
 
 create table productos (
 	
@@ -35,9 +36,9 @@ create table productos (
     precio_compra float(8,2) not null,
     stock int unsigned not null,
 imagen MEDIUMBLOB default null,
-   id_proveedor varchar(11) not null,
-   foreign key (id_proveedor) references proveedores(cuit)
+   id_proveedor int not null,
+   foreign key (id_proveedor) references proveedores(id)
 );
 
-insert into productos values ('123456789101', 'Coca-cola', 'bebida', 150.5, 110.0, 10, null, '11111111111');
-insert into productos values ('123456789102', 'Pan Blanco', 'panificado', 65.0, 45.0, 10, null, '11111111111');
+insert into productos values ('123456789101', 'Coca-cola', 'bebida', 150.5, 110.0, 10, null, 1);
+insert into productos values ('123456789102', 'Pan Blanco', 'panificado', 65.0, 45.0, 10, null, 1);

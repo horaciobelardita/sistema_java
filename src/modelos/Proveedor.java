@@ -10,21 +10,23 @@ package modelos;
  * @author Horacio
  */
 public class Proveedor {
-    private String cuit;
+    private Integer id;
     private String nombreEmpresa;
     private String nombreContacto;
     private String direccion;
     private String telefono;
     private String email;
 
-    public String getCuit() {
-        return cuit;
+    public Integer getId() {
+        return id;
     }
 
-    public void setCuit(String cuit) {
-        this.cuit = cuit;
+    public void setId(Integer id) {
+        this.id = id;
     }
-
+    
+    
+    
     public String getNombreEmpresa() {
         return nombreEmpresa;
     }

@@ -7,9 +7,10 @@ package FramesPanels;
 
 import db.MetodosSQL;
 import java.awt.Image;
-import java.awt.MediaTracker;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Objects;
+import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -293,7 +294,7 @@ public class ProductoFrame extends javax.swing.JPanel {
         producto.setDescripcion(descripcion);
         producto.setPrecioCompra(precioCompra);
         producto.setPrecioVenta(precioVenta);
-        producto.setIdProveedor(proveedor.getCuit());
+        producto.setIdProveedor(proveedor.getId());
         producto.setStock(stock);
         if (imgProducto == null) {
             producto.setFoto(null);
@@ -416,7 +417,7 @@ public class ProductoFrame extends javax.swing.JPanel {
             int altoEtiqueta = lblImagenProducto.getHeight(); //Obtiene alto de la imagen
 
             //Se crea un nuevo objeto Image con la imagen redimensionada.
-            Image imgRedimensionada = imgProd.getScaledInstance(150, 150, Image.SCALE_DEFAULT);
+            Image imgRedimensionada = imgProd.getScaledInstance(anchoEtiqueta, altoEtiqueta, Image.SCALE_DEFAULT);
 
             //Se crea un nuevo objeto ImageIcon a partir de la imagen redimensionada.
             ImageIcon iconRedimensionado = new ImageIcon(imgRedimensionada);
@@ -436,8 +437,22 @@ public class ProductoFrame extends javax.swing.JPanel {
         txt_cant_inv.setText(String.valueOf(stock));
         txt_pre_com_inv.setText(String.valueOf(precioCompra));
         txt_pre_ven_inv.setText(String.valueOf(precioVenta));
-
+        seleccionarProveedorCombo(producto.getIdProveedor());
+        System.out.println(producto.getIdProveedor());
         txtCodigoProd.setEnabled(false);
+
+    }
+
+   
+
+    private void seleccionarProveedorCombo( Integer idProveedor) {
+        for (int i=0; i < cboProveedor.getItemCount(); i++) {
+            Proveedor prov = cboProveedor.getItemAt(i);
+            if ( prov.getId() ==  idProveedor ) {
+                cboProveedor.getModel().setSelectedItem(prov);
+                break;
+            }
+        }
 
     }
 }
