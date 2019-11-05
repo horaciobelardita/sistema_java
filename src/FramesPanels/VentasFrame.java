@@ -12,6 +12,8 @@ import javax.management.openmbean.KeyAlreadyExistsException;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
 import modelos.Producto;
 
@@ -37,6 +39,7 @@ public class VentasFrame extends javax.swing.JPanel {
     public VentasFrame() {
         cargarColumnasTabla();
         initComponents();
+        setListenerModeloTabla();
     }
 
     private void cargarColumnasTabla() {
@@ -58,8 +61,6 @@ public class VentasFrame extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         tabla = new javax.swing.JTable();
-        btnCancelarVta = new javax.swing.JPanel();
-        jLabel12 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         txtBuscarProd = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -68,6 +69,13 @@ public class VentasFrame extends javax.swing.JPanel {
         lblImagenProd = new javax.swing.JLabel();
         btnQuitarProd1 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel2 = new javax.swing.JLabel();
+        lblTotalVenta = new javax.swing.JLabel();
+        btnCancelarVta = new javax.swing.JPanel();
+        jLabel12 = new javax.swing.JLabel();
+        btnCancelarVta1 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(47, 34, 23));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -84,21 +92,6 @@ public class VentasFrame extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tabla);
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 600, 290));
-
-        btnCancelarVta.setBackground(new java.awt.Color(255, 102, 0));
-        btnCancelarVta.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnCancelarVtaMouseClicked(evt);
-            }
-        });
-        btnCancelarVta.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel12.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel12.setText("Cancelar Venta");
-        btnCancelarVta.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 150, -1));
-
-        add(btnCancelarVta, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 640, 200, 40));
 
         jLabel1.setForeground(java.awt.Color.white);
         jLabel1.setText("Buscar Producto:");
@@ -150,6 +143,72 @@ public class VentasFrame extends javax.swing.JPanel {
         btnQuitarProd1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 150, -1));
 
         add(btnQuitarProd1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 640, 200, 40));
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jLabel2.setFont(new java.awt.Font("Fira Sans Semi-Light", 0, 36)); // NOI18N
+        jLabel2.setText("Total Venta");
+
+        lblTotalVenta.setFont(new java.awt.Font("Fira Sans Semi-Light", 1, 58)); // NOI18N
+        lblTotalVenta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTotalVenta.setText("0.0");
+
+        btnCancelarVta.setBackground(new java.awt.Color(255, 102, 0));
+        btnCancelarVta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCancelarVtaMouseClicked(evt);
+            }
+        });
+        btnCancelarVta.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel12.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel12.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel12.setText("Realizar Venta");
+        btnCancelarVta.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 150, -1));
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblTotalVenta, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addComponent(btnCancelarVta, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(55, 55, 55)
+                        .addComponent(jLabel2)))
+                .addContainerGap(54, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jLabel2)
+                .addGap(33, 33, 33)
+                .addComponent(lblTotalVenta)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(btnCancelarVta, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(46, 46, 46))
+        );
+
+        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 310, 320, 300));
+
+        btnCancelarVta1.setBackground(new java.awt.Color(255, 102, 0));
+        btnCancelarVta1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCancelarVta1MouseClicked(evt);
+            }
+        });
+        btnCancelarVta1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel14.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel14.setText("Cancelar Venta");
+        btnCancelarVta1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 150, -1));
+
+        add(btnCancelarVta1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 640, 200, 40));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCancelarVtaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarVtaMouseClicked
@@ -202,18 +261,27 @@ public class VentasFrame extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnQuitarProd1MouseClicked
 
+    private void btnCancelarVta1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarVta1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnCancelarVta1MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btnCancelarVta;
+    private javax.swing.JPanel btnCancelarVta1;
     private javax.swing.JPanel btnQuitarProd1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblImagenProd;
+    private javax.swing.JLabel lblTotalVenta;
     private javax.swing.JTable tabla;
     private javax.swing.JTextField txtBuscarProd;
     // End of variables declaration//GEN-END:variables
@@ -231,5 +299,21 @@ public class VentasFrame extends javax.swing.JPanel {
             String.valueOf(producto.getPrecioVenta())
         };
         modeloTablaProd.addRow(dataProducto);
+    }
+
+    private void setListenerModeloTabla() {
+        modeloTablaProd.addTableModelListener(new TableModelListener() {
+
+            @Override
+            public void tableChanged(TableModelEvent tme) {
+                int nroFilas = modeloTablaProd.getRowCount();
+                double total = 0;
+                for (int i = 0; i < nroFilas; i++) {
+                    String importe = (String) modeloTablaProd.getValueAt(i, 4);
+                    total += Double.parseDouble(importe);
+                }
+                lblTotalVenta.setText(String.valueOf(total));
+            }
+        });
     }
 }
