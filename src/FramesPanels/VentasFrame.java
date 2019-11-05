@@ -258,11 +258,28 @@ public class VentasFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_tablaKeyReleased
 
     private void btnQuitarProd1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnQuitarProd1MouseClicked
-        // TODO add your handling code here:
+        int filaSeleccionada = tabla.getSelectedRow();
+        int nroFilas = modeloTablaProd.getRowCount();
+        if (nroFilas > 0) {
+            int opcion = JOptionPane.showConfirmDialog(this, "Seguro de borrar el producto?");
+            if (opcion == 0) {
+                modeloTablaProd.removeRow(filaSeleccionada);
+            }
+        }
+
     }//GEN-LAST:event_btnQuitarProd1MouseClicked
 
     private void btnCancelarVta1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarVta1MouseClicked
-        // TODO add your handling code here:
+        int nroFilas = modeloTablaProd.getRowCount();
+        if (nroFilas > 0) {
+            int opcion = JOptionPane.showConfirmDialog(this, "Seguro de cancelar la venta");
+            if (opcion == 0) {
+                for (int i = nroFilas - 1; i >= 0; i--) {
+                    modeloTablaProd.removeRow(i);
+                }
+            }
+        }
+
     }//GEN-LAST:event_btnCancelarVta1MouseClicked
 
 
