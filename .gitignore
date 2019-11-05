@@ -66,3 +66,4 @@ $RECYCLE.BIN/
 # End of https://www.gitignore.io/api/java,windows,netbeans
 
 src/db.properties
+/nbproject/private/

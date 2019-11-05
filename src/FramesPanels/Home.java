@@ -9,6 +9,7 @@ import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 public class Home extends javax.swing.JFrame implements ActionListener {
 
@@ -18,6 +19,7 @@ public class Home extends javax.swing.JFrame implements ActionListener {
     */
    public static final Inventario INVENTARIO = new Inventario();
    public static final ProductoFrame PRODUCTO_FRAME = new ProductoFrame(null, null, false);
+   public static final VentasFrame VENTAS_FRAME = new VentasFrame();
 //   ventas ventas = new ventas();
    /*
    proveedores proveedores = new proveedores();
@@ -403,28 +405,10 @@ public class Home extends javax.swing.JFrame implements ActionListener {
             contenedor.validate(); //actualizar el contenedor
             */
         } else if (evt.equals(btn_inven)) {
-//            clientes.setVisible(true);
-            Home.INVENTARIO.setVisible(true);
-//            ventas.setVisible(false);
-//            proveedores.setVisible(false);
-//            compras.setVisible(false);
-//            usuarios.setVisible(false);
-            contenedor.remove(this);
-            contenedor.add(Home.INVENTARIO);
-            contenedor.revalidate();
-            contenedor.repaint();//actualizar el contenedor
+            mostrarPanel(Home.INVENTARIO);
         }else if (evt.equals(btn_ventas)) {
-            /*
-            clientes.setVisible(false);
-            Inventario.setVisible(false);
-            ventas.setVisible(true);
-            proveedores.setVisible(false);
-            compras.setVisible(false);
-            usuarios.setVisible(false);
-            contenedor.add(ventas);
             
-            contenedor.validate();
-*/
+            mostrarPanel(Home.VENTAS_FRAME);
         }else if (evt.equals(btn_prove)) {
 //            clientes.setVisible(false);
 //            Inventario.setVisible(false);
@@ -457,4 +441,12 @@ public class Home extends javax.swing.JFrame implements ActionListener {
 //            contenedor.validate();
     }
         }
+
+    private void mostrarPanel(JPanel panel) {
+            panel.setVisible(true);
+            contenedor.removeAll();
+            contenedor.add(panel);
+            contenedor.revalidate();
+            contenedor.repaint();//actualizar el contenedor
+    }
 }

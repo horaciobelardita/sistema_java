@@ -289,9 +289,9 @@ public class ProductoFrame extends javax.swing.JPanel {
 //      instancia de un nuevo producto con los valores
         Producto producto;
         producto = new Producto();
-        producto.setCodigo(codigo);
-        producto.setNombre(nombre);
-        producto.setDescripcion(descripcion);
+        producto.setCodigo(codigo.toLowerCase());
+        producto.setNombre(nombre.toLowerCase());
+        producto.setDescripcion(descripcion.toLowerCase());
         producto.setPrecioCompra(precioCompra);
         producto.setPrecioVenta(precioVenta);
         producto.setIdProveedor(proveedor.getId());
