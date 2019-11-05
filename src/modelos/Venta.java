@@ -16,9 +16,20 @@ public class Venta {
     private Integer id;
     private Date fecha;
     private Double importe;
+    private String dni;
 
-    public Venta(Date fecha, Double importe) {
+    public String getDni() {
+        return dni;
+    }
+
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
+    
+    
+    public Venta(String dni, Date fecha, Double importe) {
         this.fecha = fecha;
+        this.dni = dni;
         this.importe = importe;
     }
     

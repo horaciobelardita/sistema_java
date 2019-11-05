@@ -11,12 +11,14 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import javax.management.openmbean.KeyAlreadyExistsException;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import modelos.Cliente;
 import modelos.DetalleVenta;
 import modelos.Producto;
 import modelos.Venta;
@@ -36,14 +38,23 @@ public class VentasFrame extends javax.swing.JPanel {
 
     };
     DefaultListModel<Producto> modeloListaProd = new DefaultListModel<>();
+    public static DefaultComboBoxModel<Cliente> modeloCboCliente = new DefaultComboBoxModel<Cliente>();
 
     /**
      * Creates new form ventas
      */
     public VentasFrame() {
         cargarColumnasTabla();
+        cargarModeloCboCli();
         initComponents();
         setListenerModeloTabla();
+    }
+    
+    public static void cargarModeloCboCli() {
+        ArrayList<Cliente> clientes = MetodosSQL.obtenerClientes();
+        for (Cliente cliente : clientes) {
+            modeloCboCliente.addElement(cliente);
+        }
     }
 
     private void cargarColumnasTabla() {
@@ -78,10 +89,12 @@ public class VentasFrame extends javax.swing.JPanel {
         lblTotalVenta = new javax.swing.JLabel();
         btnRealizarVta = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
-        btnCancelarVta1 = new javax.swing.JPanel();
+        btnNuevoCli = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        jComboBox1 = new javax.swing.JComboBox<Cliente>();
+        btnCancelarVta2 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(47, 34, 23));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -101,7 +114,7 @@ public class VentasFrame extends javax.swing.JPanel {
 
         jLabel1.setForeground(java.awt.Color.white);
         jLabel1.setText("Cliente:");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 80, -1, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 80, -1, -1));
 
         txtBuscarProd.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -201,36 +214,53 @@ public class VentasFrame extends javax.swing.JPanel {
 
         add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 310, 320, 300));
 
-        btnCancelarVta1.setBackground(new java.awt.Color(255, 102, 0));
-        btnCancelarVta1.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnNuevoCli.setBackground(new java.awt.Color(255, 102, 0));
+        btnNuevoCli.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnCancelarVta1MouseClicked(evt);
+                btnNuevoCliMouseClicked(evt);
             }
         });
-        btnCancelarVta1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        btnNuevoCli.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel14.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("Cancelar Venta");
-        btnCancelarVta1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 150, -1));
+        jLabel14.setText("Nuevo");
+        btnNuevoCli.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 60, -1));
 
-        add(btnCancelarVta1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 640, 200, 40));
+        add(btnNuevoCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 110, 90, 40));
 
         jLabel3.setForeground(java.awt.Color.white);
         jLabel3.setText("Buscar Producto:");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, -1, -1));
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 110, 330, -1));
+        jComboBox1.setModel(modeloCboCliente);
+        add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 110, 310, -1));
+
+        btnCancelarVta2.setBackground(new java.awt.Color(255, 102, 0));
+        btnCancelarVta2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnCancelarVta2MouseClicked(evt);
+            }
+        });
+        btnCancelarVta2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel15.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel15.setText("Cancelar Venta");
+        btnCancelarVta2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 150, -1));
+
+        add(btnCancelarVta2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 640, 200, 40));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRealizarVtaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRealizarVtaMouseClicked
 //        obtener total venta y fecha actual
         double totalVenta = Double.parseDouble(lblTotalVenta.getText());
         Date fecha = obtenerFechaActual();
+        Cliente cliente =  (Cliente) modeloCboCliente.getSelectedItem();
+        String dni = cliente.getDni();
 //        insertar en la bd nueva venta
-        Venta venta = new Venta(fecha, totalVenta);
-        int idVenta = MetodosSQL.insertarVenta(venta);
+        Venta venta = new Venta(dni, fecha, totalVenta);
+        Integer idVenta = MetodosSQL.insertarVenta(venta);
 //        insertar detalle venta
         int numRows = modeloTablaProd.getRowCount();
         for (int i = 0; i < numRows; i++) {
@@ -243,9 +273,12 @@ public class VentasFrame extends javax.swing.JPanel {
             MetodosSQL.insertarDetalleVenta(detalleVenta);
 
         }
+        if (idVenta != null) {
+            JOptionPane.showMessageDialog(this, "Venta generada con exito!");
+        }
         eliminarFilasTabla();
         lblTotalVenta.setText("0.0");
-
+        
     }//GEN-LAST:event_btnRealizarVtaMouseClicked
 
     private void txtBuscarProdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarProdKeyReleased
@@ -302,27 +335,33 @@ public class VentasFrame extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnQuitarProd1MouseClicked
 
-    private void btnCancelarVta1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarVta1MouseClicked
-        int nroFilas = modeloTablaProd.getRowCount();
+    private void btnNuevoCliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNuevoCliMouseClicked
+       Home.mostrarPanel(Home.CLIENTES_FRAME);
+
+    }//GEN-LAST:event_btnNuevoCliMouseClicked
+
+    private void btnCancelarVta2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarVta2MouseClicked
+         int nroFilas = modeloTablaProd.getRowCount();
         if (nroFilas > 0) {
             int opcion = JOptionPane.showConfirmDialog(this, "Seguro de cancelar la venta");
             if (opcion == 0) {
                 eliminarFilasTabla();
             }
         }
-
-    }//GEN-LAST:event_btnCancelarVta1MouseClicked
+    }//GEN-LAST:event_btnCancelarVta2MouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel btnCancelarVta1;
+    private javax.swing.JPanel btnCancelarVta2;
+    private javax.swing.JPanel btnNuevoCli;
     private javax.swing.JPanel btnQuitarProd1;
     private javax.swing.JPanel btnRealizarVta;
-    private javax.swing.JComboBox jComboBox1;
+    private javax.swing.JComboBox<Cliente> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JList jList1;

@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import modelos.Cliente;
 import modelos.DetalleVenta;
 import modelos.Producto;
 import modelos.Proveedor;
@@ -372,35 +373,40 @@ public class MetodosSQL {
     }
 
     public static int insertarVenta(Venta venta) {
-        int filasAfectadas = 0;
         Connection conexion = null;
         ResultSet rs = null;
         PreparedStatement pstm = null;
         String sql = "INSERT INTO ventas "
-                + "(importe, fecha) "
-                + "VALUES (?,?)";
+                + "(importe, fecha, dni) "
+                + "VALUES (?,?, ?)";
         String ultimoId = null;
         try {
             conexion = BaseDatos.obtenerConexion();
             pstm = conexion.prepareStatement(sql);
             pstm.setDouble(1, venta.getImporte());
             pstm.setDate(2, venta.getFecha());
-
-            filasAfectadas = pstm.executeUpdate();
-            rs = pstm.executeQuery("select id_venta as ultimo_id from ventas order by id_venta DESC LIMIT 1");
+            pstm.setString(3, venta.getDni());
+            pstm.executeUpdate();
+            rs = pstm.executeQuery("select MAX(id_venta) + 1 from ventas");
             while (rs.next()) {
-                            ultimoId = rs.getString("ultimo_id");
-
+                ultimoId = rs.getString("ultimo_id");
             }
+
         } catch (SQLException e) {
         } finally {
             BaseDatos.cerrarResultSet(rs);
             BaseDatos.cerrarStatement(pstm);
         }
+        int id;
+        try {
+            id = Integer.parseInt(ultimoId);
 
-        return Integer.parseInt(ultimoId);
-
+        } catch (NumberFormatException e) {
+            id = 1;
+        }
+        return id;
     }
+
     public static int insertarDetalleVenta(DetalleVenta detalleVenta) {
         int filasAfectadas = 0;
         Connection conexion = null;
@@ -414,6 +420,61 @@ public class MetodosSQL {
             pstm.setInt(1, detalleVenta.getIdVenta());
             pstm.setString(2, detalleVenta.getCodigoProducto());
             pstm.setInt(3, detalleVenta.getCantidad());
+
+            filasAfectadas = pstm.executeUpdate();
+            pstm.close();
+        } catch (SQLException e) {
+        } finally {
+            BaseDatos.cerrarStatement(pstm);
+        }
+
+        return filasAfectadas;
+
+    }
+
+    public static ArrayList<Cliente> obtenerClientes() {
+        Connection conexion = null;
+        ArrayList<Cliente> clientes = new ArrayList<>();
+        Statement stmt = null;
+        ResultSet rs = null;
+        try {
+            conexion = BaseDatos.obtenerConexion();
+            stmt = conexion.createStatement();
+            String sql = "SELECT * FROM clientes ORDER BY dni";
+            rs = stmt.executeQuery(sql);
+            while (rs.next()) {
+                Cliente cliente = new Cliente();
+                cliente.setDni(rs.getString("dni"));
+                cliente.setApellido(rs.getString("apellidos"));
+                cliente.setNombre(rs.getString("nombre"));
+                cliente.setTelefono(rs.getString("telefono"));
+                cliente.setCategoriaIva(rs.getString("categoria_iva"));
+                clientes.add(cliente);
+            }
+
+        } catch (SQLException e) {
+        } finally {
+            BaseDatos.cerrarResultSet(rs);
+            BaseDatos.cerrarStatement(stmt);
+        }
+        return clientes;
+    }
+
+    public static int guardarCliente(Cliente cliente) {
+        int filasAfectadas = 0;
+        Connection conexion = null;
+        PreparedStatement pstm = null;
+        String sql = "INSERT INTO clientes "
+                + "(dni, nombre, apellidos, telefono, categoria_iva) "
+                + "VALUES (?,?,?,?,?)";
+        try {
+            conexion = BaseDatos.obtenerConexion();
+            pstm = conexion.prepareStatement(sql);
+            pstm.setString(1, cliente.getDni());
+            pstm.setString(2, cliente.getNombre());
+            pstm.setString(3, cliente.getApellido());
+            pstm.setString(4, cliente.getTelefono());
+            pstm.setString(5, cliente.getCategoriaIva());
 
             filasAfectadas = pstm.executeUpdate();
             pstm.close();

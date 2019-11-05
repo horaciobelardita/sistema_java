@@ -20,6 +20,7 @@ public class Home extends javax.swing.JFrame implements ActionListener {
    public static final Inventario INVENTARIO = new Inventario();
    public static final ProductoFrame PRODUCTO_FRAME = new ProductoFrame(null, null, false);
    public static final VentasFrame VENTAS_FRAME = new VentasFrame();
+   public static final ClientesFrame CLIENTES_FRAME = new ClientesFrame();
 //   ventas ventas = new ventas();
    /*
    proveedores proveedores = new proveedores();
@@ -442,7 +443,7 @@ public class Home extends javax.swing.JFrame implements ActionListener {
     }
         }
 
-    private void mostrarPanel(JPanel panel) {
+    public static void mostrarPanel(JPanel panel) {
             panel.setVisible(true);
             contenedor.removeAll();
             contenedor.add(panel);
