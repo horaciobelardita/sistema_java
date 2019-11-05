@@ -42,3 +42,19 @@ imagen MEDIUMBLOB default null,
 
 insert into productos values ('123456789101', 'Coca-cola', 'bebida', 150.5, 110.0, 10, null, 1);
 insert into productos values ('123456789102', 'Pan Blanco', 'panificado', 65.0, 45.0, 10, null, 1);
+insert into productos values ('123456789103', 'Manaos Uva 2.15 lts', 'bebida', 65.0, 45.0, 3, null, 1);
+
+create table ventas (
+    id_venta int auto_increment primary key,
+    fecha date not null,
+    importe float(10, 2) not null
+);
+
+create table detalle_venta (
+    id_venta int not null,
+    codigo_producto varchar(13) not null,
+    cantidad int not null,
+    primary key(id_venta, codigo_producto),
+    foreign key (id_venta) references ventas(id_venta),
+    foreign key (codigo_producto) references productos(codigo)
+);

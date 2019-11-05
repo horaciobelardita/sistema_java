@@ -7,7 +7,9 @@ package FramesPanels;
 
 import db.MetodosSQL;
 import java.awt.event.KeyEvent;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Calendar;
 import javax.management.openmbean.KeyAlreadyExistsException;
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
@@ -15,7 +17,9 @@ import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import modelos.DetalleVenta;
 import modelos.Producto;
+import modelos.Venta;
 
 /**
  *
@@ -72,10 +76,12 @@ public class VentasFrame extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         lblTotalVenta = new javax.swing.JLabel();
-        btnCancelarVta = new javax.swing.JPanel();
+        btnRealizarVta = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         btnCancelarVta1 = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox();
 
         setBackground(new java.awt.Color(47, 34, 23));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -91,11 +97,11 @@ public class VentasFrame extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tabla);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 600, 290));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 730, 290));
 
         jLabel1.setForeground(java.awt.Color.white);
-        jLabel1.setText("Buscar Producto:");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, -1, -1));
+        jLabel1.setText("Cliente:");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 80, -1, -1));
 
         txtBuscarProd.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -153,18 +159,18 @@ public class VentasFrame extends javax.swing.JPanel {
         lblTotalVenta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTotalVenta.setText("0.0");
 
-        btnCancelarVta.setBackground(new java.awt.Color(255, 102, 0));
-        btnCancelarVta.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnRealizarVta.setBackground(new java.awt.Color(255, 102, 0));
+        btnRealizarVta.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnCancelarVtaMouseClicked(evt);
+                btnRealizarVtaMouseClicked(evt);
             }
         });
-        btnCancelarVta.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        btnRealizarVta.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel12.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel12.setForeground(new java.awt.Color(255, 255, 255));
         jLabel12.setText("Realizar Venta");
-        btnCancelarVta.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 150, -1));
+        btnRealizarVta.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 150, -1));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -175,7 +181,7 @@ public class VentasFrame extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(57, 57, 57)
-                        .addComponent(btnCancelarVta, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnRealizarVta, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(55, 55, 55)
                         .addComponent(jLabel2)))
@@ -189,7 +195,7 @@ public class VentasFrame extends javax.swing.JPanel {
                 .addGap(33, 33, 33)
                 .addComponent(lblTotalVenta)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                .addComponent(btnCancelarVta, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnRealizarVta, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(46, 46, 46))
         );
 
@@ -209,11 +215,38 @@ public class VentasFrame extends javax.swing.JPanel {
         btnCancelarVta1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 150, -1));
 
         add(btnCancelarVta1, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 640, 200, 40));
+
+        jLabel3.setForeground(java.awt.Color.white);
+        jLabel3.setText("Buscar Producto:");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, -1, -1));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 110, 330, -1));
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnCancelarVtaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarVtaMouseClicked
+    private void btnRealizarVtaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRealizarVtaMouseClicked
+//        obtener total venta y fecha actual
+        double totalVenta = Double.parseDouble(lblTotalVenta.getText());
+        Date fecha = obtenerFechaActual();
+//        insertar en la bd nueva venta
+        Venta venta = new Venta(fecha, totalVenta);
+        int idVenta = MetodosSQL.insertarVenta(venta);
+//        insertar detalle venta
+        int numRows = modeloTablaProd.getRowCount();
+        for (int i = 0; i < numRows; i++) {
+            String codigoProd = (String) modeloTablaProd.getValueAt(i, 0);
+            String strCantidad = (String) modeloTablaProd.getValueAt(i, 3);
+            int cantidad = Integer.parseInt(strCantidad);
+            DetalleVenta detalleVenta = new DetalleVenta(
+                    idVenta, codigoProd, cantidad
+            );
+            MetodosSQL.insertarDetalleVenta(detalleVenta);
 
-    }//GEN-LAST:event_btnCancelarVtaMouseClicked
+        }
+        eliminarFilasTabla();
+        lblTotalVenta.setText("0.0");
+
+    }//GEN-LAST:event_btnRealizarVtaMouseClicked
 
     private void txtBuscarProdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarProdKeyReleased
         String cadenaBusqueda = txtBuscarProd.getText().toLowerCase();
@@ -274,9 +307,7 @@ public class VentasFrame extends javax.swing.JPanel {
         if (nroFilas > 0) {
             int opcion = JOptionPane.showConfirmDialog(this, "Seguro de cancelar la venta");
             if (opcion == 0) {
-                for (int i = nroFilas - 1; i >= 0; i--) {
-                    modeloTablaProd.removeRow(i);
-                }
+                eliminarFilasTabla();
             }
         }
 
@@ -284,14 +315,16 @@ public class VentasFrame extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel btnCancelarVta;
     private javax.swing.JPanel btnCancelarVta1;
     private javax.swing.JPanel btnQuitarProd1;
+    private javax.swing.JPanel btnRealizarVta;
+    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -332,5 +365,18 @@ public class VentasFrame extends javax.swing.JPanel {
                 lblTotalVenta.setText(String.valueOf(total));
             }
         });
+    }
+
+    private Date obtenerFechaActual() {
+        Calendar calendar = Calendar.getInstance();
+        java.util.Date fechaActual = calendar.getTime();
+        long fechaMilisegundos = fechaActual.getTime();
+        return new Date(fechaMilisegundos);
+    }
+
+    private void eliminarFilasTabla() {
+        for (int i = modeloTablaProd.getRowCount() - 1; i >= 0; i--) {
+            modeloTablaProd.removeRow(i);
+        }
     }
 }

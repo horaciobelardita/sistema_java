@@ -15,9 +15,11 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import modelos.DetalleVenta;
 import modelos.Producto;
 import modelos.Proveedor;
 import modelos.Usuario;
+import modelos.Venta;
 
 public class MetodosSQL {
 
@@ -162,34 +164,34 @@ public class MetodosSQL {
     }
 
     /*
-    public int guardar_inv(String nombre, String pre_com, String pre_ven, String cant_inv, String id_prove, String url_inv, String descr_inv) {
+     public int guardar_inv(String nombre, String pre_com, String pre_ven, String cant_inv, String id_prove, String url_inv, String descr_inv) {
 
-        int resultado = 0;
-        Connection conexion = null;
-        String sentencia_guardar = ("INSERT INTO inventario (nombre ,pre_com, pre_ven, cantidad, id_prove, descripcion, imagen) VALUES (?,?,?,?,?,?,?)");
+     int resultado = 0;
+     Connection conexion = null;
+     String sentencia_guardar = ("INSERT INTO inventario (nombre ,pre_com, pre_ven, cantidad, id_prove, descripcion, imagen) VALUES (?,?,?,?,?,?,?)");
 
-        try {
-            conexion = BaseDatos.conectar();
-            sentencia_preparada = conexion.prepareStatement(sentencia_guardar);
-            sentencia_preparada.setString(1, nombre);
-            sentencia_preparada.setString(2, pre_com);
-            sentencia_preparada.setString(3, pre_ven);
-            sentencia_preparada.setString(4, cant_inv);
-            sentencia_preparada.setString(5, cant_inv);
-            sentencia_preparada.setString(6, url_inv);
-            sentencia_preparada.setString(7, descr_inv);
+     try {
+     conexion = BaseDatos.conectar();
+     sentencia_preparada = conexion.prepareStatement(sentencia_guardar);
+     sentencia_preparada.setString(1, nombre);
+     sentencia_preparada.setString(2, pre_com);
+     sentencia_preparada.setString(3, pre_ven);
+     sentencia_preparada.setString(4, cant_inv);
+     sentencia_preparada.setString(5, cant_inv);
+     sentencia_preparada.setString(6, url_inv);
+     sentencia_preparada.setString(7, descr_inv);
 
-            resultado = sentencia_preparada.executeUpdate();
-            sentencia_preparada.close();
+     resultado = sentencia_preparada.executeUpdate();
+     sentencia_preparada.close();
 
-            conexion.close();
-        } catch (Exception e) {
-            System.out.print(e);
-        }
+     conexion.close();
+     } catch (Exception e) {
+     System.out.print(e);
+     }
 
-        return resultado;
+     return resultado;
 
-    }
+     }
      */
     //    public static String buscarNombreUsuario(String nick) {
     //        Connection conexion = null;
@@ -369,4 +371,58 @@ public class MetodosSQL {
         return filasAfectadas;
     }
 
+    public static int insertarVenta(Venta venta) {
+        int filasAfectadas = 0;
+        Connection conexion = null;
+        ResultSet rs = null;
+        PreparedStatement pstm = null;
+        String sql = "INSERT INTO ventas "
+                + "(importe, fecha) "
+                + "VALUES (?,?)";
+        String ultimoId = null;
+        try {
+            conexion = BaseDatos.obtenerConexion();
+            pstm = conexion.prepareStatement(sql);
+            pstm.setDouble(1, venta.getImporte());
+            pstm.setDate(2, venta.getFecha());
+
+            filasAfectadas = pstm.executeUpdate();
+            rs = pstm.executeQuery("select id_venta as ultimo_id from ventas order by id_venta DESC LIMIT 1");
+            while (rs.next()) {
+                            ultimoId = rs.getString("ultimo_id");
+
+            }
+        } catch (SQLException e) {
+        } finally {
+            BaseDatos.cerrarResultSet(rs);
+            BaseDatos.cerrarStatement(pstm);
+        }
+
+        return Integer.parseInt(ultimoId);
+
+    }
+    public static int insertarDetalleVenta(DetalleVenta detalleVenta) {
+        int filasAfectadas = 0;
+        Connection conexion = null;
+        PreparedStatement pstm = null;
+        String sql = "INSERT INTO detalle_venta "
+                + "(id_venta, codigo_producto, cantidad) "
+                + "VALUES (?,?,?)";
+        try {
+            conexion = BaseDatos.obtenerConexion();
+            pstm = conexion.prepareStatement(sql);
+            pstm.setInt(1, detalleVenta.getIdVenta());
+            pstm.setString(2, detalleVenta.getCodigoProducto());
+            pstm.setInt(3, detalleVenta.getCantidad());
+
+            filasAfectadas = pstm.executeUpdate();
+            pstm.close();
+        } catch (SQLException e) {
+        } finally {
+            BaseDatos.cerrarStatement(pstm);
+        }
+
+        return filasAfectadas;
+
+    }
 }
