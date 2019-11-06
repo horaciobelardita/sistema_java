@@ -464,8 +464,8 @@ public class MetodosSQL {
         Connection conexion = null;
         PreparedStatement pstm = null;
         String sql = "INSERT INTO clientes "
-                + "(dni, nombre, apellidos, telefono, categoria_iva) "
-                + "VALUES (?,?,?,?,?)";
+                + "(dni, nombre, apellidos, telefono, direccion, categoria_iva) "
+                + "VALUES (?,?,?,?,?,?)";
         try {
             conexion = BaseDatos.obtenerConexion();
             pstm = conexion.prepareStatement(sql);
@@ -473,7 +473,8 @@ public class MetodosSQL {
             pstm.setString(2, cliente.getNombre());
             pstm.setString(3, cliente.getApellido());
             pstm.setString(4, cliente.getTelefono());
-            pstm.setString(5, cliente.getCategoriaIva());
+            pstm.setString(5, cliente.getDireccion());
+            pstm.setString(6, cliente.getCategoriaIva());
 
             filasAfectadas = pstm.executeUpdate();
             pstm.close();

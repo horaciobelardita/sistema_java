@@ -16,6 +16,17 @@ public class Cliente {
     private String dni;
     private String telefono;
     private String categoriaIva;
+    private String direccion;
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
+    
+    
 
     public String getNombre() {
         return nombre;
@@ -61,6 +72,14 @@ public class Cliente {
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
+        this.telefono = telefono;
+        this.categoriaIva = categoriaIva;
+    }
+    public Cliente(String nombre, String apellido, String dni, String telefono, String direccion, String categoriaIva) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.dni = dni;
+        this.direccion = direccion;
         this.telefono = telefono;
         this.categoriaIva = categoriaIva;
     }

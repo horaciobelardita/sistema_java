@@ -56,6 +56,7 @@ public class VentasFrame extends javax.swing.JPanel {
     }
     
     public static void cargarModeloCboCli() {
+        modeloCboCliente.removeAllElements();
         ArrayList<Cliente> clientes = MetodosSQL.obtenerClientes();
         for (Cliente cliente : clientes) {
             modeloCboCliente.addElement(cliente);

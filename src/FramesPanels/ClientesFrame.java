@@ -49,6 +49,8 @@ public class ClientesFrame extends javax.swing.JPanel {
         btnGuardarCliente = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         btn_regis4 = new javax.swing.JPanel();
+        txtDirCli = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(47, 34, 23));
         setPreferredSize(new java.awt.Dimension(1050, 575));
@@ -71,8 +73,8 @@ public class ClientesFrame extends javax.swing.JPanel {
 
         jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Teléfono");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 240, -1, -1));
+        jLabel4.setText("Direccion");
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 300, -1, -1));
 
         txtApellidoCli.setBackground(new java.awt.Color(47, 34, 23));
         txtApellidoCli.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -111,11 +113,11 @@ public class ClientesFrame extends javax.swing.JPanel {
         jLabel8.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Categoria IVA");
-        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 300, -1, -1));
+        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 350, -1, -1));
 
         cboCatIva.setForeground(new java.awt.Color(255, 255, 255));
         cboCatIva.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Consumidor final", "Exento", "Exterior", "Monotributista", "Responsable inscripto" }));
-        add(cboCatIva, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 290, 240, -1));
+        add(cboCatIva, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 340, 240, -1));
 
         btnCancelar.setBackground(new java.awt.Color(255, 102, 0));
         btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -144,7 +146,7 @@ public class ClientesFrame extends javax.swing.JPanel {
         jLabel11.setText("Cancelar");
         btnCancelar.add(jLabel11, new java.awt.GridBagConstraints());
 
-        add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 370, 110, 40));
+        add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 420, 110, 40));
 
         btnGuardarCliente.setBackground(new java.awt.Color(255, 102, 0));
         btnGuardarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -170,7 +172,17 @@ public class ClientesFrame extends javax.swing.JPanel {
         btn_regis4.setLayout(new java.awt.GridBagLayout());
         btnGuardarCliente.add(btn_regis4, new java.awt.GridBagConstraints());
 
-        add(btnGuardarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 370, 110, 40));
+        add(btnGuardarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 420, 110, 40));
+
+        txtDirCli.setBackground(new java.awt.Color(47, 34, 23));
+        txtDirCli.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtDirCli.setForeground(new java.awt.Color(255, 255, 255));
+        add(txtDirCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 290, 240, -1));
+
+        jLabel5.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel5.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel5.setText("Teléfono");
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 240, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtApellidoCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoCliActionPerformed
@@ -198,6 +210,8 @@ public class ClientesFrame extends javax.swing.JPanel {
      cliente.setDni(txtDniCli.getText());
      cliente.setNombre(txtNombreCli.getText());
      cliente.setApellido(txtApellidoCli.getText());
+     cliente.setTelefono(txtTelCli.getText());
+     cliente.setDireccion(txtDirCli.getText());
      cliente.setCategoriaIva((String) cboCatIva.getSelectedItem());
      int resultado = MetodosSQL.guardarCliente(cliente);
      if (resultado > 0) {
@@ -221,12 +235,14 @@ public class ClientesFrame extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtApellidoCli;
+    private javax.swing.JTextField txtDirCli;
     private javax.swing.JTextField txtDniCli;
     private javax.swing.JTextField txtNombreCli;
     private javax.swing.JTextField txtTelCli;

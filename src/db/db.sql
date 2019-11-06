@@ -49,6 +49,7 @@ create table clientes (
     nombre varchar(30) not null,
     apellidos varchar(45) not null,
     telefono varchar(18) ,
+    direccion varchar(100),
     categoria_iva enum(
     'Consumidor final',
 'Exento',
@@ -71,7 +72,7 @@ create table ventas (
 create table detalle_venta (
     id_venta int not null,
     codigo_producto varchar(13) not null,
-    cantidad int not null,
+    cantidad int unsigned not null,
     primary key(id_venta, codigo_producto),
     foreign key (id_venta) references ventas(id_venta),
     foreign key (codigo_producto) references productos(codigo)
