@@ -305,7 +305,8 @@ public class inicio extends javax.swing.JFrame {
         String nombreUsuario = txtNick.getText();
         String password = txtPassword.getText();
         if (nombreUsuario.isEmpty() || password.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Debe completar los campos");
+            JOptionPane.showMessageDialog(this, "Ingrese Usuario y contraseña.",
+                    "Error: Ingrese sus datos de usuario", JOptionPane.ERROR_MESSAGE);
             txtNick.requestFocus();
             return;
         }
@@ -319,7 +320,8 @@ public class inicio extends javax.swing.JFrame {
             Home.jl_nombre.setText(usuario.getNick());
             this.dispose();
         } else {
-            JOptionPane.showMessageDialog(this, "Usuario no registrado");
+            JOptionPane.showMessageDialog(this, "Datos incorrectos: verifique su Nombre de usuario y contraseña\n",
+                    "Error: Datos no Validos", JOptionPane.ERROR_MESSAGE);
         }
     }
 
