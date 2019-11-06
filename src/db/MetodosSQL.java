@@ -387,7 +387,7 @@ public class MetodosSQL {
             pstm.setDate(2, venta.getFecha());
             pstm.setString(3, venta.getDni());
             pstm.executeUpdate();
-            rs = pstm.executeQuery("select MAX(id_venta) + 1 from ventas");
+            rs = pstm.executeQuery("select MAX(id_venta) as ultimo_id from ventas");
             while (rs.next()) {
                 ultimoId = rs.getString("ultimo_id");
             }
