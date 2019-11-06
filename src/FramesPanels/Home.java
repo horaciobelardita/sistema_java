@@ -18,7 +18,7 @@ public class Home extends javax.swing.JFrame implements ActionListener {
    clientes clientes = new clientes();
     */
    public static final Inventario INVENTARIO = new Inventario();
-   public static final ProductoFrame PRODUCTO_FRAME = new ProductoFrame(null, null, false);
+   public static final ProductoFrame PRODUCTO_FRAME = new ProductoFrame();
    public static final VentasFrame VENTAS_FRAME = new VentasFrame();
    public static final ClientesFrame CLIENTES_FRAME = new ClientesFrame();
 //   ventas ventas = new ventas();

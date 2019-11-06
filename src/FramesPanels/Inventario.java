@@ -7,12 +7,16 @@ package FramesPanels;
 
 import static FramesPanels.Home.contenedor;
 import db.MetodosSQL;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import javax.imageio.ImageIO;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
@@ -43,6 +47,29 @@ public class Inventario extends javax.swing.JPanel {
             for (int i = numFilas - 1; i >= 0; i--) {
                 modeloTabla.removeRow(i);
             }
+        }
+    }
+
+    private void cargarImagen(Producto p) {
+        ImageIcon imagenProd = null;
+        try {
+            InputStream is = MetodosSQL.buscarFoto(p);
+            BufferedImage bi = ImageIO.read(is);
+            imagenProd = new ImageIcon(bi);
+            //Redimensión de imagen para ajustarla al tamaño del JLabel.
+            Image imgProd = imagenProd.getImage();
+            int anchoEtiqueta = lblImagenProd.getWidth(); //Obtiene ancho de la imagen
+            int altoEtiqueta = lblImagenProd.getHeight(); //Obtiene alto de la imagen
+
+            //Se crea un nuevo objeto Image con la imagen redimensionada.
+            Image imgRedimensionada = imgProd.getScaledInstance(anchoEtiqueta, altoEtiqueta, Image.SCALE_DEFAULT);
+            //Se crea un nuevo objeto ImageIcon a partir de la imagen redimensionada.
+            ImageIcon iconRedimensionado = new ImageIcon(imgRedimensionada);
+
+            //Establecemos la imagen redimensionada, como icono de la etiqueta de imagen.
+            lblImagenProd.setIcon(iconRedimensionado);
+        } catch (IOException e) {
+
         }
     }
 
@@ -110,6 +137,8 @@ public class Inventario extends javax.swing.JPanel {
         jLabel16 = new javax.swing.JLabel();
         txtCodigoProducto = new javax.swing.JTextField();
         jLabel17 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        lblImagenProd = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(47, 34, 23));
         setPreferredSize(new java.awt.Dimension(1270, 740));
@@ -125,7 +154,7 @@ public class Inventario extends javax.swing.JPanel {
                         txtNombreProducto.setText(producto.getNombre().toUpperCase());
                         txtCodigoProducto.setText(producto.getCodigo().toUpperCase());
                         productoSeleccionado = producto;
-
+                        cargarImagen(producto);
                     }
                 }
             }
@@ -249,6 +278,19 @@ public class Inventario extends javax.swing.JPanel {
         jLabel17.setForeground(new java.awt.Color(255, 255, 255));
         jLabel17.setText("Buscar:");
         add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 190, -1, -1));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblImagenProd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(lblImagenProd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+        );
+
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 50, 270, 180));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_regis3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_regis3MouseClicked
@@ -291,16 +333,11 @@ public class Inventario extends javax.swing.JPanel {
                     imagenProducto = new ImageIcon(bi);
 
                     /*crear ventana de actualización*/
-                    Home.INVENTARIO.setVisible(false);
                     Home.PRODUCTO_FRAME.cargarProducto(productoSeleccionado, imagenProducto);
                 } else {
                     Home.PRODUCTO_FRAME.cargarProducto(productoSeleccionado, null);
                 }
-                 Home.PRODUCTO_FRAME.setVisible(true);
-                 Home.contenedor.remove(this);
-                Home.contenedor.add( Home.PRODUCTO_FRAME);
-                Home.contenedor.revalidate();
-                Home.contenedor.repaint();
+                Home.mostrarPanel(Home.PRODUCTO_FRAME);
             } catch (IOException ex) {
                 ex.printStackTrace();
             }
@@ -350,8 +387,10 @@ public class Inventario extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblImagenProd;
     private javax.swing.JTable tablaProductos;
     private javax.swing.JTextField txtBuscarProd;
     private javax.swing.JTextField txtCodigoProducto;

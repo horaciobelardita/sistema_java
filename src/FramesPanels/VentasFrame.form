@@ -112,20 +112,17 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="lblImagenProd" alignment="1" pref="320" max="32767" attributes="0"/>
+              <Component id="lblImagenProd" alignment="1" min="-2" pref="320" max="-2" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="lblImagenProd" alignment="1" pref="190" max="32767" attributes="0"/>
+              <Component id="lblImagenProd" alignment="1" min="-2" pref="190" max="-2" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lblImagenProd">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="jLabel2"/>
-          </Properties>
         </Component>
       </SubComponents>
     </Container>

@@ -331,16 +331,15 @@ public class MetodosSQL {
 
             conexion = BaseDatos.obtenerConexion();
             String sql = "";
-            if (!actualizarFoto) {
                 sql = "UPDATE productos "
                         + "SET nombre = ?, descripcion = ? ,"
                         + "precio_venta = ?, precio_compra = ?, stock = ? , "
                         + "id_proveedor = ? ";
-            } else {
+            if (actualizarFoto) {
                 sql += ", imagen = ?";
             }
             sql += " WHERE codigo = ?";
-
+            System.out.println(sql);
             pstm = conexion.prepareStatement(sql);
             pstm.setString(1, p.getNombre());
             pstm.setString(2, p.getDescripcion());
@@ -353,7 +352,7 @@ public class MetodosSQL {
                 File fileFoto = p.getFoto();
                 FileInputStream fis = new FileInputStream(fileFoto);
                 long size = p.getFoto().length();
-                pstm.setBinaryStream(6, fis, size);
+                pstm.setBinaryStream(codigo, fis, size);
                 codigo++;
             }
 

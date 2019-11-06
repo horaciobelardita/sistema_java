@@ -6,12 +6,19 @@
 package FramesPanels;
 
 import db.MetodosSQL;
+import java.awt.Dimension;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
@@ -32,13 +39,13 @@ public class ProductoFrame extends javax.swing.JPanel {
     /**
      * Creates new form ProductoFrame1
      */
-    public ProductoFrame(Producto producto, ImageIcon icon, boolean actualizando) {
+    public ProductoFrame() {
         cargarModeloCombo();
         initComponents();
-        this.estaActualizando = actualizando;
-        if (producto != null) {
-            cargarProducto(producto, icon);
-        }
+        this.estaActualizando = false;
+//        if (producto != null) {
+//            cargarProducto(producto, icon);
+//        }
     }
 
     /**
@@ -72,7 +79,7 @@ public class ProductoFrame extends javax.swing.JPanel {
         btnGuardarProducto = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         btn_regis4 = new javax.swing.JPanel();
-        cboProveedor = new javax.swing.JComboBox<>();
+        cboProveedor = new javax.swing.JComboBox<Proveedor>();
         jPanel1 = new javax.swing.JPanel();
         lblImagenProducto = new javax.swing.JLabel();
 
@@ -117,7 +124,7 @@ public class ProductoFrame extends javax.swing.JPanel {
         txt_descr_inv.setBackground(new java.awt.Color(47, 34, 23));
         txt_descr_inv.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         txt_descr_inv.setForeground(new java.awt.Color(255, 255, 255));
-        add(txt_descr_inv, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 460, 260, 90));
+        add(txt_descr_inv, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 520, 260, 90));
 
         jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
@@ -150,7 +157,7 @@ public class ProductoFrame extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(255, 255, 255));
         jLabel6.setText("Descripción");
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 460, -1, -1));
+        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 520, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(255, 255, 255));
@@ -199,7 +206,7 @@ public class ProductoFrame extends javax.swing.JPanel {
         jLabel11.setText("Cancelar");
         btnCancelar.add(jLabel11, new java.awt.GridBagConstraints());
 
-        add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 590, 110, 40));
+        add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 650, 110, 40));
 
         btnGuardarProducto.setBackground(new java.awt.Color(255, 102, 0));
         btnGuardarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -225,7 +232,7 @@ public class ProductoFrame extends javax.swing.JPanel {
         btn_regis4.setLayout(new java.awt.GridBagLayout());
         btnGuardarProducto.add(btn_regis4, new java.awt.GridBagConstraints());
 
-        add(btnGuardarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 590, 110, 40));
+        add(btnGuardarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 650, 110, 40));
 
         cboProveedor.setModel(modeloCombo);
         add(cboProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 300, 260, -1));
@@ -237,18 +244,20 @@ public class ProductoFrame extends javax.swing.JPanel {
             }
         });
 
+        lblImagenProducto.setPreferredSize(new java.awt.Dimension(200, 200));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblImagenProducto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(lblImagenProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblImagenProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(lblImagenProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 340, 260, 100));
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 360, 260, 150));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtCodigoProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoProdActionPerformed
@@ -297,7 +306,8 @@ public class ProductoFrame extends javax.swing.JPanel {
         producto.setIdProveedor(proveedor.getId());
         producto.setStock(stock);
         if (imgProducto == null) {
-            producto.setFoto(null);
+            producto.setFoto(new File(getClass().getResource("/images/no_img.png").getFile()));
+
         } else {
             producto.setFoto(imgProducto);
         }
@@ -314,25 +324,21 @@ public class ProductoFrame extends javax.swing.JPanel {
             msg = "Producto agregado con exito!";
         } else {
             // actualizar
-               if (producto.getFoto() == null) {
+            if (producto.getFoto() == null) {
                 // actualizar producto sin foto
-               filasAfectadas = MetodosSQL.actualizarProducto(producto, false);
+                filasAfectadas = MetodosSQL.actualizarProducto(producto, false);
             } else {
                 // actualizar producto con foto
-               filasAfectadas = MetodosSQL.actualizarProducto(producto, true);
+                filasAfectadas = MetodosSQL.actualizarProducto(producto, true);
             }
-             msg = "Producto actualizado con exito!";
+            msg = "Producto actualizado con exito!";
         }
         if (filasAfectadas > 0) {
             JOptionPane.showMessageDialog(null, msg);
-            Home.contenedor.remove(this);
-            Home.INVENTARIO.setVisible(true);
             Home.INVENTARIO.reiniciarPanel();
-            Home.contenedor.add(Home.INVENTARIO);
-            Home.contenedor.revalidate();
-            Home.contenedor.repaint();
+            Home.mostrarPanel(Home.INVENTARIO);
 
-            Inventario.cargarModeloTabla(null);
+            Home.INVENTARIO.cargarModeloTabla(null);
         }
     }//GEN-LAST:event_btnGuardarProductoMouseClicked
 
@@ -415,15 +421,16 @@ public class ProductoFrame extends javax.swing.JPanel {
             Image imgProd = icon.getImage();
             int anchoEtiqueta = lblImagenProducto.getWidth(); //Obtiene ancho de la imagen
             int altoEtiqueta = lblImagenProducto.getHeight(); //Obtiene alto de la imagen
-
+            lblImagenProducto.setPreferredSize(new Dimension(200, 200));
             //Se crea un nuevo objeto Image con la imagen redimensionada.
-            Image imgRedimensionada = imgProd.getScaledInstance(anchoEtiqueta, altoEtiqueta, Image.SCALE_DEFAULT);
+            Image imgRedimensionada = imgProd.getScaledInstance(200, 200, Image.SCALE_DEFAULT);
 
             //Se crea un nuevo objeto ImageIcon a partir de la imagen redimensionada.
             ImageIcon iconRedimensionado = new ImageIcon(imgRedimensionada);
-
+                    
             lblImagenProducto.setIcon(iconRedimensionado);
-            lblImagenProducto.updateUI();
+        } else {
+            lblImagenProducto.setIcon(null);
         }
         String codigo = producto.getCodigo();
         String nombre = producto.getNombre();
@@ -438,21 +445,20 @@ public class ProductoFrame extends javax.swing.JPanel {
         txt_pre_com_inv.setText(String.valueOf(precioCompra));
         txt_pre_ven_inv.setText(String.valueOf(precioVenta));
         seleccionarProveedorCombo(producto.getIdProveedor());
-        System.out.println(producto.getIdProveedor());
         txtCodigoProd.setEnabled(false);
 
     }
 
-   
-
-    private void seleccionarProveedorCombo( Integer idProveedor) {
-        for (int i=0; i < cboProveedor.getItemCount(); i++) {
+    private void seleccionarProveedorCombo(Integer idProveedor) {
+        for (int i = 0; i < cboProveedor.getItemCount(); i++) {
             Proveedor prov = cboProveedor.getItemAt(i);
-            if ( prov.getId() ==  idProveedor ) {
+            if (prov.getId() == idProveedor) {
                 cboProveedor.getModel().setSelectedItem(prov);
                 break;
             }
         }
 
     }
+
+  
 }

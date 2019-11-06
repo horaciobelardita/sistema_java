@@ -6,13 +6,18 @@
 package FramesPanels;
 
 import db.MetodosSQL;
+import java.awt.Image;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.InputStream;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
+import javax.imageio.ImageIO;
 import javax.management.openmbean.KeyAlreadyExistsException;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.event.TableModelEvent;
@@ -135,17 +140,15 @@ public class VentasFrame extends javax.swing.JPanel {
 
         add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, 350, -1));
 
-        lblImagenProd.setText("jLabel2");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblImagenProd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 320, Short.MAX_VALUE)
+            .addComponent(lblImagenProd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblImagenProd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 190, Short.MAX_VALUE)
+            .addComponent(lblImagenProd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 100, 320, 190));
@@ -303,7 +306,30 @@ public class VentasFrame extends javax.swing.JPanel {
         }
         
     }//GEN-LAST:event_btnRealizarVtaMouseClicked
-
+     private void cargarImagen(Producto p){
+        ImageIcon imagenProd = null;
+        try {
+            InputStream is = MetodosSQL.buscarFoto(p);
+            BufferedImage bi = ImageIO.read(is);
+            imagenProd = new ImageIcon(bi);
+            lblImagenProd.setIcon(imagenProd);
+               
+                //Redimensión de imagen para ajustarla al tamaño del JLabel.
+                Image imgProd = imagenProd.getImage();
+                int anchoEtiqueta = lblImagenProd.getWidth(); //Obtiene ancho de la imagen
+                int altoEtiqueta = lblImagenProd.getHeight(); //Obtiene alto de la imagen
+                
+                //Se crea un nuevo objeto Image con la imagen redimensionada.
+                Image imgRedimensionada = imgProd.getScaledInstance(anchoEtiqueta, altoEtiqueta, Image.SCALE_DEFAULT);
+               
+                //Se crea un nuevo objeto ImageIcon a partir de la imagen redimensionada.
+                ImageIcon iconRedimensionado = new ImageIcon(imgRedimensionada);
+                
+                //Establecemos la imagen redimensionada, como icono de la etiqueta de imagen.
+                lblImagenProd.setIcon(iconRedimensionado);
+        } catch (Exception e) {
+        }
+    }
     private void txtBuscarProdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarProdKeyReleased
         String cadenaBusqueda = txtBuscarProd.getText().toLowerCase();
         if (cadenaBusqueda.isEmpty()) {
@@ -329,6 +355,7 @@ public class VentasFrame extends javax.swing.JPanel {
             // obtener producto seleccionado
             Producto producto = (Producto) jlist.getSelectedValue();
             agregarProductoAVenta(producto);
+            cargarImagen(producto);
         }
     }//GEN-LAST:event_jList1MousePressed
 
@@ -369,6 +396,8 @@ public class VentasFrame extends javax.swing.JPanel {
             int opcion = JOptionPane.showConfirmDialog(this, "Seguro de cancelar la venta");
             if (opcion == 0) {
                 eliminarFilasTabla();
+                limpiarListaProductos();
+                limpiarCampos();
             }
         }
     }//GEN-LAST:event_btnCancelarVta2MouseClicked
@@ -442,5 +471,12 @@ public class VentasFrame extends javax.swing.JPanel {
         for (int i = modeloTablaProd.getRowCount() - 1; i >= 0; i--) {
             modeloTablaProd.removeRow(i);
         }
+    }
+
+    private void limpiarCampos() {
+        txtBuscarProd.setText("");
+        txtPagaCon.setText("");
+        lblImagenProd.setIcon(null);
+        txtBuscarProd.requestFocus();
     }
 }

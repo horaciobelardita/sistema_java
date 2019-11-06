@@ -133,7 +133,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="430" y="460" width="260" height="90"/>
+          <AbsoluteConstraints x="430" y="520" width="260" height="90"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -234,7 +234,7 @@
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="300" y="460" width="-1" height="-1"/>
+          <AbsoluteConstraints x="300" y="520" width="-1" height="-1"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -321,7 +321,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="330" y="590" width="110" height="40"/>
+          <AbsoluteConstraints x="330" y="650" width="110" height="40"/>
         </Constraint>
       </Constraints>
 
@@ -379,7 +379,7 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="580" y="590" width="110" height="40"/>
+          <AbsoluteConstraints x="580" y="650" width="110" height="40"/>
         </Constraint>
       </Constraints>
 
@@ -449,24 +449,29 @@
       </Events>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="430" y="340" width="260" height="100"/>
+          <AbsoluteConstraints x="430" y="360" width="260" height="150"/>
         </Constraint>
       </Constraints>
 
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="lblImagenProducto" alignment="1" min="-2" pref="260" max="-2" attributes="0"/>
+              <Component id="lblImagenProducto" alignment="0" min="-2" pref="260" max="-2" attributes="0"/>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="lblImagenProducto" alignment="0" min="-2" pref="100" max="-2" attributes="0"/>
+              <Component id="lblImagenProducto" alignment="0" min="-2" pref="150" max="-2" attributes="0"/>
           </Group>
         </DimensionLayout>
       </Layout>
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lblImagenProducto">
+          <Properties>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[200, 200]"/>
+            </Property>
+          </Properties>
         </Component>
       </SubComponents>
     </Container>
