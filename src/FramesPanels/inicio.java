@@ -35,6 +35,8 @@ public class inicio extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator3 = new javax.swing.JSeparator();
         jLabel10 = new javax.swing.JLabel();
+        btn_regis1 = new javax.swing.JPanel();
+        jLabel11 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -122,7 +124,7 @@ public class inicio extends javax.swing.JFrame {
         jLabel9.setText("Iniciar sesión");
         btn_regis.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        jpanel_main.add(btn_regis, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 290, 130, 40));
+        jpanel_main.add(btn_regis, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 310, 130, 40));
 
         jButton2.setBackground(new java.awt.Color(255, 102, 0));
         jButton2.setForeground(new java.awt.Color(255, 102, 0));
@@ -159,6 +161,25 @@ public class inicio extends javax.swing.JFrame {
         jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, -1, -1));
 
         jpanel_main.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 500));
+
+        btn_regis1.setBackground(new java.awt.Color(255, 102, 0));
+        btn_regis1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        btn_regis1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_regis1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_regis1MouseEntered(evt);
+            }
+        });
+        btn_regis1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel11.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel11.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel11.setText("Salir");
+        btn_regis1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, -1, -1));
+
+        jpanel_main.add(btn_regis1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 310, 90, 40));
 
         contenedor_lo.add(jpanel_main, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 500));
 
@@ -215,6 +236,14 @@ public class inicio extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNickFocusGained
 
+    private void btn_regis1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_regis1MouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_btn_regis1MouseClicked
+
+    private void btn_regis1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_regis1MouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_regis1MouseEntered
+
     /**
      * @param args the command line arguments
      */
@@ -252,10 +281,12 @@ public class inicio extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel btn_regis;
+    private javax.swing.JPanel btn_regis1;
     private javax.swing.JPanel contenedor_lo;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
