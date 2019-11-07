@@ -40,9 +40,8 @@ public class ClientesFrame extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        txtDniCli = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        cboCatIva = new javax.swing.JComboBox<String>();
+        cboCatIva = new javax.swing.JComboBox<>();
         btnCancelar = new javax.swing.JPanel();
         btn_regis2 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
@@ -51,6 +50,7 @@ public class ClientesFrame extends javax.swing.JPanel {
         btn_regis4 = new javax.swing.JPanel();
         txtDirCli = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
+        txtDniCli = new javax.swing.JFormattedTextField();
 
         setBackground(new java.awt.Color(47, 34, 23));
         setPreferredSize(new java.awt.Dimension(1050, 575));
@@ -105,18 +105,13 @@ public class ClientesFrame extends javax.swing.JPanel {
         jLabel6.setText("DNI");
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 90, -1, -1));
 
-        txtDniCli.setBackground(new java.awt.Color(47, 34, 23));
-        txtDniCli.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtDniCli.setForeground(new java.awt.Color(255, 255, 255));
-        add(txtDniCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 90, 240, -1));
-
         jLabel8.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Categoria IVA");
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 350, -1, -1));
 
         cboCatIva.setForeground(new java.awt.Color(255, 255, 255));
-        cboCatIva.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Consumidor final", "Exento", "Exterior", "Monotributista", "Responsable inscripto" }));
+        cboCatIva.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Consumidor final", "Exento", "Exterior", "Monotributista", "Responsable inscripto" }));
         add(cboCatIva, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 340, 240, -1));
 
         btnCancelar.setBackground(new java.awt.Color(255, 102, 0));
@@ -183,6 +178,14 @@ public class ClientesFrame extends javax.swing.JPanel {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Teléfono");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 240, -1, -1));
+
+        txtDniCli.setBackground(new java.awt.Color(47, 34, 23));
+        try {
+            txtDniCli.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##.###.###")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+        add(txtDniCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 80, 240, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtApellidoCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoCliActionPerformed
@@ -243,7 +246,7 @@ public class ClientesFrame extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JTextField txtApellidoCli;
     private javax.swing.JTextField txtDirCli;
-    private javax.swing.JTextField txtDniCli;
+    private javax.swing.JFormattedTextField txtDniCli;
     private javax.swing.JTextField txtNombreCli;
     private javax.swing.JTextField txtTelCli;
     // End of variables declaration//GEN-END:variables
