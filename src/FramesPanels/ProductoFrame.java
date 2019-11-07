@@ -304,8 +304,8 @@ public class ProductoFrame extends javax.swing.JPanel {
         String nombre = txt_nom_inv.getText();
         Integer stock = Integer.parseInt(txtCantidadProd.getText());
         String descripcion = txt_descr_inv.getText();
-                    double precioVenta = Double.parseDouble(txtPrecioVtaProd.getText());
-        double precioCompra = Double.parseDouble(txtPrecioCompraProd.getText());
+        double precioVenta = Double.parseDouble(Helper.convertirComaAPunto(txtPrecioVtaProd.getText()));
+        double precioCompra = Double.parseDouble(Helper.convertirComaAPunto(txtPrecioCompraProd.getText()));
 
         Proveedor proveedor = (Proveedor) cboProveedor.getSelectedItem();
         int filasAfectadas = 0;
@@ -384,11 +384,11 @@ public class ProductoFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_jPanel1MouseClicked
 
     private void txtCantidadProdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadProdKeyPressed
-         Helper.validarSoloNumero(evt, txtCantidadProd);
+        Helper.validarSoloNumero(evt, txtCantidadProd);
     }//GEN-LAST:event_txtCantidadProdKeyPressed
 
     private void txtPrecioCompraProdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioCompraProdKeyPressed
-       Helper.validarSoloNumeroDecimales(evt, txtPrecioCompraProd);
+        Helper.validarSoloNumeroDecimales(evt, txtPrecioCompraProd);
     }//GEN-LAST:event_txtPrecioCompraProdKeyPressed
 
     private void txtPrecioVtaProdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioVtaProdKeyPressed
