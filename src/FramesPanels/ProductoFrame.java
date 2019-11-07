@@ -452,7 +452,7 @@ public class ProductoFrame extends javax.swing.JPanel {
             int anchoEtiqueta = lblImagenProducto.getWidth(); //Obtiene ancho de la imagen
             int altoEtiqueta = lblImagenProducto.getHeight(); //Obtiene alto de la imagen
             //Se crea un nuevo objeto Image con la imagen redimensionada.
-            Image imgRedimensionada = imgProd.getScaledInstance(anchoEtiqueta, altoEtiqueta, Image.SCALE_DEFAULT);
+            Image imgRedimensionada = imgProd.getScaledInstance(250, 150, Image.SCALE_DEFAULT);
 
             //Se crea un nuevo objeto ImageIcon a partir de la imagen redimensionada.
             ImageIcon iconRedimensionado = new ImageIcon(imgRedimensionada);
