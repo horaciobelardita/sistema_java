@@ -25,6 +25,7 @@ import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import modelos.Producto;
 import modelos.Proveedor;
+import utils.Helper;
 
 /**
  *
@@ -35,6 +36,7 @@ public class ProductoFrame extends javax.swing.JPanel {
     DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel<>();
     private File imgProducto;
     public boolean estaActualizando;
+
     /**
      * Creates new form ProductoFrame1
      */
@@ -118,7 +120,12 @@ public class ProductoFrame extends javax.swing.JPanel {
                 txt_cant_invActionPerformed(evt);
             }
         });
-        add(txt_cant_inv, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 260, 80, -1));
+        txt_cant_inv.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txt_cant_invKeyPressed(evt);
+            }
+        });
+        add(txt_cant_inv, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 260, 100, -1));
 
         txt_descr_inv.setBackground(new java.awt.Color(47, 34, 23));
         txt_descr_inv.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -272,7 +279,7 @@ public class ProductoFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_regis2MouseClicked
 
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
-        
+
         Home.mostrarPanel(Home.INVENTARIO);
 
     }//GEN-LAST:event_btnCancelarMouseClicked
@@ -287,8 +294,9 @@ public class ProductoFrame extends javax.swing.JPanel {
         String nombre = txt_nom_inv.getText();
         Integer stock = Integer.parseInt(txt_cant_inv.getText());
         String descripcion = txt_descr_inv.getText();
-        double precioVenta = Double.parseDouble(txt_pre_ven_inv.getText());
+                    double precioVenta = Double.parseDouble(txt_pre_ven_inv.getText());
         double precioCompra = Double.parseDouble(txt_pre_com_inv.getText());
+
         Proveedor proveedor = (Proveedor) cboProveedor.getSelectedItem();
         int filasAfectadas = 0;
 //      instancia de un nuevo producto con los valores
@@ -330,11 +338,15 @@ public class ProductoFrame extends javax.swing.JPanel {
             msg = "Producto actualizado con exito!";
         }
         if (filasAfectadas > 0) {
+            // guardado con exito
             JOptionPane.showMessageDialog(null, msg);
             Home.INVENTARIO.reiniciarPanel();
             Home.mostrarPanel(Home.INVENTARIO);
-
             Home.INVENTARIO.cargarModeloTabla(null);
+        } else {
+            // error al guardar
+            JOptionPane.showMessageDialog(null, "Error, al ingresar el producto");
+            txtCodigoProd.requestFocus();
         }
     }//GEN-LAST:event_btnGuardarProductoMouseClicked
 
@@ -360,6 +372,10 @@ public class ProductoFrame extends javax.swing.JPanel {
             lblImagenProducto.setIcon(iconoRedimensionado);
         }
     }//GEN-LAST:event_jPanel1MouseClicked
+
+    private void txt_cant_invKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_cant_invKeyPressed
+         Helper.validarSoloNumero(evt, txt_cant_inv);
+    }//GEN-LAST:event_txt_cant_invKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -423,7 +439,7 @@ public class ProductoFrame extends javax.swing.JPanel {
 
             //Se crea un nuevo objeto ImageIcon a partir de la imagen redimensionada.
             ImageIcon iconRedimensionado = new ImageIcon(imgRedimensionada);
-                    
+
             lblImagenProducto.setIcon(iconRedimensionado);
         } else {
             lblImagenProducto.setIcon(null);
@@ -456,5 +472,4 @@ public class ProductoFrame extends javax.swing.JPanel {
 
     }
 
-  
 }
