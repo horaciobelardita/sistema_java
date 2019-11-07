@@ -24,22 +24,21 @@ import modelos.Venta;
 
 public class MetodosSQL {
 
-    public static int guardarUsuario(String nick, String nombre, String email, String pass, String tipo) {
+    public static int guardarUsuario(Usuario usuario) {
         int filasAfectadas = 0;
         Connection conexion = null;
         PreparedStatement pstm = null;
         String sql = "INSERT INTO usuarios "
-                + "(nick ,nombre, email, password, tipo_usuario) "
-                + "VALUES (?,?,?,?,?)";
+                + "(nick ,nombre, password, tipo_usuario) "
+                + "VALUES (?,?,?,?)";
 
         try {
             conexion = BaseDatos.obtenerConexion();
             pstm = conexion.prepareStatement(sql);
-            pstm.setString(1, nick);
-            pstm.setString(2, nombre);
-            pstm.setString(3, email);
-            pstm.setString(4, pass);
-            pstm.setString(5, tipo);
+            pstm.setString(1, usuario.getNick());
+            pstm.setString(2, usuario.getNombre());
+            pstm.setString(3, usuario.getPassword());
+            pstm.setString(4, usuario.getTipoUsuario());
 
             filasAfectadas = pstm.executeUpdate();
 

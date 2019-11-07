@@ -16,6 +16,18 @@ public class Usuario {
     private String password;
     private String tipoUsuario;
 
+    public Usuario(String nombre, String nick, String password, String tipoUsuario) {
+        this.nombre = nombre;
+        this.nick = nick;
+        this.password = password;
+        this.tipoUsuario = tipoUsuario;
+    }
+
+    public Usuario() {
+    }
+    
+    
+
     public Integer getId() {
         return id;
     }

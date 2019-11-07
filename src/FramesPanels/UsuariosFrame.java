@@ -2,10 +2,11 @@ package FramesPanels;
 
 import javax.swing.JOptionPane;
 import db.MetodosSQL;
+import modelos.Usuario;
 
-public class usuarios extends javax.swing.JPanel {
+public class UsuariosFrame extends javax.swing.JPanel {
 
-    public usuarios() {
+    public UsuariosFrame() {
         initComponents();
     }
 
@@ -135,12 +136,16 @@ public class usuarios extends javax.swing.JPanel {
     }//GEN-LAST:event_txt_nickActionPerformed
 
     private void btn_regisMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_regisMouseClicked
-        int filasAfectadas = MetodosSQL.guardarUsuario(txt_nick.getText(), txt_nombre.getText(), txt_email_user.getText(), txt_pass.getText(),(String) cb_permisos.getSelectedItem());
+        Usuario usuario = new Usuario(txt_nombre.getText(), txt_nick.getText(), String.valueOf(txt_pass.getPassword()), (String) cb_permisos.getSelectedItem());
+        int filasAfectadas = MetodosSQL.guardarUsuario(usuario);
         if (filasAfectadas > 0) {
-            JOptionPane.showMessageDialog(this, "Datos guardados corectamente");
+            JOptionPane.showMessageDialog(this, "Datos guardados corectamente", "Exito", JOptionPane.WARNING_MESSAGE);
+            limpiarCampos();
         } else {
-            JOptionPane.showMessageDialog(this, "No se pudo guardar los datos");
+            JOptionPane.showMessageDialog(this, "No se pudo guardar los datos", "Error", JOptionPane.ERROR_MESSAGE);
         }
+                    txt_nick.requestFocus();
+
     }//GEN-LAST:event_btn_regisMouseClicked
 
     private void txt_passFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_txt_passFocusGained
@@ -164,4 +169,11 @@ public class usuarios extends javax.swing.JPanel {
     private javax.swing.JTextField txt_nombre;
     private javax.swing.JPasswordField txt_pass;
     // End of variables declaration//GEN-END:variables
+
+    private void limpiarCampos() {
+        txt_nick.setText("");
+        txt_nombre.setText("");
+        txt_pass.setText("");
+        txt_email_user.setText("");
+    }
 }
