@@ -56,7 +56,7 @@ public class Inventario extends javax.swing.JPanel {
                  bi = ImageIO.read(is);
                     imagenProd = new ImageIcon(bi);
             } else {
-                imagenProd = new ImageIcon(getClass().getResource("/images/no_img.png"));
+                imagenProd = new ImageIcon(getClass().getResource("/images/no_img.jpg"));
             }
            
             //Redimensión de imagen para ajustarla al tamaño del JLabel.
