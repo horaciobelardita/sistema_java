@@ -38,4 +38,16 @@ public class Helper {
         }
         return retorno;
     }
+    
+        public static String convertirPuntoAComa(String valor) {
+        String retorno = "";
+        for (int i = 0; i < valor.length(); i++) {
+            if (valor.charAt(i) == '.') {
+                retorno += ",";
+            } else {
+                retorno += valor.charAt(i);
+            }
+        }
+        return retorno;
+    }
 }
