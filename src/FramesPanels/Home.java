@@ -395,16 +395,7 @@ public class Home extends javax.swing.JFrame implements ActionListener {
         Object evt = ae.getSource(); //variable comparadora
 
         if (evt.equals(btn_clientes)) {
-            /*
-            clientes.setVisible(true);
-            Inventario.setVisible(false);
-            ventas.setVisible(false);
-            proveedores.setVisible(false);
-            compras.setVisible(false);
-            usuarios.setVisible(false);
-            contenedor.add(clientes);
-            contenedor.validate(); //actualizar el contenedor
-            */
+            mostrarPanel(Home.CLIENTES_FRAME);
         } else if (evt.equals(btn_inven)) {
             mostrarPanel(Home.INVENTARIO);
         }else if (evt.equals(btn_ventas)) {
