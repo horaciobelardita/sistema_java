@@ -317,7 +317,6 @@ public class VentasFrame extends javax.swing.JPanel {
             InputStream is = MetodosSQL.buscarFoto(p);
             BufferedImage bi = ImageIO.read(is);
             imagenProd = new ImageIcon(bi);
-            lblImagenProd.setIcon(imagenProd);
 
             //Redimensión de imagen para ajustarla al tamaño del JLabel.
             Image imgProd = imagenProd.getImage();

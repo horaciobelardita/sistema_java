@@ -60,9 +60,9 @@ public class ProductoFrame extends javax.swing.JPanel {
 
         txtCodigoProd = new javax.swing.JTextField();
         txt_nom_inv = new javax.swing.JTextField();
-        txt_pre_com_inv = new javax.swing.JTextField();
-        txt_pre_ven_inv = new javax.swing.JTextField();
-        txt_cant_inv = new javax.swing.JTextField();
+        txtPrecioCompraProd = new javax.swing.JTextField();
+        txtPrecioVtaProd = new javax.swing.JTextField();
+        txtCantidadProd = new javax.swing.JTextField();
         txt_descr_inv = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -80,7 +80,7 @@ public class ProductoFrame extends javax.swing.JPanel {
         btnGuardarProducto = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         btn_regis4 = new javax.swing.JPanel();
-        cboProveedor = new javax.swing.JComboBox<Proveedor>();
+        cboProveedor = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         lblImagenProducto = new javax.swing.JLabel();
 
@@ -102,30 +102,40 @@ public class ProductoFrame extends javax.swing.JPanel {
         txt_nom_inv.setForeground(new java.awt.Color(255, 255, 255));
         add(txt_nom_inv, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 140, 260, -1));
 
-        txt_pre_com_inv.setBackground(new java.awt.Color(47, 34, 23));
-        txt_pre_com_inv.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txt_pre_com_inv.setForeground(new java.awt.Color(255, 255, 255));
-        add(txt_pre_com_inv, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 180, 100, -1));
-
-        txt_pre_ven_inv.setBackground(new java.awt.Color(47, 34, 23));
-        txt_pre_ven_inv.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txt_pre_ven_inv.setForeground(new java.awt.Color(255, 255, 255));
-        add(txt_pre_ven_inv, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 220, 100, -1));
-
-        txt_cant_inv.setBackground(new java.awt.Color(47, 34, 23));
-        txt_cant_inv.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txt_cant_inv.setForeground(new java.awt.Color(255, 255, 255));
-        txt_cant_inv.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_cant_invActionPerformed(evt);
-            }
-        });
-        txt_cant_inv.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtPrecioCompraProd.setBackground(new java.awt.Color(47, 34, 23));
+        txtPrecioCompraProd.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtPrecioCompraProd.setForeground(new java.awt.Color(255, 255, 255));
+        txtPrecioCompraProd.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txt_cant_invKeyPressed(evt);
+                txtPrecioCompraProdKeyPressed(evt);
             }
         });
-        add(txt_cant_inv, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 260, 100, -1));
+        add(txtPrecioCompraProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 180, 100, -1));
+
+        txtPrecioVtaProd.setBackground(new java.awt.Color(47, 34, 23));
+        txtPrecioVtaProd.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtPrecioVtaProd.setForeground(new java.awt.Color(255, 255, 255));
+        txtPrecioVtaProd.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtPrecioVtaProdKeyPressed(evt);
+            }
+        });
+        add(txtPrecioVtaProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 220, 100, -1));
+
+        txtCantidadProd.setBackground(new java.awt.Color(47, 34, 23));
+        txtCantidadProd.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtCantidadProd.setForeground(new java.awt.Color(255, 255, 255));
+        txtCantidadProd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtCantidadProdActionPerformed(evt);
+            }
+        });
+        txtCantidadProd.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtCantidadProdKeyPressed(evt);
+            }
+        });
+        add(txtCantidadProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 260, 100, -1));
 
         txt_descr_inv.setBackground(new java.awt.Color(47, 34, 23));
         txt_descr_inv.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -148,7 +158,7 @@ public class ProductoFrame extends javax.swing.JPanel {
         jLabel3.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setText("Precio de compra");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 180, -1, -1));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(255, 255, 255));
@@ -256,23 +266,23 @@ public class ProductoFrame extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblImagenProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(lblImagenProducto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblImagenProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(lblImagenProducto, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 360, 260, 150));
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 360, 250, 150));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtCodigoProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoProdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtCodigoProdActionPerformed
 
-    private void txt_cant_invActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_cant_invActionPerformed
+    private void txtCantidadProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCantidadProdActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txt_cant_invActionPerformed
+    }//GEN-LAST:event_txtCantidadProdActionPerformed
 
     private void btn_regis2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_regis2MouseClicked
         // TODO add your handling code here:
@@ -292,10 +302,10 @@ public class ProductoFrame extends javax.swing.JPanel {
 //        obtener los valores ingresados en los campos
         String codigo = txtCodigoProd.getText();
         String nombre = txt_nom_inv.getText();
-        Integer stock = Integer.parseInt(txt_cant_inv.getText());
+        Integer stock = Integer.parseInt(txtCantidadProd.getText());
         String descripcion = txt_descr_inv.getText();
-                    double precioVenta = Double.parseDouble(txt_pre_ven_inv.getText());
-        double precioCompra = Double.parseDouble(txt_pre_com_inv.getText());
+                    double precioVenta = Double.parseDouble(txtPrecioVtaProd.getText());
+        double precioCompra = Double.parseDouble(txtPrecioCompraProd.getText());
 
         Proveedor proveedor = (Proveedor) cboProveedor.getSelectedItem();
         int filasAfectadas = 0;
@@ -310,7 +320,7 @@ public class ProductoFrame extends javax.swing.JPanel {
         producto.setIdProveedor(proveedor.getId());
         producto.setStock(stock);
         if (imgProducto == null) {
-            producto.setFoto(new File(getClass().getResource("/images/no_img.png").getFile()));
+            producto.setFoto(new File(getClass().getResource("/images/no_img.jpg").getFile()));
 
         } else {
             producto.setFoto(imgProducto);
@@ -373,9 +383,17 @@ public class ProductoFrame extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jPanel1MouseClicked
 
-    private void txt_cant_invKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txt_cant_invKeyPressed
-         Helper.validarSoloNumero(evt, txt_cant_inv);
-    }//GEN-LAST:event_txt_cant_invKeyPressed
+    private void txtCantidadProdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadProdKeyPressed
+         Helper.validarSoloNumero(evt, txtCantidadProd);
+    }//GEN-LAST:event_txtCantidadProdKeyPressed
+
+    private void txtPrecioCompraProdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioCompraProdKeyPressed
+       Helper.validarSoloNumeroDecimales(evt, txtPrecioCompraProd);
+    }//GEN-LAST:event_txtPrecioCompraProdKeyPressed
+
+    private void txtPrecioVtaProdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioVtaProdKeyPressed
+        Helper.validarSoloNumeroDecimales(evt, txtPrecioVtaProd);
+    }//GEN-LAST:event_txtPrecioVtaProdKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -398,12 +416,12 @@ public class ProductoFrame extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lblImagenProducto;
+    private javax.swing.JTextField txtCantidadProd;
     private javax.swing.JTextField txtCodigoProd;
-    private javax.swing.JTextField txt_cant_inv;
+    private javax.swing.JTextField txtPrecioCompraProd;
+    private javax.swing.JTextField txtPrecioVtaProd;
     private javax.swing.JTextField txt_descr_inv;
     private javax.swing.JTextField txt_nom_inv;
-    private javax.swing.JTextField txt_pre_com_inv;
-    private javax.swing.JTextField txt_pre_ven_inv;
     // End of variables declaration//GEN-END:variables
 
     private void cargarModeloCombo() {
@@ -417,9 +435,9 @@ public class ProductoFrame extends javax.swing.JPanel {
         txtCodigoProd.setText("");
         txt_nom_inv.setText("");
         txt_descr_inv.setText("");
-        txt_cant_inv.setText("");
-        txt_pre_com_inv.setText("");
-        txt_pre_ven_inv.setText("");
+        txtCantidadProd.setText("");
+        txtPrecioCompraProd.setText("");
+        txtPrecioVtaProd.setText("");
         lblImagenProducto.setIcon(null);
         txtCodigoProd.setEnabled(true);
         txt_nom_inv.setEnabled(true);
@@ -433,9 +451,8 @@ public class ProductoFrame extends javax.swing.JPanel {
             Image imgProd = icon.getImage();
             int anchoEtiqueta = lblImagenProducto.getWidth(); //Obtiene ancho de la imagen
             int altoEtiqueta = lblImagenProducto.getHeight(); //Obtiene alto de la imagen
-            lblImagenProducto.setPreferredSize(new Dimension(200, 200));
             //Se crea un nuevo objeto Image con la imagen redimensionada.
-            Image imgRedimensionada = imgProd.getScaledInstance(200, 200, Image.SCALE_DEFAULT);
+            Image imgRedimensionada = imgProd.getScaledInstance(anchoEtiqueta, altoEtiqueta, Image.SCALE_DEFAULT);
 
             //Se crea un nuevo objeto ImageIcon a partir de la imagen redimensionada.
             ImageIcon iconRedimensionado = new ImageIcon(imgRedimensionada);
@@ -453,9 +470,9 @@ public class ProductoFrame extends javax.swing.JPanel {
         txtCodigoProd.setText(codigo);
         txt_nom_inv.setText(nombre);
         txt_descr_inv.setText(descripcion);
-        txt_cant_inv.setText(String.valueOf(stock));
-        txt_pre_com_inv.setText(String.valueOf(precioCompra));
-        txt_pre_ven_inv.setText(String.valueOf(precioVenta));
+        txtCantidadProd.setText(String.valueOf(stock));
+        txtPrecioCompraProd.setText(String.valueOf(precioCompra));
+        txtPrecioVtaProd.setText(String.valueOf(precioVenta));
         seleccionarProveedorCombo(producto.getIdProveedor());
         txtCodigoProd.setEnabled(false);
 

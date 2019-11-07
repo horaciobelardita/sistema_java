@@ -50,22 +50,28 @@ public class Inventario extends javax.swing.JPanel {
         ImageIcon imagenProd = null;
         try {
             InputStream is = MetodosSQL.buscarFoto(p);
-            BufferedImage bi = ImageIO.read(is);
-            imagenProd = new ImageIcon(bi);
+            BufferedImage bi = null;
+            if (is != null) {
+            
+                 bi = ImageIO.read(is);
+                    imagenProd = new ImageIcon(bi);
+            } else {
+                imagenProd = new ImageIcon(getClass().getResource("/images/no_img.png"));
+            }
+           
             //Redimensión de imagen para ajustarla al tamaño del JLabel.
             Image imgProd = imagenProd.getImage();
             int anchoEtiqueta = lblImagenProd.getWidth(); //Obtiene ancho de la imagen
             int altoEtiqueta = lblImagenProd.getHeight(); //Obtiene alto de la imagen
 
             //Se crea un nuevo objeto Image con la imagen redimensionada.
-            Image imgRedimensionada = imgProd.getScaledInstance(anchoEtiqueta, altoEtiqueta, Image.SCALE_DEFAULT);
+            Image imgRedimensionada = imgProd.getScaledInstance(250, 150, Image.SCALE_DEFAULT);
             //Se crea un nuevo objeto ImageIcon a partir de la imagen redimensionada.
             ImageIcon iconRedimensionado = new ImageIcon(imgRedimensionada);
 
             //Establecemos la imagen redimensionada, como icono de la etiqueta de imagen.
             lblImagenProd.setIcon(iconRedimensionado);
-        } catch (IOException e) {
-
+        } catch (IOException e ) {
         }
     }
 
@@ -280,14 +286,14 @@ public class Inventario extends javax.swing.JPanel {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblImagenProd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE)
+            .addComponent(lblImagenProd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(lblImagenProd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 180, Short.MAX_VALUE)
+            .addComponent(lblImagenProd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 50, 270, 180));
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 50, 250, 150));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_regis3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_regis3MouseClicked
