@@ -471,8 +471,8 @@ public class ProductoFrame extends javax.swing.JPanel {
         txt_nom_inv.setText(nombre);
         txt_descr_inv.setText(descripcion);
         txtCantidadProd.setText(String.valueOf(stock));
-        txtPrecioCompraProd.setText(String.valueOf(precioCompra));
-        txtPrecioVtaProd.setText(String.valueOf(precioVenta));
+        txtPrecioCompraProd.setText(Helper.convertirPuntoAComa(String.valueOf(precioCompra)));
+        txtPrecioVtaProd.setText(Helper.convertirPuntoAComa(String.valueOf(precioVenta)));
         seleccionarProveedorCombo(producto.getIdProveedor());
         txtCodigoProd.setEnabled(false);
 
