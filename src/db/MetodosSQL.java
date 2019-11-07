@@ -339,7 +339,6 @@ public class MetodosSQL {
                 sql += ", imagen = ?";
             }
             sql += " WHERE codigo = ?";
-            System.out.println(sql);
             pstm = conexion.prepareStatement(sql);
             pstm.setString(1, p.getNombre());
             pstm.setString(2, p.getDescripcion());
