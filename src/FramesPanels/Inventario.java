@@ -7,9 +7,6 @@ package FramesPanels;
 
 import static FramesPanels.Home.contenedor;
 import db.MetodosSQL;
-import java.awt.Component;
-import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -18,7 +15,6 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
-import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -93,6 +89,7 @@ public class Inventario extends javax.swing.JPanel {
         int numeroFilas = productos.size();
 
         modeloTabla.setNumRows(numeroFilas);
+        // recorrer productos y insertar en la tabla
         for (int i = 0; i < numeroFilas; i++) {
             Producto p = productos.get(i);
             String codigo = p.getCodigo();

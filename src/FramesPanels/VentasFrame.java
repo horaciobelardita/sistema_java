@@ -7,6 +7,8 @@ package FramesPanels;
 
 import db.MetodosSQL;
 import java.awt.Image;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
@@ -20,6 +22,8 @@ import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListDataEvent;
+import javax.swing.event.ListDataListener;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
@@ -37,13 +41,13 @@ public class VentasFrame extends javax.swing.JPanel {
     DefaultTableModel modeloTablaProd = new DefaultTableModel() {
         // desabilitar edicion tabla
         @Override
-        public boolean isCellEditable(int i, int i1) {
+        public boolean isCellEditable(int rowIndex, int colIndex) {
             return false;
         }
 
     };
     DefaultListModel<Producto> modeloListaProd = new DefaultListModel<>();
-    public static DefaultComboBoxModel<Cliente> modeloCboCliente = new DefaultComboBoxModel<Cliente>();
+    public static DefaultComboBoxModel<Cliente> modeloCboCliente = new DefaultComboBoxModel<>();
 
     /**
      * Creates new form ventas
@@ -54,7 +58,7 @@ public class VentasFrame extends javax.swing.JPanel {
         initComponents();
         setListenerModeloTabla();
     }
-    
+
     public static void cargarModeloCboCli() {
         modeloCboCliente.removeAllElements();
         ArrayList<Cliente> clientes = MetodosSQL.obtenerClientes();
@@ -272,15 +276,15 @@ public class VentasFrame extends javax.swing.JPanel {
 //        obtener total venta y fecha actual
         double totalVenta = Double.parseDouble(lblTotalVenta.getText());
         Date fecha = obtenerFechaActual();
-        Cliente cliente =  (Cliente) modeloCboCliente.getSelectedItem();
+        Cliente cliente = (Cliente) modeloCboCliente.getSelectedItem();
         String dni = cliente.getDni();
-        
+
         String pagaCon = txtPagaCon.getText();
         double cambio = 0;
         if (!pagaCon.isEmpty()) {
             cambio = Double.parseDouble(pagaCon) - totalVenta;
         }
-        
+
 //        insertar en la bd nueva venta
         Venta venta = new Venta(dni, fecha, totalVenta);
         Integer idVenta = MetodosSQL.insertarVenta(venta);
@@ -301,33 +305,33 @@ public class VentasFrame extends javax.swing.JPanel {
         }
         eliminarFilasTabla();
         lblTotalVenta.setText("0.0");
-        
+
         if (!pagaCon.isEmpty()) {
             JOptionPane.showMessageDialog(this, String.valueOf(cambio), "Cambio:", JOptionPane.OK_OPTION);
         }
-        
+
     }//GEN-LAST:event_btnRealizarVtaMouseClicked
-     private void cargarImagen(Producto p){
+    private void cargarImagen(Producto p) {
         ImageIcon imagenProd = null;
         try {
             InputStream is = MetodosSQL.buscarFoto(p);
             BufferedImage bi = ImageIO.read(is);
             imagenProd = new ImageIcon(bi);
             lblImagenProd.setIcon(imagenProd);
-               
-                //Redimensión de imagen para ajustarla al tamaño del JLabel.
-                Image imgProd = imagenProd.getImage();
-                int anchoEtiqueta = lblImagenProd.getWidth(); //Obtiene ancho de la imagen
-                int altoEtiqueta = lblImagenProd.getHeight(); //Obtiene alto de la imagen
-                
-                //Se crea un nuevo objeto Image con la imagen redimensionada.
-                Image imgRedimensionada = imgProd.getScaledInstance(anchoEtiqueta, altoEtiqueta, Image.SCALE_DEFAULT);
-               
-                //Se crea un nuevo objeto ImageIcon a partir de la imagen redimensionada.
-                ImageIcon iconRedimensionado = new ImageIcon(imgRedimensionada);
-                
-                //Establecemos la imagen redimensionada, como icono de la etiqueta de imagen.
-                lblImagenProd.setIcon(iconRedimensionado);
+
+            //Redimensión de imagen para ajustarla al tamaño del JLabel.
+            Image imgProd = imagenProd.getImage();
+            int anchoEtiqueta = lblImagenProd.getWidth(); //Obtiene ancho de la imagen
+            int altoEtiqueta = lblImagenProd.getHeight(); //Obtiene alto de la imagen
+
+            //Se crea un nuevo objeto Image con la imagen redimensionada.
+            Image imgRedimensionada = imgProd.getScaledInstance(anchoEtiqueta, altoEtiqueta, Image.SCALE_DEFAULT);
+
+            //Se crea un nuevo objeto ImageIcon a partir de la imagen redimensionada.
+            ImageIcon iconRedimensionado = new ImageIcon(imgRedimensionada);
+
+            //Establecemos la imagen redimensionada, como icono de la etiqueta de imagen.
+            lblImagenProd.setIcon(iconRedimensionado);
         } catch (Exception e) {
         }
     }
@@ -387,12 +391,12 @@ public class VentasFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_btnQuitarProd1MouseClicked
 
     private void btnNuevoCliMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNuevoCliMouseClicked
-       Home.mostrarPanel(Home.CLIENTES_FRAME);
+        Home.mostrarPanel(Home.CLIENTES_FRAME);
 
     }//GEN-LAST:event_btnNuevoCliMouseClicked
 
     private void btnCancelarVta2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarVta2MouseClicked
-         int nroFilas = modeloTablaProd.getRowCount();
+        int nroFilas = modeloTablaProd.getRowCount();
         if (nroFilas > 0) {
             int opcion = JOptionPane.showConfirmDialog(this, "Seguro de cancelar la venta");
             if (opcion == 0) {

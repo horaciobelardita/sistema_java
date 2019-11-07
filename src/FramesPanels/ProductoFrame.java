@@ -35,7 +35,6 @@ public class ProductoFrame extends javax.swing.JPanel {
     DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel<>();
     private File imgProducto;
     public boolean estaActualizando;
-
     /**
      * Creates new form ProductoFrame1
      */
@@ -273,11 +272,8 @@ public class ProductoFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_regis2MouseClicked
 
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
-        Home.INVENTARIO.setVisible(true);
-        Home.contenedor.remove(this);
-        Home.contenedor.add(Home.INVENTARIO);
-        Home.contenedor.revalidate();
-        Home.contenedor.repaint();
+        
+        Home.mostrarPanel(Home.INVENTARIO);
 
     }//GEN-LAST:event_btnCancelarMouseClicked
 

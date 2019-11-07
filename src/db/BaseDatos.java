@@ -15,6 +15,8 @@ public class BaseDatos {
     public static Connection obtenerConexion() {
         try {
             if (con == null) {
+                // con esto determinamos cuando finalize el programa
+                Runtime.getRuntime().addShutdownHook(new MiShDwnHook());
                 ResourceBundle rb = ResourceBundle.getBundle("db");
                 String driver = rb.getString("driver");
                 String url = rb.getString("url");
@@ -31,15 +33,7 @@ public class BaseDatos {
         }
     }
 
-    public static void cerrarConexion(Connection con) {
-        if (con != null) {
-            try {
-                con.close();
-            } catch (SQLException e) {
-                throw new RuntimeException(e.getMessage());
-            }
-        }
-    }
+   
 
     public static void cerrarStatement(Statement st) {
         if (st != null) {
@@ -57,6 +51,20 @@ public class BaseDatos {
                 rs.close();
             } catch (SQLException e) {
                 throw new RuntimeException(e.getMessage());
+            }
+        }
+    }
+
+    static class MiShDwnHook extends Thread {
+// justo antes de fnalizar el programa la JVM invocara
+// a este metodo donde podemos cerrar la conexion
+
+        public void run() {
+            try {
+                Connection con = BaseDatos.obtenerConexion();
+                con.close();
+            } catch (SQLException ex) {
+                throw new RuntimeException(ex);
             }
         }
     }
