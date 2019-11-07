@@ -384,6 +384,8 @@ public class VentasFrame extends javax.swing.JPanel {
             int opcion = JOptionPane.showConfirmDialog(this, "Seguro de borrar el producto?");
             if (opcion == 0) {
                 modeloTablaProd.removeRow(filaSeleccionada);
+                limpiarCampos();
+                limpiarListaProductos();
             }
         }
 
