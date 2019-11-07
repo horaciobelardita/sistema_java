@@ -349,13 +349,13 @@ public class ProductoFrame extends javax.swing.JPanel {
         }
         if (filasAfectadas > 0) {
             // guardado con exito
-            JOptionPane.showMessageDialog(null, msg);
+            JOptionPane.showMessageDialog(null, msg, "Exitó", JOptionPane.WARNING_MESSAGE);
             Home.INVENTARIO.reiniciarPanel();
             Home.mostrarPanel(Home.INVENTARIO);
             Home.INVENTARIO.cargarModeloTabla(null);
         } else {
             // error al guardar
-            JOptionPane.showMessageDialog(null, "Error, al ingresar el producto");
+            JOptionPane.showMessageDialog(null, "Error, al ingresar el producto", "Error", JOptionPane.ERROR_MESSAGE);
             txtCodigoProd.requestFocus();
         }
     }//GEN-LAST:event_btnGuardarProductoMouseClicked
