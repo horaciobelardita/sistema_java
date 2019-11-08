@@ -25,15 +25,13 @@ public class BaseDatos {
                 Class.forName(driver);
                 con = DriverManager.getConnection(url, usr, pwd);
             }
-            return con;
         } catch (ClassNotFoundException | SQLException ex) {
-            ex.printStackTrace();
             JOptionPane.showMessageDialog(null, "Error al crear la conexion");
-            throw new RuntimeException("Error al crear la conexion", ex);
+//            throw new RuntimeException("Error al crear la conexion", ex);
         }
-    }
+        return con;
 
-   
+    }
 
     public static void cerrarStatement(Statement st) {
         if (st != null) {
@@ -56,8 +54,8 @@ public class BaseDatos {
     }
 
     static class MiShDwnHook extends Thread {
-// justo antes de fnalizar el programa la JVM invocara
-// a este metodo donde podemos cerrar la conexion
+// justo antes de finalizar el programa la JVM invocara
+// a este metodo donde cierra la conexion
 
         public void run() {
             try {

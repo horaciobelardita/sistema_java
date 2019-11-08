@@ -22,7 +22,7 @@ import modelos.Proveedor;
 import modelos.Usuario;
 import modelos.Venta;
 
-public class MetodosSQL {
+public class MetodosSQL extends BaseDatos {
 
     public static int guardarUsuario(Usuario usuario) {
         int filasAfectadas = 0;
@@ -33,7 +33,7 @@ public class MetodosSQL {
                 + "VALUES (?,?,?,?)";
 
         try {
-            conexion = BaseDatos.obtenerConexion();
+            conexion = obtenerConexion();
             pstm = conexion.prepareStatement(sql);
             pstm.setString(1, usuario.getNick());
             pstm.setString(2, usuario.getNombre());
@@ -57,7 +57,7 @@ public class MetodosSQL {
         Statement stmt = null;
         ResultSet rs = null;
         try {
-            conexion = BaseDatos.obtenerConexion();
+            conexion = obtenerConexion();
             stmt = conexion.createStatement();
             String sql = "SELECT * FROM productos";
             rs = stmt.executeQuery(sql);
@@ -75,8 +75,8 @@ public class MetodosSQL {
 
         } catch (SQLException e) {
         } finally {
-            BaseDatos.cerrarResultSet(rs);
-            BaseDatos.cerrarStatement(stmt);
+            cerrarResultSet(rs);
+            cerrarStatement(stmt);
         }
         return productos;
 
@@ -88,7 +88,7 @@ public class MetodosSQL {
         Statement stmt = null;
         ResultSet rs = null;
         try {
-            conexion = BaseDatos.obtenerConexion();
+            conexion = obtenerConexion();
             stmt = conexion.createStatement();
             String sql = "SELECT * FROM proveedores ORDER BY id";
             rs = stmt.executeQuery(sql);
@@ -104,8 +104,8 @@ public class MetodosSQL {
 
         } catch (SQLException e) {
         } finally {
-            BaseDatos.cerrarResultSet(rs);
-            BaseDatos.cerrarStatement(stmt);
+            cerrarResultSet(rs);
+            cerrarStatement(stmt);
         }
         return proveedores;
 
@@ -118,7 +118,7 @@ public class MetodosSQL {
 
         try {
 
-            conexion = BaseDatos.obtenerConexion();
+            conexion = obtenerConexion();
             if (cambiarFoto) {
                 String sql = "INSERT INTO productos "
                         + "(codigo ,nombre, descripcion, "
@@ -157,7 +157,7 @@ public class MetodosSQL {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            BaseDatos.cerrarStatement(pstm);
+            cerrarStatement(pstm);
         }
 
         return filasAfectadas;
@@ -221,7 +221,7 @@ public class MetodosSQL {
         ResultSet rs = null;
         Usuario usuario = null;
         try {
-            conexion = BaseDatos.obtenerConexion();
+            conexion = obtenerConexion();
             String sql = "SELECT * "
                     + "FROM usuarios WHERE nick=? AND password=?";
             pstm = conexion.prepareStatement(sql);
@@ -238,8 +238,8 @@ public class MetodosSQL {
             }
         } catch (SQLException e) {
         } finally {
-            BaseDatos.cerrarResultSet(rs);
-            BaseDatos.cerrarStatement(pstm);
+            cerrarResultSet(rs);
+            cerrarStatement(pstm);
         }
         return usuario;
     }
@@ -250,7 +250,7 @@ public class MetodosSQL {
         Statement stmt = null;
         ResultSet rs = null;
         try {
-            conexion = BaseDatos.obtenerConexion();
+            conexion = obtenerConexion();
             String sql = "SELECT * FROM productos WHERE codigo LIKE '%"
                     + filtro + "%' "
                     + "OR nombre LIKE '%" + filtro + "%'";
@@ -269,8 +269,8 @@ public class MetodosSQL {
 
         } catch (SQLException e) {
         } finally {
-            BaseDatos.cerrarResultSet(rs);
-            BaseDatos.cerrarStatement(stmt);
+            cerrarResultSet(rs);
+            cerrarStatement(stmt);
         }
         return productos;
     }
@@ -280,7 +280,7 @@ public class MetodosSQL {
         PreparedStatement stmt = null;
         int filasAfectadas = 0;
         try {
-            conexion = BaseDatos.obtenerConexion();
+            conexion = obtenerConexion();
             String sql = "DELETE FROM productos WHERE codigo = ?";
             stmt = conexion.prepareStatement(sql);
             stmt.setString(1, p.getCodigo());
@@ -288,7 +288,7 @@ public class MetodosSQL {
 
         } catch (SQLException e) {
         } finally {
-            BaseDatos.cerrarStatement(stmt);
+            cerrarStatement(stmt);
         }
         return filasAfectadas;
     }
@@ -299,7 +299,7 @@ public class MetodosSQL {
         PreparedStatement prepSt = null;
         ResultSet rs = null;
         try {
-            conn = BaseDatos.obtenerConexion();
+            conn = obtenerConexion();
             String sql = "SELECT imagen FROM productos WHERE codigo = ?";
 
             prepSt = conn.prepareStatement(sql);
@@ -314,8 +314,8 @@ public class MetodosSQL {
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
-            BaseDatos.cerrarResultSet(rs);
-            BaseDatos.cerrarStatement(prepSt);
+            cerrarResultSet(rs);
+            cerrarStatement(prepSt);
         }
         return streamFoto;
 
@@ -328,12 +328,11 @@ public class MetodosSQL {
 
         try {
 
-            conexion = BaseDatos.obtenerConexion();
-            String sql = "";
-                sql = "UPDATE productos "
-                        + "SET nombre = ?, descripcion = ? ,"
-                        + "precio_venta = ?, precio_compra = ?, stock = ? , "
-                        + "id_proveedor = ? ";
+            conexion = obtenerConexion();
+            String sql = "UPDATE productos "
+                    + "SET nombre = ?, descripcion = ? ,"
+                    + "precio_venta = ?, precio_compra = ?, stock = ? , "
+                    + "id_proveedor = ? ";
             if (actualizarFoto) {
                 sql += ", imagen = ?";
             }
@@ -363,7 +362,7 @@ public class MetodosSQL {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            BaseDatos.cerrarStatement(pstm);
+            cerrarStatement(pstm);
         }
 
         return filasAfectadas;
@@ -378,7 +377,7 @@ public class MetodosSQL {
                 + "VALUES (?,?, ?)";
         String ultimoId = null;
         try {
-            conexion = BaseDatos.obtenerConexion();
+            conexion = obtenerConexion();
             pstm = conexion.prepareStatement(sql);
             pstm.setDouble(1, venta.getImporte());
             pstm.setDate(2, venta.getFecha());
@@ -391,8 +390,8 @@ public class MetodosSQL {
 
         } catch (SQLException e) {
         } finally {
-            BaseDatos.cerrarResultSet(rs);
-            BaseDatos.cerrarStatement(pstm);
+            cerrarResultSet(rs);
+            cerrarStatement(pstm);
         }
         int id;
         try {
@@ -412,7 +411,7 @@ public class MetodosSQL {
                 + "(id_venta, codigo_producto, cantidad) "
                 + "VALUES (?,?,?)";
         try {
-            conexion = BaseDatos.obtenerConexion();
+            conexion = obtenerConexion();
             pstm = conexion.prepareStatement(sql);
             pstm.setInt(1, detalleVenta.getIdVenta());
             pstm.setString(2, detalleVenta.getCodigoProducto());
@@ -422,7 +421,7 @@ public class MetodosSQL {
             pstm.close();
         } catch (SQLException e) {
         } finally {
-            BaseDatos.cerrarStatement(pstm);
+            cerrarStatement(pstm);
         }
 
         return filasAfectadas;
@@ -435,7 +434,7 @@ public class MetodosSQL {
         Statement stmt = null;
         ResultSet rs = null;
         try {
-            conexion = BaseDatos.obtenerConexion();
+            conexion = obtenerConexion();
             stmt = conexion.createStatement();
             String sql = "SELECT * FROM clientes ORDER BY dni";
             rs = stmt.executeQuery(sql);
@@ -451,8 +450,8 @@ public class MetodosSQL {
 
         } catch (SQLException e) {
         } finally {
-            BaseDatos.cerrarResultSet(rs);
-            BaseDatos.cerrarStatement(stmt);
+            cerrarResultSet(rs);
+            cerrarStatement(stmt);
         }
         return clientes;
     }
@@ -465,7 +464,7 @@ public class MetodosSQL {
                 + "(dni, nombre, apellidos, telefono, direccion, categoria_iva) "
                 + "VALUES (?,?,?,?,?,?)";
         try {
-            conexion = BaseDatos.obtenerConexion();
+            conexion = obtenerConexion();
             pstm = conexion.prepareStatement(sql);
             pstm.setString(1, cliente.getDni());
             pstm.setString(2, cliente.getNombre());
@@ -478,7 +477,7 @@ public class MetodosSQL {
             pstm.close();
         } catch (SQLException e) {
         } finally {
-            BaseDatos.cerrarStatement(pstm);
+            cerrarStatement(pstm);
         }
 
         return filasAfectadas;
