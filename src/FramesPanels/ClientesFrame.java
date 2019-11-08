@@ -7,6 +7,8 @@ package FramesPanels;
 
 import db.MetodosSQL;
 import java.awt.Color;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -246,11 +248,24 @@ public class ClientesFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_regis4MouseClicked
 
     private void btnGuardarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarClienteMouseClicked
-        if (!esCampoVacio(txtDniCli, lblDNI, "Debe ingresar DNI")) return;
+        if (Helper.esCampoVacio(txtDniCli)) {
+            Helper.mostrarError(txtDniCli, lblDNI, "Debe ingresar DNI", Color.red);
+            return;
+        }
+        if (Helper.esCampoVacio(txtNombreCli)) {
+            Helper.mostrarError(txtNombreCli, lblNombreCli, "Debe ingresar Nombre", Color.red);
+            return;
+        }
+        if (Helper.esCampoVacio(txtApellidoCli)) {
+            Helper.mostrarError(txtApellidoCli, lblApellido, "Debe ingresar Apellido", Color.red);
+            return;
+        }
 
-        if (!esCampoVacio(txtNombreCli, lblNombreCli, "Debe ingresar un nombre")) return;
-        if (!esCampoVacio(txtApellidoCli, lblApellido, "Debe ingresar un apellido")) return;
-        
+        // obtener clientes y filtrar si ya hay un dni registrado
+        List<Cliente> listaDni = MetodosSQL.obtenerClientes()
+                .stream().filter(c -> c.getDni().equals(txtDniCli.getText()))
+                .collect(Collectors.toList());
+        if (listaDni.isEmpty()) {
             Cliente cliente = new Cliente();
             cliente.setDni(txtDniCli.getText());
             cliente.setNombre(txtNombreCli.getText());
@@ -261,28 +276,34 @@ public class ClientesFrame extends javax.swing.JPanel {
             int resultado = MetodosSQL.guardarCliente(cliente);
             if (resultado > 0) {
                 JOptionPane.showMessageDialog(this, "Cliente Guardado con exito!");
+                limpiarCampos();
                 Home.VENTAS_FRAME.cargarModeloCboCli();
                 Home.mostrarPanel(Home.VENTAS_FRAME);
             } else {
                 JOptionPane.showMessageDialog(this, "Ocurrio un error intentelo nuevamente");
                 txtDniCli.requestFocus();
             }
+        } else {
+            Helper.mostrarError(txtDniCli, lblDNI, "El DNI ya esta registrado", Color.red);
+        }
 
 
     }//GEN-LAST:event_btnGuardarClienteMouseClicked
 
     private void txtNombreCliKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreCliKeyReleased
-        if (txtNombreCli.getText().isEmpty()) {
+        if (Helper.esCampoVacio(txtNombreCli)) {
             lblNombreCli.setForeground(Color.white);
         } else {
+            lblNombreCli.setText("Nombre:");
             lblNombreCli.setForeground(Color.green);
         }
     }//GEN-LAST:event_txtNombreCliKeyReleased
 
     private void txtDniCliKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDniCliKeyReleased
-        if (txtDniCli.getText().isEmpty()) {
+        if (Helper.esCampoVacio(txtDniCli)) {
             lblDNI.setForeground(Color.white);
         } else {
+            lblDNI.setText("DNI:");
             lblDNI.setForeground(Color.green);
         }
     }//GEN-LAST:event_txtDniCliKeyReleased
@@ -300,9 +321,10 @@ public class ClientesFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_txtDniCliKeyPressed
 
     private void txtApellidoCliKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoCliKeyReleased
-        if (txtApellidoCli.getText().isEmpty()) {
+        if (Helper.esCampoVacio(txtApellidoCli)) {
             lblApellido.setForeground(Color.white);
         } else {
+            lblApellido.setText("Apellidos:");
             lblApellido.setForeground(Color.green);
         }
     }//GEN-LAST:event_txtApellidoCliKeyReleased
@@ -347,13 +369,13 @@ public class ClientesFrame extends javax.swing.JPanel {
     private javax.swing.JTextField txtTelCli;
     // End of variables declaration//GEN-END:variables
 
-    private boolean esCampoVacio(JTextField campo, JLabel label, String msgError) {
-        if (campo.getText().isEmpty()) {
-            label.setText(msgError);
-            label.setForeground(Color.red);
-            campo.requestFocus();
-            return false;
-        }
-        return true;
+    private void limpiarCampos() {
+        txtDniCli.setText("");
+        txtNombreCli.setText("");
+        txtApellidoCli.setText("");
+        txtTelCli.setText("");
+        txtDirCli.setText("");
+        txtDniCli.requestFocus();
     }
+
 }

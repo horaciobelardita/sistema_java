@@ -1,6 +1,8 @@
 package utils;
 
+import java.awt.Color;
 import java.awt.event.KeyEvent;
+import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 public class Helper {
@@ -61,4 +63,15 @@ public class Helper {
         }
         return retorno;
     }
+
+    public static boolean esCampoVacio(JTextField campo) {
+        return campo.getText().trim().isEmpty();
+    }
+
+    public static void mostrarError(JTextField campo, JLabel label, String msgError, Color color) {
+        label.setText(msgError);
+        label.setForeground(color);
+        campo.requestFocus();
+    }
+
 }
