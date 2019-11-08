@@ -236,6 +236,7 @@ public class ClientesFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_regis2MouseClicked
 
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
+        limpiarCampos();
         Home.mostrarPanel(Home.VENTAS_FRAME);
     }//GEN-LAST:event_btnCancelarMouseClicked
 
@@ -370,12 +371,23 @@ public class ClientesFrame extends javax.swing.JPanel {
     // End of variables declaration//GEN-END:variables
 
     private void limpiarCampos() {
+
+        restablecerLabel(lblDNI, "DNI:");
+        restablecerLabel(lblNombreCli, "Nombre:");
+        restablecerLabel(lblApellido, "Apellidos:");
+        restablecerLabel(lblDireccion, "Direccion");
+        restablecerLabel(lblTelefono, "Telefono");
         txtDniCli.setText("");
         txtNombreCli.setText("");
         txtApellidoCli.setText("");
         txtTelCli.setText("");
         txtDirCli.setText("");
         txtDniCli.requestFocus();
+    }
+
+    private void restablecerLabel(JLabel label, String texto) {
+        label.setText(texto);
+        label.setForeground(Color.white);
     }
 
 }
