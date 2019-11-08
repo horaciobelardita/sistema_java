@@ -260,6 +260,7 @@ public class ProductoFrame extends javax.swing.JPanel {
             }
         });
 
+        lblImagenProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         lblImagenProducto.setPreferredSize(new java.awt.Dimension(200, 200));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
