@@ -27,6 +27,18 @@ public class Helper {
         }
     }
     
+     public static void validarAlphanumerico(java.awt.event.KeyEvent evt, JTextField campo) {
+        if (evt.getKeyChar() >= 'a' && evt.getKeyChar() <= 'z' || 
+                evt.getKeyChar() >= 'A' && evt.getKeyChar() <= 'Z' || 
+                evt.getKeyChar() == KeyEvent.VK_DELETE ||
+                 evt.getKeyChar() == KeyEvent.VK_BACK_SPACE 
+                ) {
+            campo.setEditable(true);
+        } else {
+            campo.setEditable(false);
+        }
+    }
+    
     public static String convertirComaAPunto(String valor) {
         String retorno = "";
         for (int i = 0; i < valor.length(); i++) {
