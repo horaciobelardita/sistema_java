@@ -5,13 +5,16 @@
  */
 package FramesPanels;
 
+import static FramesPanels.Inventario.modeloTabla;
 import db.MetodosSQL;
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
 import modelos.Cliente;
 import utils.Helper;
 
@@ -24,8 +27,11 @@ public class ClientesFrame extends javax.swing.JPanel {
     /**
      * Creates new form clientes
      */
+    private DefaultTableModel modeloTablaClientes = null;
+
     public ClientesFrame() {
         initComponents();
+        restablecer();
     }
 
     /**
@@ -37,30 +43,47 @@ public class ClientesFrame extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        txtNombreCli = new javax.swing.JTextField();
-        txtTelCli = new javax.swing.JTextField();
-        lblNombreCli = new javax.swing.JLabel();
-        lblDireccion = new javax.swing.JLabel();
-        txtApellidoCli = new javax.swing.JTextField();
-        lblApellido = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        lblDNI = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        txtNombreCli = new javax.swing.JTextField();
+        lblTelefono = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        lblDNI = new javax.swing.JLabel();
+        txtApellidoCli = new javax.swing.JTextField();
+        lblDireccion = new javax.swing.JLabel();
+        txtTelCli = new javax.swing.JTextField();
+        txtDirCli = new javax.swing.JTextField();
         cboCatIva = new javax.swing.JComboBox<>();
+        lblApellido = new javax.swing.JLabel();
+        txtDniCli = new javax.swing.JTextField();
+        lblNombreCli = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JPanel();
         btn_regis2 = new javax.swing.JPanel();
         jLabel11 = new javax.swing.JLabel();
         btnGuardarCliente = new javax.swing.JPanel();
         jLabel12 = new javax.swing.JLabel();
         btn_regis4 = new javax.swing.JPanel();
-        txtDirCli = new javax.swing.JTextField();
-        lblTelefono = new javax.swing.JLabel();
-        txtDniCli = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTableClientes = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(47, 34, 23));
         setPreferredSize(new java.awt.Dimension(1050, 575));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(255, 102, 0));
+        jPanel1.setPreferredSize(new java.awt.Dimension(228, 575));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clientes.png"))); // NOI18N
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, -1, -1));
+
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 740));
+
+        jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         txtNombreCli.setBackground(new java.awt.Color(47, 34, 23));
         txtNombreCli.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -70,30 +93,18 @@ public class ClientesFrame extends javax.swing.JPanel {
                 txtNombreCliKeyReleased(evt);
             }
         });
-        add(txtNombreCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 140, 240, -1));
 
-        txtTelCli.setBackground(new java.awt.Color(47, 34, 23));
-        txtTelCli.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtTelCli.setForeground(new java.awt.Color(255, 255, 255));
-        txtTelCli.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtTelCliKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtTelCliKeyReleased(evt);
-            }
-        });
-        add(txtTelCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 290, 240, -1));
+        lblTelefono.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        lblTelefono.setForeground(new java.awt.Color(255, 255, 255));
+        lblTelefono.setText("Teléfono");
 
-        lblNombreCli.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        lblNombreCli.setForeground(new java.awt.Color(255, 255, 255));
-        lblNombreCli.setText("Nombre");
-        add(lblNombreCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 110, 240, -1));
+        jLabel8.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel8.setText("Categoria IVA");
 
-        lblDireccion.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        lblDireccion.setForeground(new java.awt.Color(255, 255, 255));
-        lblDireccion.setText("Direccion");
-        add(lblDireccion, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 320, -1, -1));
+        lblDNI.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        lblDNI.setForeground(new java.awt.Color(255, 255, 255));
+        lblDNI.setText("DNI");
 
         txtApellidoCli.setBackground(new java.awt.Color(47, 34, 23));
         txtApellidoCli.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -108,35 +119,59 @@ public class ClientesFrame extends javax.swing.JPanel {
                 txtApellidoCliKeyReleased(evt);
             }
         });
-        add(txtApellidoCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 210, 240, -1));
+
+        lblDireccion.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        lblDireccion.setForeground(new java.awt.Color(255, 255, 255));
+        lblDireccion.setText("Direccion");
+
+        txtTelCli.setBackground(new java.awt.Color(47, 34, 23));
+        txtTelCli.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtTelCli.setForeground(new java.awt.Color(255, 255, 255));
+        txtTelCli.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtTelCliKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtTelCliKeyReleased(evt);
+            }
+        });
+
+        txtDirCli.setBackground(new java.awt.Color(47, 34, 23));
+        txtDirCli.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtDirCli.setForeground(new java.awt.Color(255, 255, 255));
+        txtDirCli.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDirCliKeyReleased(evt);
+            }
+        });
+
+        cboCatIva.setForeground(new java.awt.Color(255, 255, 255));
+        cboCatIva.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Consumidor final", "Exento", "Exterior", "Monotributista", "Responsable inscripto" }));
 
         lblApellido.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         lblApellido.setForeground(new java.awt.Color(255, 255, 255));
         lblApellido.setText("Apellidos");
-        add(lblApellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 180, 90, -1));
 
-        jPanel1.setBackground(new java.awt.Color(255, 102, 0));
-        jPanel1.setPreferredSize(new java.awt.Dimension(228, 575));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        txtDniCli.setBackground(new java.awt.Color(47, 34, 23));
+        txtDniCli.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+        txtDniCli.setForeground(new java.awt.Color(255, 255, 255));
+        txtDniCli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtDniCliActionPerformed(evt);
+            }
+        });
+        txtDniCli.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                txtDniCliKeyPressed(evt);
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtDniCliKeyReleased(evt);
+            }
+        });
 
-        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/clientes.png"))); // NOI18N
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 310, -1, -1));
-
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 740));
-
-        lblDNI.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        lblDNI.setForeground(new java.awt.Color(255, 255, 255));
-        lblDNI.setText("DNI");
-        add(lblDNI, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 50, 240, -1));
-
-        jLabel8.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Categoria IVA");
-        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 380, -1, -1));
-
-        cboCatIva.setForeground(new java.awt.Color(255, 255, 255));
-        cboCatIva.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Consumidor final", "Exento", "Exterior", "Monotributista", "Responsable inscripto" }));
-        add(cboCatIva, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 400, 240, -1));
+        lblNombreCli.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        lblNombreCli.setForeground(new java.awt.Color(255, 255, 255));
+        lblNombreCli.setText("Nombre");
 
         btnCancelar.setBackground(new java.awt.Color(255, 102, 0));
         btnCancelar.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -165,8 +200,6 @@ public class ClientesFrame extends javax.swing.JPanel {
         jLabel11.setText("Cancelar");
         btnCancelar.add(jLabel11, new java.awt.GridBagConstraints());
 
-        add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 460, 110, 40));
-
         btnGuardarCliente.setBackground(new java.awt.Color(255, 102, 0));
         btnGuardarCliente.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         btnGuardarCliente.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -191,40 +224,94 @@ public class ClientesFrame extends javax.swing.JPanel {
         btn_regis4.setLayout(new java.awt.GridBagLayout());
         btnGuardarCliente.add(btn_regis4, new java.awt.GridBagConstraints());
 
-        add(btnGuardarCliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 460, 110, 40));
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lblDNI, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtDniCli, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblNombreCli, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtNombreCli, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtApellidoCli, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblTelefono)
+                            .addComponent(txtTelCli, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblDireccion)
+                            .addComponent(txtDirCli, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel8)
+                            .addComponent(cboCatIva, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(79, 79, 79)
+                        .addComponent(btnGuardarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(lblDNI)
+                .addGap(11, 11, 11)
+                .addComponent(txtDniCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(lblNombreCli)
+                .addGap(11, 11, 11)
+                .addComponent(txtNombreCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addComponent(lblApellido)
+                .addGap(11, 11, 11)
+                .addComponent(txtApellidoCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
+                .addComponent(lblTelefono)
+                .addGap(21, 21, 21)
+                .addComponent(txtTelCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(lblDireccion)
+                .addGap(11, 11, 11)
+                .addComponent(txtDirCli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(5, 5, 5)
+                .addComponent(jLabel8)
+                .addGap(1, 1, 1)
+                .addComponent(cboCatIva, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnGuardarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(29, Short.MAX_VALUE))
+        );
 
-        txtDirCli.setBackground(new java.awt.Color(47, 34, 23));
-        txtDirCli.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtDirCli.setForeground(new java.awt.Color(255, 255, 255));
-        txtDirCli.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtDirCliKeyReleased(evt);
-            }
-        });
-        add(txtDirCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 350, 240, -1));
+        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 80, 340, 500));
 
-        lblTelefono.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        lblTelefono.setForeground(new java.awt.Color(255, 255, 255));
-        lblTelefono.setText("Teléfono");
-        add(lblTelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 250, -1, -1));
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel1.setText("Registro de Clientes");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, -1, -1));
 
-        txtDniCli.setBackground(new java.awt.Color(47, 34, 23));
-        txtDniCli.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-        txtDniCli.setForeground(new java.awt.Color(255, 255, 255));
-        txtDniCli.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDniCliActionPerformed(evt);
-            }
-        });
-        txtDniCli.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtDniCliKeyPressed(evt);
-            }
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtDniCliKeyReleased(evt);
-            }
-        });
-        add(txtDniCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 80, 240, -1));
+        jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jScrollPane1.setViewportView(jTableClientes);
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 736, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
+        );
+
+        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 80, 740, 500));
+
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel2.setText("Listado de Clientes");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 50, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txtApellidoCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoCliActionPerformed
@@ -236,7 +323,7 @@ public class ClientesFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_regis2MouseClicked
 
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
-        limpiarCampos();
+        restablecer();
         Home.mostrarPanel(Home.VENTAS_FRAME);
     }//GEN-LAST:event_btnCancelarMouseClicked
 
@@ -277,7 +364,7 @@ public class ClientesFrame extends javax.swing.JPanel {
             int resultado = MetodosSQL.guardarCliente(cliente);
             if (resultado > 0) {
                 JOptionPane.showMessageDialog(this, "Cliente Guardado con exito!");
-                limpiarCampos();
+                restablecer();
                 Home.VENTAS_FRAME.cargarModeloCboCli();
                 Home.mostrarPanel(Home.VENTAS_FRAME);
             } else {
@@ -353,11 +440,17 @@ public class ClientesFrame extends javax.swing.JPanel {
     private javax.swing.JPanel btn_regis2;
     private javax.swing.JPanel btn_regis4;
     private javax.swing.JComboBox<String> cboCatIva;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable jTableClientes;
     private javax.swing.JLabel lblApellido;
     private javax.swing.JLabel lblDNI;
     private javax.swing.JLabel lblDireccion;
@@ -370,7 +463,7 @@ public class ClientesFrame extends javax.swing.JPanel {
     private javax.swing.JTextField txtTelCli;
     // End of variables declaration//GEN-END:variables
 
-    private void limpiarCampos() {
+    private void restablecer() {
 
         restablecerLabel(lblDNI, "DNI:");
         restablecerLabel(lblNombreCli, "Nombre:");
@@ -383,11 +476,55 @@ public class ClientesFrame extends javax.swing.JPanel {
         txtTelCli.setText("");
         txtDirCli.setText("");
         txtDniCli.requestFocus();
+        cargarClientes(null);
     }
 
     private void restablecerLabel(JLabel label, String texto) {
         label.setText(texto);
         label.setForeground(Color.white);
+    }
+
+    private void cargarClientes(String filtro) {
+        String[] titulos = {"DNI", "Nombre", "Apellidos", "Condicion IVA"};
+        List<Cliente> clientes = null;
+        modeloTablaClientes = new DefaultTableModel(null, titulos);
+        if (filtro == null) {
+            clientes = MetodosSQL.obtenerClientes();
+        } else {
+            clientes = MetodosSQL
+                    .obtenerClientes()
+                    .stream()
+                    .filter(cliente -> 
+                            cliente.getDni().startsWith(filtro) || 
+                            cliente.getApellido().startsWith(filtro))
+                    .collect(Collectors.toList());
+
+        }
+
+        if (!clientes.isEmpty()) {
+            clientes.forEach(cliente -> {
+                Object[] registro = {
+                    cliente.getDni(),
+                    cliente.getNombre(),
+                    cliente.getApellido(),
+                    cliente.getCategoriaIva()
+                };
+                modeloTablaClientes.addRow(registro);
+            });
+
+        }
+        jTableClientes.setModel(modeloTablaClientes);
+        jTableClientes.setRowHeight(30);
+     
+    }
+
+    private void limpiarTabla() {
+        int numFilas = modeloTablaClientes.getRowCount();
+        if (numFilas > 0) {
+            for (int i = numFilas - 1; i >= 0; i--) {
+                modeloTablaClientes.removeRow(i);
+            }
+        }
     }
 
 }

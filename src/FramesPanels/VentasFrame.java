@@ -22,6 +22,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JTable;
 import javax.swing.event.ListDataEvent;
 import javax.swing.event.ListDataListener;
 import javax.swing.event.TableModelEvent;
@@ -104,7 +105,7 @@ public class VentasFrame extends javax.swing.JPanel {
         btnNuevoCli = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<Cliente>();
+        jComboBox1 = new javax.swing.JComboBox<>();
         btnCancelarVta2 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
 
