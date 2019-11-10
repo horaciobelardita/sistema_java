@@ -108,6 +108,8 @@ public class VentasFrame extends javax.swing.JPanel {
         jComboBox1 = new javax.swing.JComboBox<>();
         btnCancelarVta2 = new javax.swing.JPanel();
         jLabel15 = new javax.swing.JLabel();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(47, 34, 23));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -123,18 +125,18 @@ public class VentasFrame extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tabla);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 320, 730, 290));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 320, 730, 290));
 
         jLabel1.setForeground(java.awt.Color.white);
         jLabel1.setText("Cliente:");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 80, -1, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 80, -1, -1));
 
         txtBuscarProd.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtBuscarProdKeyReleased(evt);
             }
         });
-        add(txtBuscarProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, 350, -1));
+        add(txtBuscarProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 350, -1));
 
         jList1.setModel(modeloListaProd);
         jList1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -144,7 +146,7 @@ public class VentasFrame extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(jList1);
 
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, 350, -1));
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 350, -1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -157,7 +159,7 @@ public class VentasFrame extends javax.swing.JPanel {
             .addComponent(lblImagenProd, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
-        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 100, 320, 190));
+        add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 100, 320, 190));
 
         btnQuitarProd1.setBackground(new java.awt.Color(255, 102, 0));
         btnQuitarProd1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -172,7 +174,7 @@ public class VentasFrame extends javax.swing.JPanel {
         jLabel13.setText("Quitar Producto");
         btnQuitarProd1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 150, -1));
 
-        add(btnQuitarProd1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 640, 200, 40));
+        add(btnQuitarProd1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 640, 200, 40));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -215,7 +217,7 @@ public class VentasFrame extends javax.swing.JPanel {
                             .addComponent(btnRealizarVta, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                             .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtPagaCon, javax.swing.GroupLayout.Alignment.TRAILING))))
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,7 +235,7 @@ public class VentasFrame extends javax.swing.JPanel {
                 .addGap(46, 46, 46))
         );
 
-        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 310, 320, 340));
+        add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 310, 320, 340));
 
         btnNuevoCli.setBackground(new java.awt.Color(255, 102, 0));
         btnNuevoCli.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -248,14 +250,14 @@ public class VentasFrame extends javax.swing.JPanel {
         jLabel14.setText("Nuevo");
         btnNuevoCli.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 60, -1));
 
-        add(btnNuevoCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 110, 90, 40));
+        add(btnNuevoCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 110, 90, 40));
 
         jLabel3.setForeground(java.awt.Color.white);
         jLabel3.setText("Buscar Producto:");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 80, -1, -1));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, -1, -1));
 
         jComboBox1.setModel(modeloCboCliente);
-        add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 110, 310, -1));
+        add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 110, 310, -1));
 
         btnCancelarVta2.setBackground(new java.awt.Color(255, 102, 0));
         btnCancelarVta2.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -270,7 +272,15 @@ public class VentasFrame extends javax.swing.JPanel {
         jLabel15.setText("Cancelar Venta");
         btnCancelarVta2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 150, -1));
 
-        add(btnCancelarVta2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 640, 200, 40));
+        add(btnCancelarVta2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 640, 200, 40));
+
+        jPanel3.setBackground(new java.awt.Color(255, 102, 0));
+        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/icon/add_shopping_cart_white_48dp.png"))); // NOI18N
+        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 230, -1, -1));
+
+        add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 130, 740));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRealizarVtaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRealizarVtaMouseClicked
@@ -424,9 +434,11 @@ public class VentasFrame extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JList jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblImagenProd;
