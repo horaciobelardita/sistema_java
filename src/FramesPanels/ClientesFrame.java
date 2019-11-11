@@ -5,16 +5,15 @@
  */
 package FramesPanels;
 
-import static FramesPanels.Inventario.modeloTabla;
 import db.MetodosSQL;
 import java.awt.Color;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JTextField;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import modelos.Cliente;
 import utils.Helper;
@@ -30,12 +29,15 @@ public class ClientesFrame extends javax.swing.JPanel {
    * Creates new form clientes
    */
   private DefaultTableModel modeloTablaClientes = null;
+
   private int registrosXPag = 10;
   private Paginador<Cliente> paginador;
   private List<Cliente> listaClientes;
   private final SpinnerNumberModel modeloSpinner;
   private int numPagina;
-  
+  private Cliente clienteSeleccionado = null;
+  private String accion;
+
   public ClientesFrame() {
     modeloSpinner = new SpinnerNumberModel(10, 1, 100, 1);
     configurarTabla();
@@ -119,7 +121,7 @@ public class ClientesFrame extends javax.swing.JPanel {
 
     jLabel8.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
     jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-    jLabel8.setText("Categoria IVA");
+    jLabel8.setText("Condición IVA");
 
     lblDNI.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
     lblDNI.setForeground(new java.awt.Color(255, 255, 255));
@@ -302,7 +304,7 @@ public class ClientesFrame extends javax.swing.JPanel {
         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addComponent(btnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
           .addComponent(btnGuardarCliente, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-        .addContainerGap(29, Short.MAX_VALUE))
+        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
 
     add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 340, 500));
@@ -313,6 +315,24 @@ public class ClientesFrame extends javax.swing.JPanel {
 
     jPanel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
+    jTableClientes.getSelectionModel().addListSelectionListener(
+      new ListSelectionListener() {
+        public void valueChanged(ListSelectionEvent event) {
+          if (!event.getValueIsAdjusting() && (jTableClientes.getSelectedRow()>= 0)) {//This line prevents double events
+            int filaSeleccionada = jTableClientes.getSelectedRow();
+            Cliente cliente = (Cliente)modeloTablaClientes.getValueAt(filaSeleccionada, 1);
+            txtDniCli.setText(cliente.getDni());
+            txtNombreCli.setText(cliente.getNombre());
+            txtApellidoCli.setText(cliente.getApellido());
+            txtTelCli.setText(cliente.getTelefono());
+            txtDirCli.setText(cliente.getDireccion());
+            seleccionarCondicionIva(cliente.getCategoriaIva());
+            clienteSeleccionado = cliente;
+            accion = "actualizar";
+          }
+        }
+      }
+    );
     jScrollPane1.setViewportView(jTableClientes);
 
     javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -388,122 +408,142 @@ public class ClientesFrame extends javax.swing.JPanel {
   }// </editor-fold>//GEN-END:initComponents
 
     private void txtApellidoCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoCliActionPerformed
-      // TODO add your handling code here:
+    // TODO add your handling code here:
     }//GEN-LAST:event_txtApellidoCliActionPerformed
 
     private void btn_regis2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_regis2MouseClicked
-      // TODO add your handling code here:
+    // TODO add your handling code here:
     }//GEN-LAST:event_btn_regis2MouseClicked
 
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
-      restablecer();
-      Home.mostrarPanel(Home.VENTAS_FRAME);
+    restablecer();
+    Home.mostrarPanel(Home.VENTAS_FRAME);
     }//GEN-LAST:event_btnCancelarMouseClicked
 
     private void btnCancelarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseEntered
-      // TODO add your handling code here:
+    // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarMouseEntered
 
     private void btn_regis4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_regis4MouseClicked
-      // TODO add your handling code here:
+    // TODO add your handling code here:
     }//GEN-LAST:event_btn_regis4MouseClicked
 
     private void btnGuardarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarClienteMouseClicked
-      if (Helper.esCampoVacio(txtDniCli)) {
-        Helper.mostrarError(txtDniCli, lblDNI, "Debe ingresar DNI", Color.red);
-        return;
-      }
-      if (Helper.esCampoVacio(txtNombreCli)) {
-        Helper.mostrarError(txtNombreCli, lblNombreCli, "Debe ingresar Nombre", Color.red);
-        return;
-      }
-      if (Helper.esCampoVacio(txtApellidoCli)) {
-        Helper.mostrarError(txtApellidoCli, lblApellido, "Debe ingresar Apellido", Color.red);
-        return;
-      }
+    if (Helper.esCampoVacio(txtDniCli)) {
+      Helper.mostrarError(txtDniCli, lblDNI, "Debe ingresar DNI", Color.red);
+      return;
+    }
+    if (Helper.esCampoVacio(txtNombreCli)) {
+      Helper.mostrarError(txtNombreCli, lblNombreCli, "Debe ingresar Nombre", Color.red);
+      return;
+    }
+    if (Helper.esCampoVacio(txtApellidoCli)) {
+      Helper.mostrarError(txtApellidoCli, lblApellido, "Debe ingresar Apellido", Color.red);
+      return;
+    }
 
-      // obtener clientes y filtrar si ya hay un dni registrado
-      List<Cliente> listaDni = MetodosSQL.obtenerClientes()
-        .stream().filter(c -> c.getDni().equals(txtDniCli.getText()))
-        .collect(Collectors.toList());
-      if (listaDni.isEmpty()) {
-        Cliente cliente = new Cliente();
-        cliente.setDni(txtDniCli.getText());
-        cliente.setNombre(txtNombreCli.getText());
-        cliente.setApellido(txtApellidoCli.getText());
-        cliente.setTelefono(txtTelCli.getText());
-        cliente.setDireccion(txtDirCli.getText());
-        cliente.setCategoriaIva((String) cboCatIva.getSelectedItem());
-        int resultado = MetodosSQL.guardarCliente(cliente);
-        if (resultado > 0) {
-          JOptionPane.showMessageDialog(this, "Cliente Guardado con exito!");
-          restablecer();
-          Home.VENTAS_FRAME.cargarModeloCboCli();
-          Home.mostrarPanel(Home.VENTAS_FRAME);
+    // obtener clientes y filtrar si ya hay un dni registrado
+    List<Cliente> listaDni = MetodosSQL.obtenerClientes()
+      .stream().filter(c -> c.getDni().equals(txtDniCli.getText()))
+      .collect(Collectors.toList());
+    Cliente cliente = new Cliente();
+    cliente.setDni(txtDniCli.getText());
+    cliente.setNombre(txtNombreCli.getText());
+    cliente.setApellido(txtApellidoCli.getText());
+    cliente.setTelefono(txtTelCli.getText());
+    cliente.setDireccion(txtDirCli.getText());
+    cliente.setCategoriaIva((String) cboCatIva.getSelectedItem());
+    switch (accion) {
+      case "nuevo":
+        if (listaDni.isEmpty()) {
+
+          int resultado = MetodosSQL.guardarCliente(cliente);
+          if (resultado > 0) {
+            JOptionPane.showMessageDialog(this, "Cliente Guardado con exito!");
+            restablecer();
+            Home.VENTAS_FRAME.cargarModeloCboCli();
+            // Home.mostrarPanel(Home.VENTAS_FRAME);
+          } else {
+            JOptionPane.showMessageDialog(this, "Ocurrio un error intentelo nuevamente");
+            txtDniCli.requestFocus();
+          }
         } else {
-          JOptionPane.showMessageDialog(this, "Ocurrio un error intentelo nuevamente");
-          txtDniCli.requestFocus();
+          Helper.mostrarError(txtDniCli, lblDNI, "El DNI ya esta registrado", Color.red);
         }
-      } else {
-        Helper.mostrarError(txtDniCli, lblDNI, "El DNI ya esta registrado", Color.red);
-      }
-      
+        break;
+      case "actualizar":
+
+        if (!listaDni.isEmpty()) {
+          if (listaDni.get(0).getDni().equals(clienteSeleccionado.getDni())) {
+            int resultado = MetodosSQL.actualizarCliente(cliente);
+            if (resultado > 0) {
+              JOptionPane.showMessageDialog(this, "Cliente actualizado con exito!");
+              restablecer();
+            } else {
+              JOptionPane.showMessageDialog(this, "Ocurrio un error intentelo nuevamente");
+            }
+          } else {
+            Helper.mostrarError(txtDniCli, lblDNI, "El DNI no esta registrado", Color.red);
+          }
+        }
+        break;
+    }
 
     }//GEN-LAST:event_btnGuardarClienteMouseClicked
 
     private void txtNombreCliKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreCliKeyReleased
-      if (Helper.esCampoVacio(txtNombreCli)) {
-        lblNombreCli.setForeground(Color.white);
-      } else {
-        lblNombreCli.setText("Nombre:");
-        lblNombreCli.setForeground(Color.green);
-      }
+    if (Helper.esCampoVacio(txtNombreCli)) {
+      lblNombreCli.setForeground(Color.white);
+    } else {
+      lblNombreCli.setText("Nombre:");
+      lblNombreCli.setForeground(Color.green);
+    }
     }//GEN-LAST:event_txtNombreCliKeyReleased
 
     private void txtDniCliKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDniCliKeyReleased
-      if (Helper.esCampoVacio(txtDniCli)) {
-        lblDNI.setForeground(Color.white);
-      } else {
-        lblDNI.setText("DNI:");
-        lblDNI.setForeground(Color.green);
-      }
+    if (Helper.esCampoVacio(txtDniCli)) {
+      lblDNI.setForeground(Color.white);
+    } else {
+      lblDNI.setText("DNI:");
+      lblDNI.setForeground(Color.green);
+    }
     }//GEN-LAST:event_txtDniCliKeyReleased
 
     private void txtDniCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDniCliActionPerformed
-      // TODO add your handling code here:
+    // TODO add your handling code here:
     }//GEN-LAST:event_txtDniCliActionPerformed
 
     private void txtTelCliKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelCliKeyPressed
-      Helper.validarSoloNumero(evt, txtTelCli);
+    Helper.validarSoloNumero(evt, txtTelCli);
     }//GEN-LAST:event_txtTelCliKeyPressed
 
     private void txtDniCliKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDniCliKeyPressed
-      Helper.validarSoloNumero(evt, txtDniCli);
+    Helper.validarSoloNumero(evt, txtDniCli);
     }//GEN-LAST:event_txtDniCliKeyPressed
 
     private void txtApellidoCliKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoCliKeyReleased
-      if (Helper.esCampoVacio(txtApellidoCli)) {
-        lblApellido.setForeground(Color.white);
-      } else {
-        lblApellido.setText("Apellidos:");
-        lblApellido.setForeground(Color.green);
-      }
+    if (Helper.esCampoVacio(txtApellidoCli)) {
+      lblApellido.setForeground(Color.white);
+    } else {
+      lblApellido.setText("Apellidos:");
+      lblApellido.setForeground(Color.green);
+    }
     }//GEN-LAST:event_txtApellidoCliKeyReleased
 
     private void txtTelCliKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelCliKeyReleased
-      if (txtTelCli.getText().isEmpty()) {
-        lblTelefono.setForeground(Color.white);
-      } else {
-        lblTelefono.setForeground(Color.green);
-      }
+    if (txtTelCli.getText().isEmpty()) {
+      lblTelefono.setForeground(Color.white);
+    } else {
+      lblTelefono.setForeground(Color.green);
+    }
     }//GEN-LAST:event_txtTelCliKeyReleased
 
     private void txtDirCliKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDirCliKeyReleased
-      if (txtDirCli.getText().isEmpty()) {
-        lblDireccion.setForeground(Color.white);
-      } else {
-        lblDireccion.setForeground(Color.green);
-      }
+    if (txtDirCli.getText().isEmpty()) {
+      lblDireccion.setForeground(Color.white);
+    } else {
+      lblDireccion.setForeground(Color.green);
+    }
     }//GEN-LAST:event_txtDirCliKeyReleased
 
   private void btnPrimerPagActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimerPagActionPerformed
@@ -529,12 +569,11 @@ public class ClientesFrame extends javax.swing.JPanel {
     listaClientes = MetodosSQL.obtenerClientes();
     if (!listaClientes.isEmpty()) {
       paginador = new Paginador<>(listaClientes, lblPaginacion, registrosXPag);
-          listaClientes = obtenerClientes(null);
+      listaClientes = obtenerClientes(null);
 
       cargarClientesEnTabla(listaClientes);
     }
   }//GEN-LAST:event_spinnerPaginacionStateChanged
-
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JPanel btnCancelar;
@@ -575,7 +614,7 @@ public class ClientesFrame extends javax.swing.JPanel {
   // End of variables declaration//GEN-END:variables
 
   private void restablecer() {
-    
+    accion = "nuevo";
     restablecerLabel(lblDNI, "DNI:");
     restablecerLabel(lblNombreCli, "Nombre:");
     restablecerLabel(lblApellido, "Apellidos:");
@@ -590,16 +629,16 @@ public class ClientesFrame extends javax.swing.JPanel {
     registrosXPag = 10;
     listaClientes = MetodosSQL.obtenerClientes();
     if (!listaClientes.isEmpty()) {
-      paginador = new Paginador<>( listaClientes, lblPaginacion, registrosXPag);
+      paginador = new Paginador<>(listaClientes, lblPaginacion, registrosXPag);
     }
     listaClientes = obtenerClientes(null);
-    
+
     cargarClientesEnTabla(listaClientes);
-    
+
   }
-  
+
   public void paginacion(String accion) {
-    
+
     switch (accion) {
       case "primero":
         if (!listaClientes.isEmpty()) {
@@ -625,12 +664,23 @@ public class ClientesFrame extends javax.swing.JPanel {
     listaClientes = obtenerClientes(null);
     cargarClientesEnTabla(listaClientes);
   }
-  
+
   private void restablecerLabel(JLabel label, String texto) {
     label.setText(texto);
     label.setForeground(Color.white);
   }
-  
+
+  private void seleccionarCondicionIva(String condicion) {
+    for (int i = 0; i < cboCatIva.getItemCount(); i++) {
+      String itemCombo = cboCatIva.getItemAt(i);
+      if (condicion.equals(itemCombo)) {
+        cboCatIva.setSelectedIndex(i);
+        break;
+      }
+    }
+
+  }
+
   private List<Cliente> obtenerClientes(String filtro) {
     List<Cliente> clientes;
     if (filtro == null) {
@@ -650,36 +700,42 @@ public class ClientesFrame extends javax.swing.JPanel {
         || cliente.getApellido().startsWith(filtro)
         || cliente.getNombre().startsWith(filtro))
         .collect(Collectors.toList());
-      
+
     }
     return clientes;
   }
-  
+
   private void configurarTabla() {
     String[] titulos = {"DNI", "Nombre", "Apellidos", "Condicion IVA"};
-    modeloTablaClientes = new DefaultTableModel(null, titulos);
+    modeloTablaClientes = new DefaultTableModel(null, titulos) {
+      @Override
+      public boolean isCellEditable(int i, int i1) {
+        return false;
+      }
+
+    };
   }
-  
+
   private void cargarClientesEnTabla(List<Cliente> clientes) {
-    
+
     limpiarTabla();
     if (!clientes.isEmpty()) {
       clientes.forEach(cliente -> {
         Object[] registro = {
           cliente.getDni(),
-          cliente.getNombre(),
+          cliente,
           cliente.getApellido(),
           cliente.getCategoriaIva()
         };
         modeloTablaClientes.addRow(registro);
       });
-      
+
     }
     jTableClientes.setModel(modeloTablaClientes);
     jTableClientes.setRowHeight(30);
-    
+
   }
-  
+
   private void limpiarTabla() {
     int numFilas = modeloTablaClientes.getRowCount();
     if (numFilas > 0) {
@@ -688,5 +744,5 @@ public class ClientesFrame extends javax.swing.JPanel {
       }
     }
   }
-  
+
 }

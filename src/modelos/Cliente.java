@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package modelos;
 
 /**
@@ -11,91 +10,93 @@ package modelos;
  * @author horaciobelardita
  */
 public class Cliente {
-    private String nombre;
-    private String apellido;
-    private String dni;
-    private String telefono;
-    private String categoriaIva;
-    private String direccion;
 
-    public String getDireccion() {
-        return direccion;
-    }
+  private String nombre;
+  private String apellido;
+  private String dni;
+  private String telefono;
+  private String categoriaIva;
+  private String direccion;
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
-    
-    
+  public String getDireccion() {
+    return direccion;
+  }
 
-    public String getNombre() {
-        return nombre;
-    }
+  public void setDireccion(String direccion) {
+    this.direccion = direccion;
+  }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+  public String getNombre() {
+    return nombre;
+  }
 
-    public String getApellido() {
-        return apellido;
-    }
+  public void setNombre(String nombre) {
+    this.nombre = nombre;
+  }
 
-    public void setApellido(String apellido) {
-        this.apellido = apellido;
-    }
+  public String getApellido() {
+    return apellido;
+  }
 
-    public String getDni() {
-        return dni;
-    }
+  public void setApellido(String apellido) {
+    this.apellido = apellido;
+  }
 
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
+  public String getDni() {
+    return dni;
+  }
 
-    public String getTelefono() {
-        return telefono;
-    }
+  public void setDni(String dni) {
+    this.dni = dni;
+  }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
+  public String getTelefono() {
+    return telefono;
+  }
 
-    public String getCategoriaIva() {
-        return categoriaIva;
-    }
+  public void setTelefono(String telefono) {
+    this.telefono = telefono;
+  }
 
-    public void setCategoriaIva(String categoriaIva) {
-        this.categoriaIva = categoriaIva;
-    }
+  public String getCategoriaIva() {
+    return categoriaIva;
+  }
 
-    public Cliente(String nombre, String apellido, String dni, String telefono, String categoriaIva) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.dni = dni;
-        this.telefono = telefono;
-        this.categoriaIva = categoriaIva;
-    }
-    public Cliente(String nombre, String apellido, String dni, String telefono, String direccion, String categoriaIva) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.dni = dni;
-        this.direccion = direccion;
-        this.telefono = telefono;
-        this.categoriaIva = categoriaIva;
-    }
-    public Cliente(String nombre, String apellido, String dni, String categoriaIva) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.dni = dni;
-        this.categoriaIva = categoriaIva;
-    }
-    public Cliente() {
-        
-    }
+  public void setCategoriaIva(String categoriaIva) {
+    this.categoriaIva = categoriaIva;
+  }
 
-    @Override
-    public String toString() {
-        return apellido + ", " + nombre;
-    }
-    
+  public Cliente(String nombre, String apellido, String dni, String telefono, String categoriaIva) {
+    this.nombre = nombre;
+    this.apellido = apellido;
+    this.dni = dni;
+    this.telefono = telefono;
+    this.categoriaIva = categoriaIva;
+  }
+
+  public Cliente(String nombre, String apellido, String dni, String telefono, String direccion, String categoriaIva) {
+    this.nombre = nombre;
+    this.apellido = apellido;
+    this.dni = dni;
+    this.direccion = direccion;
+    this.telefono = telefono;
+    this.categoriaIva = categoriaIva;
+  }
+
+  public Cliente(String nombre, String apellido, String dni, String categoriaIva) {
+    this.nombre = nombre;
+    this.apellido = apellido;
+    this.dni = dni;
+    this.categoriaIva = categoriaIva;
+  }
+
+  public Cliente() {
+
+  }
+
+  @Override
+  public String toString() {
+    return nombre;
+  }
+
 }
