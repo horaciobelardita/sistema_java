@@ -59,10 +59,11 @@ create table clientes (
     ) not null
 );
 
+insert into clientes values ('33256378', 'Gabriel', 'Benitez', '460225', null, 'Consumidor final');
+
 create table ventas (
     id_venta int auto_increment primary key,
     fecha date not null,
-    importe float(10, 2) not null,
     dni char(8) not null,
     foreign key (dni) references clientes(dni)
 );
@@ -70,10 +71,12 @@ create table ventas (
 
 
 create table detalle_venta (
+    num_detalle int not null,
     id_venta int not null,
     codigo_producto varchar(13) not null,
     cantidad int unsigned not null,
-    primary key(id_venta, codigo_producto),
+    precio float(10, 2),
+    primary key(num_detalle, id_venta),
     foreign key (id_venta) references ventas(id_venta),
     foreign key (codigo_producto) references productos(codigo)
 );

@@ -369,15 +369,13 @@ public class MetodosSQL extends BaseDatos {
     ResultSet rs = null;
     PreparedStatement pstm = null;
     String sql = "INSERT INTO ventas "
-      + "(importe, fecha, dni) "
-      + "VALUES (?,?, ?)";
+      + "VALUES (null,?, ?)";
     String ultimoId = null;
     try {
       conexion = obtenerConexion();
       pstm = conexion.prepareStatement(sql);
-      pstm.setDouble(1, venta.getImporte());
-      pstm.setDate(2, venta.getFecha());
-      pstm.setString(3, venta.getDni());
+      pstm.setDate(1, venta.getFecha());
+      pstm.setString(2, venta.getDni());
       pstm.executeUpdate();
       rs = pstm.executeQuery("select MAX(id_venta) as ultimo_id from ventas");
       while (rs.next()) {
@@ -404,17 +402,17 @@ public class MetodosSQL extends BaseDatos {
     Connection conexion = null;
     PreparedStatement pstm = null;
     String sql = "INSERT INTO detalle_venta "
-      + "(id_venta, codigo_producto, cantidad) "
-      + "VALUES (?,?,?)";
+      + "(num_detalle, id_venta, codigo_producto, cantidad, precio) "
+      + "VALUES (?,?,?,?,?)";
     try {
       conexion = obtenerConexion();
       pstm = conexion.prepareStatement(sql);
-      pstm.setInt(1, detalleVenta.getIdVenta());
-      pstm.setString(2, detalleVenta.getCodigoProducto());
-      pstm.setInt(3, detalleVenta.getCantidad());
-
+      pstm.setInt(1, detalleVenta.getNumDetalle());
+      pstm.setInt(2, detalleVenta.getIdVenta());
+      pstm.setString(3, detalleVenta.getCodigoProducto());
+      pstm.setInt(4, detalleVenta.getCantidad());
+      pstm.setDouble(5, detalleVenta.getPrecioProducto());
       filasAfectadas = pstm.executeUpdate();
-      pstm.close();
     } catch (SQLException e) {
     } finally {
       cerrarStatement(pstm);

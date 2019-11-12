@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package modelos;
 
 /**
@@ -11,42 +10,51 @@ package modelos;
  * @author horaciobelardita
  */
 public class DetalleVenta {
-    private Integer idVenta;
-    private String codigoProducto;
-    private Integer cantidad;
 
-    public DetalleVenta(Integer idVenta, String codigoProducto, Integer cantidad) {
-        this.idVenta = idVenta;
-        this.codigoProducto = codigoProducto;
-        this.cantidad = cantidad;
-    }
-        
-    
-    
-    public Integer getIdVenta() {
-        return idVenta;
-    }
+  private Integer numDetalle;
+  private Integer idVenta;
+  private String codigoProducto;
+  private Integer cantidad;
+  private Double precioProducto;
 
-    public void setIdVenta(Integer idVenta) {
-        this.idVenta = idVenta;
-    }
+  public DetalleVenta(Integer numDetalle, Integer idVenta, String codigoProducto, Integer cantidad, Double precioProd) {
+    this.numDetalle = numDetalle;
+    this.idVenta = idVenta;
+    this.codigoProducto = codigoProducto;
+    this.cantidad = cantidad;
+    this.precioProducto = precioProd;
+  }
 
-    public String getCodigoProducto() {
-        return codigoProducto;
-    }
+  public Integer getNumDetalle() {
+    return numDetalle;
+  }
 
-    public void setCodigoProducto(String codigoProducto) {
-        this.codigoProducto = codigoProducto;
-    }
+  public Integer getIdVenta() {
+    return idVenta;
+  }
 
-    public Integer getCantidad() {
-        return cantidad;
-    }
+  public void setIdVenta(Integer idVenta) {
+    this.idVenta = idVenta;
+  }
 
-    public void setCantidad(Integer cantidad) {
-        this.cantidad = cantidad;
-    }
-    
-    
- 
+  public double getPrecioProducto() {
+    return this.precioProducto;
+  }
+
+  public String getCodigoProducto() {
+    return codigoProducto;
+  }
+
+  public void setCodigoProducto(String codigoProducto) {
+    this.codigoProducto = codigoProducto;
+  }
+
+  public Integer getCantidad() {
+    return cantidad;
+  }
+
+  public void setCantidad(Integer cantidad) {
+    this.cantidad = cantidad;
+  }
+
 }
