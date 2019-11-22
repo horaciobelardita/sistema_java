@@ -30,7 +30,7 @@ public class ClientesFrame extends javax.swing.JPanel {
    */
   private DefaultTableModel modeloTablaClientes = null;
 
-  private int registrosXPag = 10;
+  private int registrosXPag = 6;
   private Paginador<Cliente> paginador;
   private List<Cliente> listaClientes;
   private final SpinnerNumberModel modeloSpinner;
@@ -39,7 +39,7 @@ public class ClientesFrame extends javax.swing.JPanel {
   private String accion;
 
   public ClientesFrame() {
-    modeloSpinner = new SpinnerNumberModel(10, 1, 100, 1);
+    modeloSpinner = new SpinnerNumberModel(registrosXPag, 1, 100, 1);
     configurarTabla();
     initComponents();
     numPagina = 1;
@@ -683,8 +683,8 @@ public class ClientesFrame extends javax.swing.JPanel {
 
   private List<Cliente> obtenerClientes(String filtro) {
     List<Cliente> clientes;
+    int inicio = (numPagina - 1) * registrosXPag;
     if (filtro == null) {
-      int inicio = (numPagina - 1) * registrosXPag;
       clientes = MetodosSQL
         .obtenerClientes()
         .stream()
@@ -699,6 +699,8 @@ public class ClientesFrame extends javax.swing.JPanel {
           -> cliente.getDni().startsWith(filtro)
         || cliente.getApellido().startsWith(filtro)
         || cliente.getNombre().startsWith(filtro))
+        .skip(inicio)
+        .limit(registrosXPag)
         .collect(Collectors.toList());
 
     }
@@ -706,7 +708,7 @@ public class ClientesFrame extends javax.swing.JPanel {
   }
 
   private void configurarTabla() {
-    String[] titulos = {"DNI", "Nombre", "Apellidos", "Condicion IVA"};
+    String[] titulos = {"DNI", "Nombre", "Apellidos", "Telefono", "Direccion"};
     modeloTablaClientes = new DefaultTableModel(null, titulos) {
       @Override
       public boolean isCellEditable(int i, int i1) {
@@ -725,7 +727,8 @@ public class ClientesFrame extends javax.swing.JPanel {
           cliente.getDni(),
           cliente,
           cliente.getApellido(),
-          cliente.getCategoriaIva()
+          cliente.getTelefono(),
+          cliente.getDireccion()
         };
         modeloTablaClientes.addRow(registro);
       });
