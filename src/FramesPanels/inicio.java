@@ -14,7 +14,7 @@ public class inicio extends javax.swing.JFrame {
     initComponents();
     setLocationRelativeTo(null);
     txtNick.setText("root");
-    txtPassword.setText("0RnBDAOrVJvaALhiHLSaCQ==");
+    txtPassword.setText("root");
 
   }
 
