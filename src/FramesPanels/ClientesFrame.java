@@ -113,6 +113,9 @@ public class ClientesFrame extends javax.swing.JPanel {
       public void keyReleased(java.awt.event.KeyEvent evt) {
         txtNombreCliKeyReleased(evt);
       }
+      public void keyTyped(java.awt.event.KeyEvent evt) {
+        txtNombreCliKeyTyped(evt);
+      }
     });
 
     lblTelefono.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
@@ -139,6 +142,9 @@ public class ClientesFrame extends javax.swing.JPanel {
       public void keyReleased(java.awt.event.KeyEvent evt) {
         txtApellidoCliKeyReleased(evt);
       }
+      public void keyTyped(java.awt.event.KeyEvent evt) {
+        txtApellidoCliKeyTyped(evt);
+      }
     });
 
     lblDireccion.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
@@ -154,6 +160,9 @@ public class ClientesFrame extends javax.swing.JPanel {
       }
       public void keyReleased(java.awt.event.KeyEvent evt) {
         txtTelCliKeyReleased(evt);
+      }
+      public void keyTyped(java.awt.event.KeyEvent evt) {
+        txtTelCliKeyTyped(evt);
       }
     });
 
@@ -187,6 +196,9 @@ public class ClientesFrame extends javax.swing.JPanel {
       }
       public void keyReleased(java.awt.event.KeyEvent evt) {
         txtDniCliKeyReleased(evt);
+      }
+      public void keyTyped(java.awt.event.KeyEvent evt) {
+        txtDniCliKeyTyped(evt);
       }
     });
 
@@ -496,7 +508,7 @@ public class ClientesFrame extends javax.swing.JPanel {
       lblNombreCli.setForeground(Color.white);
     } else {
       lblNombreCli.setText("Nombre:");
-      lblNombreCli.setForeground(Color.green);
+      lblNombreCli.setForeground(new Color(255, 102, 0));
     }
     }//GEN-LAST:event_txtNombreCliKeyReleased
 
@@ -505,7 +517,7 @@ public class ClientesFrame extends javax.swing.JPanel {
       lblDNI.setForeground(Color.white);
     } else {
       lblDNI.setText("DNI:");
-      lblDNI.setForeground(Color.green);
+      lblDNI.setForeground(new Color(255, 102, 0));
     }
     }//GEN-LAST:event_txtDniCliKeyReleased
 
@@ -514,11 +526,9 @@ public class ClientesFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_txtDniCliActionPerformed
 
     private void txtTelCliKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelCliKeyPressed
-    Helper.validarSoloNumero(evt, txtTelCli);
     }//GEN-LAST:event_txtTelCliKeyPressed
 
     private void txtDniCliKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDniCliKeyPressed
-    Helper.validarSoloNumero(evt, txtDniCli);
     }//GEN-LAST:event_txtDniCliKeyPressed
 
     private void txtApellidoCliKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoCliKeyReleased
@@ -526,7 +536,7 @@ public class ClientesFrame extends javax.swing.JPanel {
       lblApellido.setForeground(Color.white);
     } else {
       lblApellido.setText("Apellidos:");
-      lblApellido.setForeground(Color.green);
+      lblApellido.setForeground(new Color(255, 102, 0));
     }
     }//GEN-LAST:event_txtApellidoCliKeyReleased
 
@@ -534,7 +544,7 @@ public class ClientesFrame extends javax.swing.JPanel {
     if (txtTelCli.getText().isEmpty()) {
       lblTelefono.setForeground(Color.white);
     } else {
-      lblTelefono.setForeground(Color.green);
+      lblTelefono.setForeground(new Color(255, 102, 0));
     }
     }//GEN-LAST:event_txtTelCliKeyReleased
 
@@ -542,7 +552,7 @@ public class ClientesFrame extends javax.swing.JPanel {
     if (txtDirCli.getText().isEmpty()) {
       lblDireccion.setForeground(Color.white);
     } else {
-      lblDireccion.setForeground(Color.green);
+      lblDireccion.setForeground(new Color(255, 102, 0));
     }
     }//GEN-LAST:event_txtDirCliKeyReleased
 
@@ -574,6 +584,22 @@ public class ClientesFrame extends javax.swing.JPanel {
       cargarClientesEnTabla(listaClientes);
     }
   }//GEN-LAST:event_spinnerPaginacionStateChanged
+
+  private void txtDniCliKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDniCliKeyTyped
+    Helper.validarCampoDni(evt, txtDniCli);
+  }//GEN-LAST:event_txtDniCliKeyTyped
+
+  private void txtNombreCliKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreCliKeyTyped
+    Helper.validarAlphanumerico(evt);
+  }//GEN-LAST:event_txtNombreCliKeyTyped
+
+  private void txtApellidoCliKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoCliKeyTyped
+    Helper.validarAlphanumerico(evt);
+  }//GEN-LAST:event_txtApellidoCliKeyTyped
+
+  private void txtTelCliKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelCliKeyTyped
+    Helper.validarSoloNumero(evt);
+  }//GEN-LAST:event_txtTelCliKeyTyped
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JPanel btnCancelar;
