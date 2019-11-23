@@ -702,8 +702,9 @@ public class ClientesFrame extends javax.swing.JPanel {
     txtDirCli.setText("");
     txtDniCli.requestFocus();
     cboCatIva.setSelectedIndex(0);
-    spinnerPaginacion.getModel().setValue((Integer) registrosXPag);
-    registrosXPag = 10;
+    
+    registrosXPag = 6;
+    modeloSpinner.setValue(new Integer(registrosXPag));
     numPagina = 1;
     listaClientes = MetodosSQL.obtenerClientes();
     if (!listaClientes.isEmpty()) {

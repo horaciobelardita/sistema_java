@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import static java.time.Clock.system;
 import java.util.ResourceBundle;
 import javax.swing.JOptionPane;
 
@@ -26,8 +27,9 @@ public class BaseDatos {
                 con = DriverManager.getConnection(url, usr, pwd);
             }
         } catch (ClassNotFoundException | SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al crear la conexion");
-//            throw new RuntimeException("Error al crear la conexion", ex);
+            JOptionPane.showMessageDialog(null, "Error al crear la conexion, verifique los datos");
+            System.exit(0);
+            //throw new RuntimeException("Error al crear la conexion", ex);
         }
         return con;
 
