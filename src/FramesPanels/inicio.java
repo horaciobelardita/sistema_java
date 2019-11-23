@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 import modelos.Usuario;
+import utils.Encriptador;
 import utils.Helper;
 
 public class inicio extends javax.swing.JFrame {
@@ -13,7 +14,8 @@ public class inicio extends javax.swing.JFrame {
     initComponents();
     setLocationRelativeTo(null);
     txtNick.setText("root");
-    txtPassword.setText("root");
+    txtPassword.setText("0RnBDAOrVJvaALhiHLSaCQ==");
+
   }
 
   @SuppressWarnings("unchecked")
@@ -234,7 +236,7 @@ public class inicio extends javax.swing.JFrame {
     private void txtPasswordKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyPressed
     // TODO add your handling code here:
     if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
-      btn_regisMouseClicked(null);
+      validar();
     }
     }//GEN-LAST:event_txtPasswordKeyPressed
 
@@ -346,18 +348,26 @@ public class inicio extends javax.swing.JFrame {
       return;
     }
 
-    Usuario usuario = MetodosSQL.buscarUsuario(nombreUsuario, password);
+    Usuario usuario = MetodosSQL.buscarUsuario(nombreUsuario);
 
-    if (usuario.getNombre() != null && usuario.getId() != null) {
-      JOptionPane.showMessageDialog(this, "Bienvenid@ \n" + usuario.getNick());
-      Home Home = new Home();
-      Home.setVisible(true);
-      Home.jl_nombre.setText(usuario.getNick());
-      this.dispose();
+    if (usuario != null) {
+      try {
+        String passwordHash = Encriptador.desencriptar(usuario.getPassword());
+        if (password.equals(passwordHash)) {
+          Home Home = new Home();
+          Home.setVisible(true);
+          Home.jl_nombre.setText(usuario.getNick());
+          this.dispose();
+        } else {
+          JOptionPane.showMessageDialog(this, "Datos incorrectos: verifique su Nombre de usuario y contraseña\n",
+            "Error: Datos no Validos", JOptionPane.ERROR_MESSAGE);
+        }
+      } catch (Exception ex) {
+      }
     } else {
-      JOptionPane.showMessageDialog(this, "Datos incorrectos: verifique su Nombre de usuario y contraseña\n",
-        "Error: Datos no Validos", JOptionPane.ERROR_MESSAGE);
+      lblMensaje.setText("Error: El usuario no existe");
     }
+
   }
 
 }

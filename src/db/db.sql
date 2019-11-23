@@ -4,16 +4,16 @@ use gestor_comercio2;
 create table usuarios (
 	id int auto_increment primary key,
     nombre varchar(30) not null,
-    nick varchar(15) not null,
-    password varchar(60) not null,
+    nick varchar(15) not null unique,
+    password varchar(250) not null,
     tipo_usuario enum('Admin',
 		'Compras, Proveedores',
 		'Inventario',
 		'Ventas') not null
 );
 
-insert into usuarios values (null, 'root', 'root', 'root', 'Admin');
-insert into usuarios values (null, 'vampi', 'vampi', '1234', 'Admin');
+insert into usuarios values (null, 'root', 'root', '0RnBDAOrVJvaALhiHLSaCQ==', 'Admin');
+insert into usuarios values (null, 'vampi', 'vampi', 'RVUYIoUJ9xkydl05+xUKUg==', 'Admin');
 
 create table proveedores (
     id int auto_increment  primary key,

@@ -211,7 +211,7 @@ public class MetodosSQL extends BaseDatos {
   //        }
   //        return username;
   //    }
-  public static Usuario buscarUsuario(String nick, String password) {
+  public static Usuario buscarUsuario(String nick) {
     Connection conexion = null;
     PreparedStatement pstm = null;
     ResultSet rs = null;
@@ -219,13 +219,14 @@ public class MetodosSQL extends BaseDatos {
     try {
       conexion = obtenerConexion();
       String sql = "SELECT * "
-        + "FROM usuarios WHERE nick=? AND password=?";
+        + "FROM usuarios WHERE nick=?";
       pstm = conexion.prepareStatement(sql);
       pstm.setString(1, nick);
-      pstm.setString(2, password);
       rs = pstm.executeQuery();
-      usuario = new Usuario();
+
       while (rs.next()) {
+        usuario = new Usuario();
+
         usuario.setId(rs.getInt("id"));
         usuario.setNick(rs.getString("nick"));
         usuario.setNombre(rs.getString("nombre"));
