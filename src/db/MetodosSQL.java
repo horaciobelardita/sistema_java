@@ -508,4 +508,22 @@ public class MetodosSQL extends BaseDatos {
 
     return filasAfectadas;
   }
+
+  public static int borrarCliente(Cliente c) {
+    Connection conexion = null;
+    PreparedStatement stmt = null;
+    int filasAfectadas = 0;
+    try {
+      conexion = obtenerConexion();
+      String sql = "DELETE FROM clientes WHERE dni = ?";
+      stmt = conexion.prepareStatement(sql);
+      stmt.setString(1, c.getDni());
+      filasAfectadas = stmt.executeUpdate();
+
+    } catch (SQLException e) {
+    } finally {
+      cerrarStatement(stmt);
+    }
+    return filasAfectadas;
+  }
 }
