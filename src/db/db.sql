@@ -14,16 +14,15 @@ insert into usuarios values (null, 'vampi', 'vampi', 'RVUYIoUJ9xkydl05+xUKUg==',
 insert into usuarios values (null, 'usuario', 'vendedor', 'RVUYIoUJ9xkydl05+xUKUg==', 'Usuario');
 
 create table proveedores (
-    id int auto_increment  primary key,
-    nombre_empresa varchar(40) not null,
-    nombre_contacto varchar(40) ,
+    id char(12)   primary key,
+    nombre varchar(100) not null unique,
    direccion varchar(100),
    telefono varchar(15) not null,
-   email varchar(30) not null
+   email varchar(30) unique
 );
 
-insert into proveedores values (NULL, 'Distribuidora uno', 'Juan Perez', 'alguna calle', '460333', 'uno@gmail.com'),
- (NULL, 'Distribuidora dos', 'Ramon Garcia', 'alguna calle', '460333', 'dos@gmail.com');
+insert into proveedores VALUES ('232536985221', 'Distribuidora uno','alguna calle', '460333', 'uno@gmail.com'),
+ ('232536989921', 'Distribuidora dos',  'alguna calle', '460333', 'dos@gmail.com');
 
 create table productos (
 	
@@ -33,14 +32,14 @@ create table productos (
     precio_venta float(8,2) not null,
     precio_compra float(8,2) not null,
     stock int unsigned not null,
-imagen MEDIUMBLOB default null,
-   id_proveedor int not null,
-   foreign key (id_proveedor) references proveedores(id)
+imagen MEDIUMBLOB default NULL
+  # id_proveedor int not null,
+   #foreign key (id_proveedor) references proveedores(id)
 );
 
-insert into productos values ('123456789101', 'Coca-cola', 'bebida', 150.5, 110.0, 10, null, 1);
-insert into productos values ('123456789102', 'Pan Blanco', 'panificado', 65.0, 45.0, 10, null, 1);
-insert into productos values ('123456789103', 'Manaos Uva 2.15 lts', 'bebida', 65.0, 45.0, 3, null, 1);
+insert into productos values ('123456789101', 'Coca-cola', 'bebida', 150.5, 110.0, 10, null);
+insert into productos values ('123456789102', 'Pan Blanco', 'panificado', 65.0, 45.0, 10, null);
+insert into productos values ('123456789103', 'Manaos Uva 2.15 lts', 'bebida', 65.0, 45.0, 3, null);
 
 create table clientes (
     dni char(8) primary key,

@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import modelos.Cliente;
 import modelos.DetalleVenta;
@@ -90,11 +91,11 @@ public class MetodosSQL extends BaseDatos {
       rs = stmt.executeQuery(sql);
       while (rs.next()) {
         Proveedor prov = new Proveedor();
-        prov.setId(rs.getInt("id"));
-        prov.setNombreEmpresa(rs.getString("nombre_empresa"));
-        prov.setNombreContacto(rs.getString("nombre_contacto"));
+        prov.setId(rs.getString("id"));
+        prov.setNombre(rs.getString("nombre"));
         prov.setDireccion(rs.getString("direccion"));
-        prov.setDireccion(rs.getString("telefono"));
+        prov.setTelefono(rs.getString("telefono"));
+        prov.setEmail(rs.getString("email"));
         proveedores.add(prov);
       }
 
@@ -551,6 +552,109 @@ public class MetodosSQL extends BaseDatos {
       String sql = "DELETE FROM clientes WHERE dni = ?";
       stmt = conexion.prepareStatement(sql);
       stmt.setString(1, c.getDni());
+      filasAfectadas = stmt.executeUpdate();
+
+    } catch (SQLException e) {
+    } finally {
+      cerrarStatement(stmt);
+    }
+    return filasAfectadas;
+  }
+
+  public static List<Proveedor> obtenerProveedoresPorCriterio(String criterio) {
+    Connection conexion = null;
+    List<Proveedor> proveedores = new ArrayList<>();
+    Statement stmt = null;
+    ResultSet rs = null;
+    try {
+      conexion = obtenerConexion();
+      stmt = conexion.createStatement();
+      String sql = "SELECT * FROM proveedores WHERE id LIKE '%"
+        + criterio + "%' "
+        + "OR nombre LIKE '%" + criterio + "%'";
+      rs = stmt.executeQuery(sql);
+      while (rs.next()) {
+        Proveedor proveedor = new Proveedor();
+        proveedor.setId(rs.getString("id"));
+        proveedor.setNombre(rs.getString("nombre"));
+        proveedor.setTelefono(rs.getString("telefono"));
+        proveedor.setDireccion(rs.getString("direccion"));
+        proveedor.setEmail(rs.getString("email"));
+        proveedores.add(proveedor);
+      }
+
+    } catch (SQLException e) {
+    } finally {
+      cerrarResultSet(rs);
+      cerrarStatement(stmt);
+    }
+    return proveedores;
+  }
+
+  public static int guardarProveedor(Proveedor prov) {
+    int filasAfectadas = 0;
+    Connection conexion = null;
+    PreparedStatement pstm = null;
+    String sql = "INSERT INTO proveedores "
+      + "(id, nombre, direccion,  telefono, email) "
+      + "VALUES (?,?,?,?,?)";
+    try {
+      conexion = obtenerConexion();
+      pstm = conexion.prepareStatement(sql);
+      pstm.setString(1, prov.getId());
+      pstm.setString(2, prov.getNombre());
+      pstm.setString(3, prov.getDireccion());
+      pstm.setString(4, prov.getTelefono());
+      pstm.setString(5, prov.getEmail());
+
+      filasAfectadas = pstm.executeUpdate();
+      pstm.close();
+    } catch (SQLException e) {
+    } finally {
+      cerrarStatement(pstm);
+    }
+
+    return filasAfectadas;
+  }
+
+  public static int actualizarProveedor(Proveedor prov) {
+    int filasAfectadas = 0;
+    Connection conexion = null;
+    PreparedStatement pstm = null;
+
+    try {
+
+      conexion = obtenerConexion();
+      String sql = "UPDATE proveedores "
+        + "SET nombre = ?,"
+        + "telefono = ?, direccion = ?, email = ? ";
+      sql += " WHERE id = ?";
+      pstm = conexion.prepareStatement(sql);
+      pstm.setString(1, prov.getNombre());
+      pstm.setString(2, prov.getTelefono());
+      pstm.setString(3, prov.getDireccion());
+      pstm.setString(4, prov.getEmail());
+      pstm.setString(5, prov.getId());
+
+      filasAfectadas = pstm.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      cerrarStatement(pstm);
+    }
+
+    return filasAfectadas;
+  }
+
+  public static int borrarProveedor(Proveedor prov) {
+    Connection conexion = null;
+    PreparedStatement stmt = null;
+    int filasAfectadas = 0;
+    try {
+      conexion = obtenerConexion();
+      String sql = "DELETE FROM proveedores WHERE id = ?";
+      stmt = conexion.prepareStatement(sql);
+      stmt.setString(1, prov.getId());
       filasAfectadas = stmt.executeUpdate();
 
     } catch (SQLException e) {

@@ -29,7 +29,7 @@ public class ClientesFrame extends javax.swing.JPanel {
    * Creates new form clientes
    */
   private DefaultTableModel modeloTablaClientes = null;
-  
+
   private int registrosXPag = 6;
   private Paginador<Cliente> paginador;
   private List<Cliente> listaClientes;
@@ -37,7 +37,7 @@ public class ClientesFrame extends javax.swing.JPanel {
   private int numPagina;
   private Cliente clienteSeleccionado = null;
   private String accion;
-  
+
   public ClientesFrame() {
     modeloSpinner = new SpinnerNumberModel(registrosXPag, 1, 100, 1);
     configurarTabla();
@@ -454,24 +454,24 @@ public class ClientesFrame extends javax.swing.JPanel {
     private void txtApellidoCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtApellidoCliActionPerformed
     // TODO add your handling code here:
     }//GEN-LAST:event_txtApellidoCliActionPerformed
-  
+
     private void btn_regis2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_regis2MouseClicked
     // TODO add your handling code here:
     }//GEN-LAST:event_btn_regis2MouseClicked
-  
+
     private void btnCancelarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseClicked
     restablecer();
 //    Home.mostrarPanel(Home.VENTAS_FRAME);
     }//GEN-LAST:event_btnCancelarMouseClicked
-  
+
     private void btnCancelarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCancelarMouseEntered
     // TODO add your handling code here:
     }//GEN-LAST:event_btnCancelarMouseEntered
-  
+
     private void btn_regis4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_regis4MouseClicked
     // TODO add your handling code here:
     }//GEN-LAST:event_btn_regis4MouseClicked
-  
+
     private void btnGuardarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarClienteMouseClicked
     if (Helper.esCampoVacio(txtDniCli)) {
       Helper.mostrarError(txtDniCli, lblDNI, "Debe ingresar DNI", Color.red);
@@ -500,7 +500,7 @@ public class ClientesFrame extends javax.swing.JPanel {
     switch (accion) {
       case "nuevo":
         if (listaDni.isEmpty()) {
-          
+
           int resultado = MetodosSQL.guardarCliente(cliente);
           if (resultado > 0) {
             JOptionPane.showMessageDialog(this, "Cliente Guardado con exito!");
@@ -535,9 +535,9 @@ public class ClientesFrame extends javax.swing.JPanel {
         }
         break;
     }
-    
+
     }//GEN-LAST:event_btnGuardarClienteMouseClicked
-  
+
     private void txtNombreCliKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreCliKeyReleased
     if (Helper.esCampoVacio(txtNombreCli)) {
       lblNombreCli.setForeground(Color.white);
@@ -546,7 +546,7 @@ public class ClientesFrame extends javax.swing.JPanel {
       lblNombreCli.setForeground(new Color(255, 102, 0));
     }
     }//GEN-LAST:event_txtNombreCliKeyReleased
-  
+
     private void txtDniCliKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDniCliKeyReleased
     if (Helper.esCampoVacio(txtDniCli)) {
       lblDNI.setForeground(Color.white);
@@ -555,17 +555,17 @@ public class ClientesFrame extends javax.swing.JPanel {
       lblDNI.setForeground(new Color(255, 102, 0));
     }
     }//GEN-LAST:event_txtDniCliKeyReleased
-  
+
     private void txtDniCliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDniCliActionPerformed
     // TODO add your handling code here:
     }//GEN-LAST:event_txtDniCliActionPerformed
-  
+
     private void txtTelCliKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelCliKeyPressed
     }//GEN-LAST:event_txtTelCliKeyPressed
-  
+
     private void txtDniCliKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDniCliKeyPressed
     }//GEN-LAST:event_txtDniCliKeyPressed
-  
+
     private void txtApellidoCliKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoCliKeyReleased
     if (Helper.esCampoVacio(txtApellidoCli)) {
       lblApellido.setForeground(Color.white);
@@ -574,7 +574,7 @@ public class ClientesFrame extends javax.swing.JPanel {
       lblApellido.setForeground(new Color(255, 102, 0));
     }
     }//GEN-LAST:event_txtApellidoCliKeyReleased
-  
+
     private void txtTelCliKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelCliKeyReleased
     if (txtTelCli.getText().isEmpty()) {
       lblTelefono.setForeground(Color.white);
@@ -582,7 +582,7 @@ public class ClientesFrame extends javax.swing.JPanel {
       lblTelefono.setForeground(new Color(255, 102, 0));
     }
     }//GEN-LAST:event_txtTelCliKeyReleased
-  
+
     private void txtDirCliKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDirCliKeyReleased
     if (txtDirCli.getText().isEmpty()) {
       lblDireccion.setForeground(Color.white);
@@ -590,23 +590,23 @@ public class ClientesFrame extends javax.swing.JPanel {
       lblDireccion.setForeground(new Color(255, 102, 0));
     }
     }//GEN-LAST:event_txtDirCliKeyReleased
-  
+
   private void btnPrimerPagActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimerPagActionPerformed
     paginacion("primero");
   }//GEN-LAST:event_btnPrimerPagActionPerformed
-  
+
   private void btnPagAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagAnteriorActionPerformed
     paginacion("anterior");
   }//GEN-LAST:event_btnPagAnteriorActionPerformed
-  
+
   private void btnPagSigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagSigActionPerformed
     paginacion("siguiente");
   }//GEN-LAST:event_btnPagSigActionPerformed
-  
+
   private void btnPagUltActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPagUltActionPerformed
     paginacion("ultimo");
   }//GEN-LAST:event_btnPagUltActionPerformed
-  
+
   private void spinnerPaginacionStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_spinnerPaginacionStateChanged
     numPagina = 1;
     Number valorSpinner = (Number) spinnerPaginacion.getValue();
@@ -615,35 +615,35 @@ public class ClientesFrame extends javax.swing.JPanel {
     if (!listaClientes.isEmpty()) {
       paginador = new Paginador<>(listaClientes, lblPaginacion, registrosXPag);
       listaClientes = obtenerClientes(null);
-      
+
       cargarClientesEnTabla(listaClientes);
     }
   }//GEN-LAST:event_spinnerPaginacionStateChanged
-  
+
   private void txtDniCliKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtDniCliKeyTyped
     Helper.validarCampoDni(evt, txtDniCli);
   }//GEN-LAST:event_txtDniCliKeyTyped
-  
+
   private void txtNombreCliKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreCliKeyTyped
     Helper.validarAlphanumerico(evt);
   }//GEN-LAST:event_txtNombreCliKeyTyped
-  
+
   private void txtApellidoCliKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtApellidoCliKeyTyped
     Helper.validarAlphanumerico(evt);
   }//GEN-LAST:event_txtApellidoCliKeyTyped
-  
+
   private void txtTelCliKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelCliKeyTyped
     Helper.validarSoloNumero(evt);
   }//GEN-LAST:event_txtTelCliKeyTyped
-  
+
   private void btnEliminarClienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEliminarClienteMouseClicked
     if (Home.rol.equals("Admin")) {
-      
+
       if (clienteSeleccionado != null) {
-        
+
         int opcion = JOptionPane.showConfirmDialog(this, "¿Estás seguro de borrar el cliente "
           + clienteSeleccionado + " ?", "Eliminar?", JOptionPane.YES_NO_OPTION);
-        
+
         if (opcion == 0) {
           modeloTablaClientes.removeRow(tablaClientes.getSelectedRow());
           MetodosSQL.borrarCliente(clienteSeleccionado);
@@ -656,11 +656,11 @@ public class ClientesFrame extends javax.swing.JPanel {
       JOptionPane.showMessageDialog(this, "No tiene permisos para realizar la operación");
     }
   }//GEN-LAST:event_btnEliminarClienteMouseClicked
-  
+
   private void txtBuscarClienteKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtBuscarClienteKeyReleased
     String cadenaBusqueda = txtBuscarCliente.getText().toLowerCase();
     List<Cliente> clientes = obtenerClientes(cadenaBusqueda);
-    
+
     cargarClientesEnTabla(clientes);
   }//GEN-LAST:event_txtBuscarClienteKeyReleased
 
@@ -719,7 +719,7 @@ public class ClientesFrame extends javax.swing.JPanel {
     txtDirCli.setText("");
     txtDniCli.requestFocus();
     cboCatIva.setSelectedIndex(0);
-    
+
     registrosXPag = 6;
     modeloSpinner.setValue(new Integer(registrosXPag));
     numPagina = 1;
@@ -728,13 +728,13 @@ public class ClientesFrame extends javax.swing.JPanel {
       paginador = new Paginador<>(listaClientes, lblPaginacion, registrosXPag);
     }
     listaClientes = obtenerClientes(null);
-    
+
     cargarClientesEnTabla(listaClientes);
-    
+
   }
-  
+
   public void paginacion(String accion) {
-    
+
     switch (accion) {
       case "primero":
         if (!listaClientes.isEmpty()) {
@@ -760,12 +760,12 @@ public class ClientesFrame extends javax.swing.JPanel {
     listaClientes = obtenerClientes(null);
     cargarClientesEnTabla(listaClientes);
   }
-  
+
   private void restablecerLabel(JLabel label, String texto) {
     label.setText(texto);
     label.setForeground(Color.white);
   }
-  
+
   private void seleccionarCondicionIva(String condicion) {
     for (int i = 0; i < cboCatIva.getItemCount(); i++) {
       String itemCombo = cboCatIva.getItemAt(i);
@@ -774,9 +774,9 @@ public class ClientesFrame extends javax.swing.JPanel {
         break;
       }
     }
-    
+
   }
-  
+
   private List<Cliente> obtenerClientes(String filtro) {
     List<Cliente> clientes;
     int inicio = (numPagina - 1) * registrosXPag;
@@ -789,12 +789,16 @@ public class ClientesFrame extends javax.swing.JPanel {
         .collect(Collectors.toList());
     } else {
       clientes = MetodosSQL
-        .obtenerClientesPorCriterio(filtro);
-      
+        .obtenerClientesPorCriterio(filtro)
+        .stream()
+        .skip(inicio)
+        .limit(registrosXPag)
+        .collect(Collectors.toList());
+
     }
     return clientes;
   }
-  
+
   private void configurarTabla() {
     String[] titulos = {"DNI", "Nombre", "Apellidos", "Telefono", "Direccion"};
     modeloTablaClientes = new DefaultTableModel(null, titulos) {
@@ -802,12 +806,12 @@ public class ClientesFrame extends javax.swing.JPanel {
       public boolean isCellEditable(int i, int i1) {
         return false;
       }
-      
+
     };
   }
-  
+
   private void cargarClientesEnTabla(List<Cliente> clientes) {
-    
+
     limpiarTabla();
     if (!clientes.isEmpty()) {
       clientes.forEach(cliente -> {
@@ -820,13 +824,13 @@ public class ClientesFrame extends javax.swing.JPanel {
         };
         modeloTablaClientes.addRow(registro);
       });
-      
+
     }
     tablaClientes.setModel(modeloTablaClientes);
     tablaClientes.setRowHeight(30);
-    
+
   }
-  
+
   private void limpiarTabla() {
     int numFilas = modeloTablaClientes.getRowCount();
     if (numFilas > 0) {
@@ -835,5 +839,5 @@ public class ClientesFrame extends javax.swing.JPanel {
       }
     }
   }
-  
+
 }

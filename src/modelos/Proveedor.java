@@ -10,67 +10,67 @@ package modelos;
  * @author Horacio
  */
 public class Proveedor {
-    private Integer id;
-    private String nombreEmpresa;
-    private String nombreContacto;
-    private String direccion;
-    private String telefono;
-    private String email;
 
-    public Integer getId() {
-        return id;
-    }
+  private String id;
+  private String nombre;
+  private String direccion;
+  private String telefono;
+  private String email;
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-    
-    
-    
-    public String getNombreEmpresa() {
-        return nombreEmpresa;
-    }
+  public Proveedor() {
+  }
 
-    public void setNombreEmpresa(String nombreEmpresa) {
-        this.nombreEmpresa = nombreEmpresa;
-    }
+  public Proveedor(String id, String nombre, String direccion, String telefono, String email) {
+    this.id = id;
+    this.nombre = nombre;
+    this.direccion = direccion;
+    this.telefono = telefono;
+    this.email = email;
+  }
 
-    public String getNombreContacto() {
-        return nombreContacto;
-    }
+  public String getId() {
+    return id;
+  }
 
-    public void setNombreContacto(String nombreContacto) {
-        this.nombreContacto = nombreContacto;
-    }
+  public void setId(String id) {
+    this.id = id;
+  }
 
-    public String getDireccion() {
-        return direccion;
-    }
+  public String getNombre() {
+    return nombre;
+  }
 
-    public void setDireccion(String direccion) {
-        this.direccion = direccion;
-    }
+  public void setNombre(String nombre) {
+    this.nombre = nombre;
+  }
 
-    public String getTelefono() {
-        return telefono;
-    }
+  public String getDireccion() {
+    return direccion;
+  }
 
-    public void setTelefono(String telefono) {
-        this.telefono = telefono;
-    }
+  public void setDireccion(String direccion) {
+    this.direccion = direccion;
+  }
 
-    public String getEmail() {
-        return email;
-    }
+  public String getTelefono() {
+    return telefono;
+  }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+  public void setTelefono(String telefono) {
+    this.telefono = telefono;
+  }
 
-    @Override
-    public String toString() {
-        return nombreEmpresa;
-    }
-    
-    
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  @Override
+  public String toString() {
+    return nombre;
+  }
+
 }
