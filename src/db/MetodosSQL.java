@@ -423,6 +423,38 @@ public class MetodosSQL extends BaseDatos {
 
   }
 
+  public static ArrayList<Cliente> obtenerClientesPorCriterio(String criterio) {
+    Connection conexion = null;
+    ArrayList<Cliente> clientes = new ArrayList<>();
+    Statement stmt = null;
+    ResultSet rs = null;
+    try {
+      conexion = obtenerConexion();
+      stmt = conexion.createStatement();
+      String sql = "SELECT * FROM clientes WHERE dni LIKE '%"
+        + criterio + "%' "
+        + "OR nombre LIKE '%" + criterio + "%'"
+        + "OR apellidos LIKE '%" + criterio + "%'";
+      rs = stmt.executeQuery(sql);
+      while (rs.next()) {
+        Cliente cliente = new Cliente();
+        cliente.setDni(rs.getString("dni"));
+        cliente.setApellido(rs.getString("apellidos"));
+        cliente.setNombre(rs.getString("nombre"));
+        cliente.setTelefono(rs.getString("telefono"));
+        cliente.setDireccion(rs.getString("direccion"));
+        cliente.setCategoriaIva(rs.getString("categoria_iva"));
+        clientes.add(cliente);
+      }
+
+    } catch (SQLException e) {
+    } finally {
+      cerrarResultSet(rs);
+      cerrarStatement(stmt);
+    }
+    return clientes;
+  }
+
   public static ArrayList<Cliente> obtenerClientes() {
     Connection conexion = null;
     ArrayList<Cliente> clientes = new ArrayList<>();

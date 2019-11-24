@@ -354,9 +354,11 @@ public class inicio extends javax.swing.JFrame {
       try {
         String passwordHash = Encriptador.desencriptar(usuario.getPassword());
         if (password.equals(passwordHash)) {
-          Home Home = new Home();
-          Home.setVisible(true);
-          Home.jl_nombre.setText(usuario.getNick());
+          String rol = usuario.getTipoUsuario();
+          Home home = new Home();
+          home.setVisible(true);
+          Home.rol = rol;
+          home.jl_nombre.setText(usuario.getNick());
           this.dispose();
         } else {
           JOptionPane.showMessageDialog(this, "Datos incorrectos: verifique su Nombre de usuario y contraseña\n",

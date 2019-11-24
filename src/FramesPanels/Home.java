@@ -22,6 +22,7 @@ public class Home extends javax.swing.JFrame implements ActionListener {
   public static final VentasFrame VENTAS_FRAME = new VentasFrame();
   public static final ClientesFrame CLIENTES_FRAME = new ClientesFrame();
   public static final UsuariosFrame USUARIOS_FRAME = new UsuariosFrame();
+  public static String rol;
 //   ventas ventas = new ventas();
 
   /*
@@ -39,7 +40,7 @@ public class Home extends javax.swing.JFrame implements ActionListener {
     contenedor.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
     contenedor.setLayout(new java.awt.BorderLayout());
     contenedor.setPreferredSize(new Dimension(1366, 768));
-    
+
     btn_clientes.addActionListener(this);
     btn_inven.addActionListener(this);
     btn_ventas.addActionListener(this);
@@ -324,48 +325,49 @@ public class Home extends javax.swing.JFrame implements ActionListener {
     private void btn_clientesMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_clientesMouseMoved
     // TODO add your handling code here:
     }//GEN-LAST:event_btn_clientesMouseMoved
-  
+
     private void btn_ventasMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_ventasMouseMoved
     // TODO add your handling code here:
     }//GEN-LAST:event_btn_ventasMouseMoved
-  
+
     private void btn_proveMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_proveMouseMoved
     // TODO add your handling code here:
     }//GEN-LAST:event_btn_proveMouseMoved
-  
+
     private void btn_comprasMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_comprasMouseMoved
     // TODO add your handling code here:
     }//GEN-LAST:event_btn_comprasMouseMoved
-  
+
     private void btn_usMouseMoved(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_usMouseMoved
     // TODO add your handling code here:
     }//GEN-LAST:event_btn_usMouseMoved
-  
+
     private void btn_clientesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_clientesMouseClicked
     // TODO add your handling code here:
     }//GEN-LAST:event_btn_clientesMouseClicked
-  
+
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
     this.setState(Home.ICONIFIED);
     }//GEN-LAST:event_jButton1MouseClicked
-  
+
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
     int dialog = JOptionPane.YES_NO_OPTION;
     int result = JOptionPane.showConfirmDialog(null, "Desea cerrar la sesión?", "Salir", dialog);
+
     if (result == 0) {
       this.dispose();
       new inicio().setVisible(true);
     }
     }//GEN-LAST:event_jButton2MouseClicked
-  
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
     // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
-  
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
     // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
-  
+
     private void btn_invenActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_invenActionPerformed
     // TODO add your handling code here:
     }//GEN-LAST:event_btn_invenActionPerformed
@@ -392,7 +394,7 @@ public class Home extends javax.swing.JFrame implements ActionListener {
 
   @Override
   public void actionPerformed(ActionEvent ae) {
-    
+
     Object evt = ae.getSource(); //variable comparadora
 
     if (evt.equals(btn_clientes)) {
@@ -400,7 +402,7 @@ public class Home extends javax.swing.JFrame implements ActionListener {
     } else if (evt.equals(btn_inven)) {
       mostrarPanel(Home.INVENTARIO);
     } else if (evt.equals(btn_ventas)) {
-      
+
       mostrarPanel(Home.VENTAS_FRAME);
     } else if (evt.equals(btn_prove)) {
 //            clientes.setVisible(false);
@@ -426,7 +428,7 @@ public class Home extends javax.swing.JFrame implements ActionListener {
       mostrarPanel(USUARIOS_FRAME);
     }
   }
-  
+
   public static void mostrarPanel(JPanel panel) {
     panel.setVisible(true);
     contenedor.removeAll();

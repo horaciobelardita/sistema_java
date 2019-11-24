@@ -6,14 +6,12 @@ create table usuarios (
     nombre varchar(30) not null,
     nick varchar(15) not null unique,
     password varchar(250) not null,
-    tipo_usuario enum('Admin',
-		'Compras, Proveedores',
-		'Inventario',
-		'Ventas') not null
+    tipo_usuario enum('Admin', 'Usuario') not null
 );
 
 insert into usuarios values (null, 'root', 'root', '0RnBDAOrVJvaALhiHLSaCQ==', 'Admin');
 insert into usuarios values (null, 'vampi', 'vampi', 'RVUYIoUJ9xkydl05+xUKUg==', 'Admin');
+insert into usuarios values (null, 'usuario', 'vendedor', 'RVUYIoUJ9xkydl05+xUKUg==', 'Usuario');
 
 create table proveedores (
     id int auto_increment  primary key,
