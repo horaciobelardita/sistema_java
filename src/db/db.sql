@@ -37,9 +37,9 @@ imagen MEDIUMBLOB default NULL
    #foreign key (id_proveedor) references proveedores(id)
 );
 
-insert into productos values ('123456789101', 'Coca-cola', 'bebida', 150.5, 110.0, 10, null);
-insert into productos values ('123456789102', 'Pan Blanco', 'panificado', 65.0, 45.0, 10, null);
-insert into productos values ('123456789103', 'Manaos Uva 2.15 lts', 'bebida', 65.0, 45.0, 3, null);
+insert into productos values ('1234567891', 'Coca-cola', 'bebida', 150.5, 110.0, 10, null);
+insert into productos values ('1234567892', 'Pan Blanco', 'panificado', 65.0, 45.0, 10, null);
+insert into productos values ('1234567893', 'Manaos Uva 2.15 lts', 'bebida', 65.0, 45.0, 3, null);
 
 create table clientes (
     dni char(8) primary key,

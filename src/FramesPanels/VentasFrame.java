@@ -108,8 +108,6 @@ public class VentasFrame extends javax.swing.JPanel {
     txtBuscarProd = new javax.swing.JTextField();
     jScrollPane2 = new javax.swing.JScrollPane();
     jList1 = new javax.swing.JList();
-    jPanel1 = new javax.swing.JPanel();
-    lblImagenProd = new javax.swing.JLabel();
     btnQuitarProd1 = new javax.swing.JPanel();
     jLabel13 = new javax.swing.JLabel();
     jPanel2 = new javax.swing.JPanel();
@@ -135,6 +133,8 @@ public class VentasFrame extends javax.swing.JPanel {
     txtFechaActual = new javax.swing.JTextField();
     jLabel6 = new javax.swing.JLabel();
     lblNumeroFactura = new javax.swing.JLabel();
+    jPanel1 = new javax.swing.JPanel();
+    lblCodigoBarra = new javax.swing.JLabel();
 
     setBackground(new java.awt.Color(47, 34, 23));
     setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -173,11 +173,6 @@ public class VentasFrame extends javax.swing.JPanel {
 
     add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 170, 350, -1));
 
-    jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-    jPanel1.add(lblImagenProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(1200, 140, 250, 150));
-
-    add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1030, 120, 250, 150));
-
     btnQuitarProd1.setBackground(new java.awt.Color(255, 102, 0));
     btnQuitarProd1.addMouseListener(new java.awt.event.MouseAdapter() {
       public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -203,7 +198,7 @@ public class VentasFrame extends javax.swing.JPanel {
     lblTotalVenta.setFont(new java.awt.Font("Fira Sans Semi-Light", 1, 48)); // NOI18N
     lblTotalVenta.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
     lblTotalVenta.setText("0.0");
-    jPanel2.add(lblTotalVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 280, -1));
+    jPanel2.add(lblTotalVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 190, 280, 50));
 
     btnRealizarVta.setBackground(new java.awt.Color(255, 102, 0));
     btnRealizarVta.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -218,12 +213,11 @@ public class VentasFrame extends javax.swing.JPanel {
     jLabel12.setText("Realizar Venta");
     btnRealizarVta.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 110, -1));
 
-    jPanel2.add(btnRealizarVta, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 280, 210, 40));
-    jPanel2.add(txtPagaCon, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 210, -1));
+    jPanel2.add(btnRealizarVta, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, 210, 40));
+    jPanel2.add(txtPagaCon, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 260, 210, -1));
 
-    jLabel4.setForeground(java.awt.Color.white);
     jLabel4.setText("Paga con:");
-    jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(59, 180, 115, -1));
+    jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, 115, 20));
 
     lblSub.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
     lblSub.setText("SubTotal");
@@ -304,6 +298,23 @@ public class VentasFrame extends javax.swing.JPanel {
     lblNumeroFactura.setForeground(new java.awt.Color(255, 255, 255));
     lblNumeroFactura.setText("jLabel7");
     add(lblNumeroFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 50, 320, -1));
+
+    javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+    jPanel1.setLayout(jPanel1Layout);
+    jPanel1Layout.setHorizontalGroup(
+      jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(jPanel1Layout.createSequentialGroup()
+        .addComponent(lblCodigoBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addGap(0, 0, Short.MAX_VALUE))
+    );
+    jPanel1Layout.setVerticalGroup(
+      jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        .addGap(0, 0, Short.MAX_VALUE)
+        .addComponent(lblCodigoBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+    );
+
+    add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 210, 160, 80));
   }// </editor-fold>//GEN-END:initComponents
 
     private void btnRealizarVtaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRealizarVtaMouseClicked
@@ -409,7 +420,7 @@ public class VentasFrame extends javax.swing.JPanel {
       ImageIcon iconRedimensionado = new ImageIcon(imgRedimensionada);
 
       //Establecemos la imagen redimensionada, como icono de la etiqueta de imagen.
-      lblImagenProd.setIcon(iconRedimensionado);
+//      lblImagenProd.setIcon(iconRedimensionado);
     } catch (IOException e) {
     }
 
@@ -439,7 +450,7 @@ public class VentasFrame extends javax.swing.JPanel {
       // obtener producto seleccionado
       Producto producto = (Producto) jlist.getSelectedValue();
       agregarProductoAVenta(producto);
-      cargarImagen(producto);
+      Helper.cargarCodigoBarra(producto.getCodigo(), lblCodigoBarra);
       limpiarListaProductos();
       limpiarCampos();
     }
@@ -525,7 +536,7 @@ public class VentasFrame extends javax.swing.JPanel {
   private javax.swing.JPanel jPanel3;
   private javax.swing.JScrollPane jScrollPane1;
   private javax.swing.JScrollPane jScrollPane2;
-  private javax.swing.JLabel lblImagenProd;
+  private javax.swing.JLabel lblCodigoBarra;
   private javax.swing.JLabel lblIva;
   private javax.swing.JLabel lblNumeroFactura;
   private javax.swing.JLabel lblSub;
@@ -601,7 +612,7 @@ public class VentasFrame extends javax.swing.JPanel {
   private void limpiarCampos() {
     txtBuscarProd.setText("");
     txtPagaCon.setText("");
-    lblImagenProd.setIcon(null);
+//    lblImagenProd.setIcon(null);
     txtBuscarProd.requestFocus();
   }
 

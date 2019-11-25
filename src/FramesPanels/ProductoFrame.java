@@ -6,9 +6,13 @@
 package FramesPanels;
 
 import db.MetodosSQL;
+import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -27,14 +31,13 @@ public class ProductoFrame extends javax.swing.JPanel {
   DefaultComboBoxModel modeloCombo = new DefaultComboBoxModel<>();
   private File imgProducto;
   public boolean estaActualizando;
+  private String codigoBarra;
 
-  /**
-   * Creates new form ProductoFrame1
-   */
   public ProductoFrame() {
     cargarModeloCombo();
     initComponents();
     this.estaActualizando = false;
+    txtCodigoProd.setEditable(false);
 //        if (producto != null) {
 //            cargarProducto(producto, icon);
 //        }
@@ -50,16 +53,16 @@ public class ProductoFrame extends javax.swing.JPanel {
   private void initComponents() {
 
     txtCodigoProd = new javax.swing.JTextField();
-    txt_nom_inv = new javax.swing.JTextField();
+    txtNombreProd = new javax.swing.JTextField();
     txtPrecioCompraProd = new javax.swing.JTextField();
     txtPrecioVtaProd = new javax.swing.JTextField();
     txtCantidadProd = new javax.swing.JTextField();
     txt_descr_inv = new javax.swing.JTextField();
-    jLabel1 = new javax.swing.JLabel();
-    jLabel2 = new javax.swing.JLabel();
-    jLabel3 = new javax.swing.JLabel();
-    jLabel4 = new javax.swing.JLabel();
-    jLabel5 = new javax.swing.JLabel();
+    lblCodigo = new javax.swing.JLabel();
+    lblNombreProd = new javax.swing.JLabel();
+    lblPrecioCompra = new javax.swing.JLabel();
+    lblPrecioVenta = new javax.swing.JLabel();
+    lblCantidad = new javax.swing.JLabel();
     jLabel6 = new javax.swing.JLabel();
     jLabel8 = new javax.swing.JLabel();
     jPanel2 = new javax.swing.JPanel();
@@ -72,6 +75,8 @@ public class ProductoFrame extends javax.swing.JPanel {
     btn_regis4 = new javax.swing.JPanel();
     jPanel1 = new javax.swing.JPanel();
     lblImagenProducto = new javax.swing.JLabel();
+    jPanel3 = new javax.swing.JPanel();
+    lblCodigoBarra = new javax.swing.JLabel();
 
     setBackground(new java.awt.Color(47, 34, 23));
     setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -79,17 +84,26 @@ public class ProductoFrame extends javax.swing.JPanel {
     txtCodigoProd.setBackground(new java.awt.Color(47, 34, 23));
     txtCodigoProd.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
     txtCodigoProd.setForeground(new java.awt.Color(255, 255, 255));
+    txtCodigoProd.setEnabled(false);
     txtCodigoProd.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         txtCodigoProdActionPerformed(evt);
       }
     });
-    add(txtCodigoProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, 260, -1));
+    add(txtCodigoProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, 260, -1));
 
-    txt_nom_inv.setBackground(new java.awt.Color(47, 34, 23));
-    txt_nom_inv.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
-    txt_nom_inv.setForeground(new java.awt.Color(255, 255, 255));
-    add(txt_nom_inv, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 140, 260, -1));
+    txtNombreProd.setBackground(new java.awt.Color(47, 34, 23));
+    txtNombreProd.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
+    txtNombreProd.setForeground(new java.awt.Color(255, 255, 255));
+    txtNombreProd.addKeyListener(new java.awt.event.KeyAdapter() {
+      public void keyReleased(java.awt.event.KeyEvent evt) {
+        txtNombreProdKeyReleased(evt);
+      }
+      public void keyTyped(java.awt.event.KeyEvent evt) {
+        txtNombreProdKeyTyped(evt);
+      }
+    });
+    add(txtNombreProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, 260, -1));
 
     txtPrecioCompraProd.setBackground(new java.awt.Color(47, 34, 23));
     txtPrecioCompraProd.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -98,8 +112,14 @@ public class ProductoFrame extends javax.swing.JPanel {
       public void keyPressed(java.awt.event.KeyEvent evt) {
         txtPrecioCompraProdKeyPressed(evt);
       }
+      public void keyReleased(java.awt.event.KeyEvent evt) {
+        txtPrecioCompraProdKeyReleased(evt);
+      }
+      public void keyTyped(java.awt.event.KeyEvent evt) {
+        txtPrecioCompraProdKeyTyped(evt);
+      }
     });
-    add(txtPrecioCompraProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 180, 100, -1));
+    add(txtPrecioCompraProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 210, 100, -1));
 
     txtPrecioVtaProd.setBackground(new java.awt.Color(47, 34, 23));
     txtPrecioVtaProd.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -108,8 +128,14 @@ public class ProductoFrame extends javax.swing.JPanel {
       public void keyPressed(java.awt.event.KeyEvent evt) {
         txtPrecioVtaProdKeyPressed(evt);
       }
+      public void keyReleased(java.awt.event.KeyEvent evt) {
+        txtPrecioVtaProdKeyReleased(evt);
+      }
+      public void keyTyped(java.awt.event.KeyEvent evt) {
+        txtPrecioVtaProdKeyTyped(evt);
+      }
     });
-    add(txtPrecioVtaProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 220, 100, -1));
+    add(txtPrecioVtaProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 260, 100, -1));
 
     txtCantidadProd.setBackground(new java.awt.Color(47, 34, 23));
     txtCantidadProd.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -123,51 +149,57 @@ public class ProductoFrame extends javax.swing.JPanel {
       public void keyPressed(java.awt.event.KeyEvent evt) {
         txtCantidadProdKeyPressed(evt);
       }
+      public void keyReleased(java.awt.event.KeyEvent evt) {
+        txtCantidadProdKeyReleased(evt);
+      }
+      public void keyTyped(java.awt.event.KeyEvent evt) {
+        txtCantidadProdKeyTyped(evt);
+      }
     });
-    add(txtCantidadProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 260, 100, -1));
+    add(txtCantidadProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 320, 100, -1));
 
     txt_descr_inv.setBackground(new java.awt.Color(47, 34, 23));
     txt_descr_inv.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
     txt_descr_inv.setForeground(new java.awt.Color(255, 255, 255));
-    add(txt_descr_inv, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 470, 260, 90));
+    add(txt_descr_inv, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 560, 260, 90));
 
-    jLabel1.setBackground(new java.awt.Color(255, 255, 255));
-    jLabel1.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-    jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-    jLabel1.setText("Codigo:");
-    jLabel1.setInheritsPopupMenu(false);
-    add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 100, -1, -1));
+    lblCodigo.setBackground(new java.awt.Color(255, 255, 255));
+    lblCodigo.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+    lblCodigo.setForeground(new java.awt.Color(255, 255, 255));
+    lblCodigo.setText("Codigo:");
+    lblCodigo.setInheritsPopupMenu(false);
+    add(lblCodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 50, -1, -1));
 
-    jLabel2.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-    jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-    jLabel2.setText("Nombre");
-    jLabel2.setInheritsPopupMenu(false);
-    add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 140, -1, -1));
+    lblNombreProd.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+    lblNombreProd.setForeground(new java.awt.Color(255, 255, 255));
+    lblNombreProd.setText("Nombre");
+    lblNombreProd.setInheritsPopupMenu(false);
+    add(lblNombreProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 120, -1, -1));
 
-    jLabel3.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-    jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-    jLabel3.setText("Precio de compra");
-    add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 190, -1, -1));
+    lblPrecioCompra.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+    lblPrecioCompra.setForeground(new java.awt.Color(255, 255, 255));
+    lblPrecioCompra.setText("Precio de compra");
+    add(lblPrecioCompra, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, -1, -1));
 
-    jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-    jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-    jLabel4.setText("Precio de venta");
-    add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 220, -1, -1));
+    lblPrecioVenta.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+    lblPrecioVenta.setForeground(new java.awt.Color(255, 255, 255));
+    lblPrecioVenta.setText("Precio de venta");
+    add(lblPrecioVenta, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 240, -1, -1));
 
-    jLabel5.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-    jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-    jLabel5.setText("cantidad");
-    add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 260, -1, 20));
+    lblCantidad.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+    lblCantidad.setForeground(new java.awt.Color(255, 255, 255));
+    lblCantidad.setText("cantidad");
+    add(lblCantidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 290, -1, 20));
 
     jLabel6.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
     jLabel6.setForeground(new java.awt.Color(255, 255, 255));
     jLabel6.setText("Descripción");
-    add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 470, -1, -1));
+    add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 540, -1, -1));
 
     jLabel8.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
     jLabel8.setForeground(new java.awt.Color(255, 255, 255));
     jLabel8.setText("Imagen");
-    add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 310, -1, -1));
+    add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 350, -1, -1));
 
     jPanel2.setBackground(new java.awt.Color(255, 102, 0));
     jPanel2.setMinimumSize(new java.awt.Dimension(245, 345));
@@ -206,7 +238,7 @@ public class ProductoFrame extends javax.swing.JPanel {
     jLabel11.setText("Cancelar");
     btnCancelar.add(jLabel11, new java.awt.GridBagConstraints());
 
-    add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 600, 110, 40));
+    add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 680, 110, 40));
 
     btnGuardarProducto.setBackground(new java.awt.Color(255, 102, 0));
     btnGuardarProducto.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -232,7 +264,7 @@ public class ProductoFrame extends javax.swing.JPanel {
     btn_regis4.setLayout(new java.awt.GridBagLayout());
     btnGuardarProducto.add(btn_regis4, new java.awt.GridBagConstraints());
 
-    add(btnGuardarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 600, 110, 40));
+    add(btnGuardarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 680, 110, 40));
 
     jPanel1.setBackground(new java.awt.Color(204, 204, 204));
     jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -249,17 +281,36 @@ public class ProductoFrame extends javax.swing.JPanel {
     jPanel1Layout.setHorizontalGroup(
       jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(jPanel1Layout.createSequentialGroup()
-        .addComponent(lblImagenProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addComponent(lblImagenProducto, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
         .addGap(0, 0, Short.MAX_VALUE))
     );
     jPanel1Layout.setVerticalGroup(
       jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
         .addGap(0, 0, Short.MAX_VALUE)
-        .addComponent(lblImagenProducto, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+        .addComponent(lblImagenProducto, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
     );
 
-    add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 310, 250, 150));
+    add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 380, 250, 150));
+
+    jPanel3.setPreferredSize(new java.awt.Dimension(160, 80));
+
+    javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+    jPanel3.setLayout(jPanel3Layout);
+    jPanel3Layout.setHorizontalGroup(
+      jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(jPanel3Layout.createSequentialGroup()
+        .addComponent(lblCodigoBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addGap(0, 0, Short.MAX_VALUE))
+    );
+    jPanel3Layout.setVerticalGroup(
+      jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+        .addGap(0, 0, Short.MAX_VALUE)
+        .addComponent(lblCodigoBarra, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE))
+    );
+
+    add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 70, 160, -1));
   }// </editor-fold>//GEN-END:initComponents
 
     private void txtCodigoProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodigoProdActionPerformed
@@ -285,19 +336,48 @@ public class ProductoFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_btn_regis4MouseClicked
 
     private void btnGuardarProductoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnGuardarProductoMouseClicked
-//        obtener los valores ingresados en los campos
-    String codigo = txtCodigoProd.getText();
-    String nombre = txt_nom_inv.getText();
-    Integer stock = Integer.parseInt(txtCantidadProd.getText());
-    String descripcion = txt_descr_inv.getText();
+//    if (Helper.esCampoVacio(txtCodigoProd)) {
+//      Helper.mostrarError(txtCodigoProd, lblCodigo, "Debe ingresar Codigo", Color.red);
+//      return;
+//    }
+    if (Helper.esCampoVacio(txtNombreProd)) {
+      Helper.mostrarError(txtNombreProd, lblNombreProd, "Debe ingresar Nombre", Color.red);
+      return;
+    }
+    if (Helper.esCampoVacio(txtPrecioCompraProd)) {
+      Helper.mostrarError(txtPrecioCompraProd, lblPrecioCompra, "Debe ingresar Precio Compra", Color.red);
+      return;
+    }
+    if (Helper.esCampoVacio(txtPrecioVtaProd)) {
+      Helper.mostrarError(txtPrecioVtaProd, lblPrecioVenta, "Debe ingresar Precio Venta", Color.red);
+      return;
+    }
+    if (Helper.esCampoVacio(txtCantidadProd)) {
+      Helper.mostrarError(txtCantidadProd, lblCantidad, "Debe ingresar Cantidad", Color.red);
+      return;
+    }
     double precioVenta = Double.parseDouble(Helper.convertirComaAPunto(txtPrecioVtaProd.getText()));
     double precioCompra = Double.parseDouble(Helper.convertirComaAPunto(txtPrecioCompraProd.getText()));
+    if (precioCompra > precioVenta) {
+      JOptionPane.showMessageDialog(this, "El Precio de Venta debe ser mayor al de compra");
+      txtPrecioCompraProd.requestFocus();
+      return;
+    }
 
+//        obtener los valores ingresados en los campos
+//    String codigo = txtCodigoProd.getText();
+    String nombre = txtNombreProd.getText();
+    Integer stock = Integer.parseInt(txtCantidadProd.getText());
+    String descripcion = txt_descr_inv.getText();
+
+    generarCodigoBarra(nombre, precioVenta);
+    txtCodigoProd.setText(codigoBarra);
+    Helper.cargarCodigoBarra(codigoBarra, lblCodigoBarra);
     int filasAfectadas = 0;
 //      instancia de un nuevo producto con los valores
     Producto producto;
     producto = new Producto();
-    producto.setCodigo(codigo.toLowerCase());
+    producto.setCodigo(codigoBarra);
     producto.setNombre(nombre.toLowerCase());
     producto.setDescripcion(descripcion.toLowerCase());
     producto.setPrecioCompra(precioCompra);
@@ -369,41 +449,95 @@ public class ProductoFrame extends javax.swing.JPanel {
     }//GEN-LAST:event_jPanel1MouseClicked
 
     private void txtCantidadProdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadProdKeyPressed
-    Helper.validarSoloNumero(evt);
     }//GEN-LAST:event_txtCantidadProdKeyPressed
 
     private void txtPrecioCompraProdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioCompraProdKeyPressed
-    Helper.validarSoloNumeroDecimales(evt, txtPrecioCompraProd);
     }//GEN-LAST:event_txtPrecioCompraProdKeyPressed
 
     private void txtPrecioVtaProdKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioVtaProdKeyPressed
-    Helper.validarSoloNumeroDecimales(evt, txtPrecioVtaProd);
     }//GEN-LAST:event_txtPrecioVtaProdKeyPressed
+
+  private void txtNombreProdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreProdKeyTyped
+    Helper.validarAlphanumerico(evt);
+  }//GEN-LAST:event_txtNombreProdKeyTyped
+
+  private void txtPrecioCompraProdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioCompraProdKeyTyped
+    Helper.validarSoloNumeroDecimales(evt, txtPrecioCompraProd);
+
+  }//GEN-LAST:event_txtPrecioCompraProdKeyTyped
+
+  private void txtPrecioVtaProdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioVtaProdKeyTyped
+    Helper.validarSoloNumeroDecimales(evt, txtPrecioVtaProd);
+  }//GEN-LAST:event_txtPrecioVtaProdKeyTyped
+
+  private void txtCantidadProdKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadProdKeyTyped
+    Helper.validarSoloNumero(evt);
+
+  }//GEN-LAST:event_txtCantidadProdKeyTyped
+
+  private void txtNombreProdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreProdKeyReleased
+    if (Helper.esCampoVacio(txtNombreProd)) {
+      Helper.mostrarError(txtNombreProd, lblNombreProd, "Debe ingresar un nombre", Color.white);
+    } else {
+      lblNombreProd.setText("Nombre:");
+      lblNombreProd.setForeground(new Color(255, 102, 0));
+    }
+  }//GEN-LAST:event_txtNombreProdKeyReleased
+
+  private void txtPrecioCompraProdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioCompraProdKeyReleased
+    if (Helper.esCampoVacio(txtPrecioCompraProd)) {
+      lblPrecioCompra.setForeground(Color.white);
+    } else {
+      lblPrecioCompra.setText("Precio Compra:");
+      lblPrecioCompra.setForeground(new Color(255, 102, 0));
+    }
+  }//GEN-LAST:event_txtPrecioCompraProdKeyReleased
+
+  private void txtPrecioVtaProdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioVtaProdKeyReleased
+    if (Helper.esCampoVacio(txtPrecioVtaProd)) {
+      lblPrecioVenta.setForeground(Color.white);
+    } else {
+      lblPrecioVenta.setText("Precio Venta:");
+      lblPrecioVenta.setForeground(new Color(255, 102, 0));
+    }
+  }//GEN-LAST:event_txtPrecioVtaProdKeyReleased
+
+  private void txtCantidadProdKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCantidadProdKeyReleased
+    if (Helper.esCampoVacio(txtCantidadProd)) {
+      lblCantidad.setForeground(Color.white);
+    } else {
+      lblCantidad.setText("Cantidad:");
+      lblCantidad.setForeground(new Color(255, 102, 0));
+
+    }
+  }//GEN-LAST:event_txtCantidadProdKeyReleased
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JPanel btnCancelar;
   private javax.swing.JPanel btnGuardarProducto;
   private javax.swing.JPanel btn_regis2;
   private javax.swing.JPanel btn_regis4;
-  private javax.swing.JLabel jLabel1;
   private javax.swing.JLabel jLabel11;
   private javax.swing.JLabel jLabel12;
-  private javax.swing.JLabel jLabel2;
-  private javax.swing.JLabel jLabel3;
-  private javax.swing.JLabel jLabel4;
-  private javax.swing.JLabel jLabel5;
   private javax.swing.JLabel jLabel6;
   private javax.swing.JLabel jLabel8;
   private javax.swing.JLabel jLabel9;
   private javax.swing.JPanel jPanel1;
   private javax.swing.JPanel jPanel2;
+  private javax.swing.JPanel jPanel3;
+  private javax.swing.JLabel lblCantidad;
+  private javax.swing.JLabel lblCodigo;
+  private javax.swing.JLabel lblCodigoBarra;
   private javax.swing.JLabel lblImagenProducto;
+  private javax.swing.JLabel lblNombreProd;
+  private javax.swing.JLabel lblPrecioCompra;
+  private javax.swing.JLabel lblPrecioVenta;
   private javax.swing.JTextField txtCantidadProd;
   private javax.swing.JTextField txtCodigoProd;
+  private javax.swing.JTextField txtNombreProd;
   private javax.swing.JTextField txtPrecioCompraProd;
   private javax.swing.JTextField txtPrecioVtaProd;
   private javax.swing.JTextField txt_descr_inv;
-  private javax.swing.JTextField txt_nom_inv;
   // End of variables declaration//GEN-END:variables
 
   private void cargarModeloCombo() {
@@ -415,14 +549,14 @@ public class ProductoFrame extends javax.swing.JPanel {
 
   public void reiniciarPanel() {
     txtCodigoProd.setText("");
-    txt_nom_inv.setText("");
+    txtNombreProd.setText("");
     txt_descr_inv.setText("");
     txtCantidadProd.setText("");
     txtPrecioCompraProd.setText("");
     txtPrecioVtaProd.setText("");
     lblImagenProducto.setIcon(null);
     txtCodigoProd.setEnabled(true);
-    txt_nom_inv.setEnabled(true);
+    txtNombreProd.setEnabled(true);
     estaActualizando = false;
   }
 
@@ -450,7 +584,7 @@ public class ProductoFrame extends javax.swing.JPanel {
     double precioCompra = producto.getPrecioCompra();
     double precioVenta = producto.getPrecioVenta();
     txtCodigoProd.setText(codigo);
-    txt_nom_inv.setText(nombre);
+    txtNombreProd.setText(nombre);
     txt_descr_inv.setText(descripcion);
     txtCantidadProd.setText(String.valueOf(stock));
     txtPrecioCompraProd.setText(Helper.convertirPuntoAComa(String.valueOf(precioCompra)));
@@ -469,6 +603,33 @@ public class ProductoFrame extends javax.swing.JPanel {
 //      }
 //    }
 
+  }
+
+  private void generarCodigoBarra(String nombre, Double precioVenta) {
+    List<Producto> productos = MetodosSQL
+      .obtenerProductos()
+      .stream()
+      .filter(p -> p.getNombre().equals(nombre) && p.getPrecioVenta().equals(precioVenta))
+      .collect(Collectors.toList());
+    int codigo = 0, count = 0;
+    if (productos.size() > 0) {
+      codigoBarra = productos.get(0).getCodigo();
+    } else {
+      do {
+//        generar nuevo codigo barra
+        codigo = ThreadLocalRandom.current().nextInt(100000, 1000000000 + 1);
+        codigoBarra = String.valueOf(codigo);
+//        verificar que no exista el codigo
+        productos = MetodosSQL
+          .obtenerProductos()
+          .stream()
+          .filter(p -> p.getCodigo().equals(codigoBarra))
+          .collect(Collectors.toList());
+        if (productos.isEmpty()) {
+          break;
+        }
+      } while (true);
+    }
   }
 
 }

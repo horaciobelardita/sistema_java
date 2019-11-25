@@ -2,8 +2,11 @@ package utils;
 
 import java.awt.Color;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
+import net.sourceforge.jbarcodebean.model.Interleaved25;
+import net.sourceforge.jbarcodebean.JBarcodeBean;
 
 public class Helper {
 
@@ -82,6 +85,19 @@ public class Helper {
     label.setText(msgError);
     label.setForeground(color);
     campo.requestFocus();
+  }
+
+  public static void cargarCodigoBarra(String codigoBarra, JLabel label) {
+    //    tipo de codigo barra
+    JBarcodeBean barcode = new JBarcodeBean();
+    barcode.setCodeType(new Interleaved25());
+    barcode.setCode(codigoBarra);
+    barcode.setCheckDigit(true);
+    BufferedImage bufferedImage = barcode.draw(new BufferedImage(160, 80, BufferedImage.TYPE_INT_RGB));
+    PintarLabel p = new PintarLabel(bufferedImage);
+    label.removeAll();
+    label.add(p);
+    label.repaint();
   }
 
 }
