@@ -48,6 +48,33 @@ public class MetodosSQL extends BaseDatos {
 
   }
 
+  public static String numeroFactura() {
+    Connection conexion = null;
+    Statement stmt = null;
+    ResultSet rs = null;
+    String res = null;
+    try {
+      conexion = obtenerConexion();
+      stmt = conexion.createStatement();
+      String sql = "select max(id_venta) from ventas";
+      rs = stmt.executeQuery(sql);
+      while (rs.next()) {
+        res = rs.getString(1);
+      }
+      if (res == null) {
+        res = "00000001";
+      } else {
+        res = String.format("%08d", Integer.parseInt(res) + 1);
+
+      }
+
+    } catch (SQLException e) {
+    } finally {
+      cerrarStatement(stmt);
+    }
+    return res;
+  }
+
   public static ArrayList<Producto> obtenerProductos() {
     Connection conexion = null;
     ArrayList<Producto> productos = new ArrayList<>();
@@ -65,7 +92,6 @@ public class MetodosSQL extends BaseDatos {
         p.setDescripcion(rs.getString("descripcion"));
         p.setPrecioCompra(rs.getDouble("precio_compra"));
         p.setPrecioVenta(rs.getDouble("precio_venta"));
-        p.setIdProveedor(rs.getInt("id_proveedor"));
         p.setStock(rs.getInt("stock"));
         productos.add(p);
       }
@@ -119,8 +145,8 @@ public class MetodosSQL extends BaseDatos {
       if (cambiarFoto) {
         String sql = "INSERT INTO productos "
           + "(codigo ,nombre, descripcion, "
-          + "precio_venta, precio_compra, stock, imagen, id_proveedor) "
-          + "VALUES (?,?,?,?,?,?,?,?)";
+          + "precio_venta, precio_compra, stock, imagen) "
+          + "VALUES (?,?,?,?,?,?,?)";
         File fileFoto = p.getFoto();
         FileInputStream fis = new FileInputStream(fileFoto);
         pstm = conexion.prepareStatement(sql);
@@ -132,12 +158,11 @@ public class MetodosSQL extends BaseDatos {
         pstm.setInt(6, p.getStock());
         long size = p.getFoto().length();
         pstm.setBinaryStream(7, fis, size);
-        pstm.setInt(8, p.getIdProveedor());
       } else {
         String sql = "INSERT INTO productos "
           + "(codigo ,nombre, descripcion, "
-          + "precio_venta, precio_compra, stock, id_proveedor) "
-          + "VALUES (?,?,?,?,?,?,?)";
+          + "precio_venta, precio_compra, stock) "
+          + "VALUES (?,?,?,?,?,?)";
         pstm = conexion.prepareStatement(sql);
         pstm.setString(1, p.getCodigo());
         pstm.setString(2, p.getNombre());
@@ -145,7 +170,6 @@ public class MetodosSQL extends BaseDatos {
         pstm.setDouble(4, p.getPrecioVenta());
         pstm.setDouble(5, p.getPrecioCompra());
         pstm.setInt(6, p.getStock());
-        pstm.setInt(7, p.getIdProveedor());
       }
       filasAfectadas = pstm.executeUpdate();
     } catch (FileNotFoundException ex) {
@@ -293,17 +317,16 @@ public class MetodosSQL extends BaseDatos {
 
   public static InputStream buscarFoto(Producto p) {
     InputStream streamFoto = null;
-    Connection conn = null;
-    PreparedStatement prepSt = null;
+    Connection conn;
+    Statement st = null;
     ResultSet rs = null;
     try {
       conn = obtenerConexion();
-      String sql = "SELECT imagen FROM productos WHERE codigo = ?";
+      String sql = "SELECT imagen FROM productos WHERE codigo = " + p.getCodigo();
 
-      prepSt = conn.prepareStatement(sql);
-      prepSt.setString(1, p.getCodigo());
+      st = conn.createStatement();
 
-      rs = prepSt.executeQuery();
+      rs = st.executeQuery(sql);
 
       if (rs.next()) {
         streamFoto = rs.getBinaryStream(1);
@@ -313,7 +336,7 @@ public class MetodosSQL extends BaseDatos {
       ex.printStackTrace();
     } finally {
       cerrarResultSet(rs);
-      cerrarStatement(prepSt);
+      cerrarStatement(st);
     }
     return streamFoto;
 
@@ -329,8 +352,7 @@ public class MetodosSQL extends BaseDatos {
       conexion = obtenerConexion();
       String sql = "UPDATE productos "
         + "SET nombre = ?, descripcion = ? ,"
-        + "precio_venta = ?, precio_compra = ?, stock = ? , "
-        + "id_proveedor = ? ";
+        + "precio_venta = ?, precio_compra = ?, stock = ? ";
       if (actualizarFoto) {
         sql += ", imagen = ?";
       }
@@ -341,8 +363,7 @@ public class MetodosSQL extends BaseDatos {
       pstm.setDouble(3, p.getPrecioVenta());
       pstm.setDouble(4, p.getPrecioCompra());
       pstm.setInt(5, p.getStock());
-      pstm.setInt(6, p.getIdProveedor());
-      int codigo = 7;
+      int codigo = 6;
       if (actualizarFoto) {
         File fileFoto = p.getFoto();
         FileInputStream fis = new FileInputStream(fileFoto);
@@ -366,37 +387,30 @@ public class MetodosSQL extends BaseDatos {
     return filasAfectadas;
   }
 
-  public static int insertarVenta(Venta venta) {
+  public static void insertarVenta(Venta venta) {
     Connection conexion = null;
     ResultSet rs = null;
     PreparedStatement pstm = null;
     String sql = "INSERT INTO ventas "
-      + "VALUES (null,?, ?)";
+      + "VALUES (?,?,?,?, ?,?)";
     String ultimoId = null;
     try {
       conexion = obtenerConexion();
       pstm = conexion.prepareStatement(sql);
-      pstm.setDate(1, venta.getFecha());
-      pstm.setString(2, venta.getDni());
+      pstm.setString(1, venta.getId());
+      pstm.setDate(2, venta.getFecha());
+      pstm.setString(3, venta.getDni());
+      pstm.setInt(4, venta.getIva());
+      pstm.setDouble(5, venta.getImporteBruto());
+      pstm.setDouble(6, venta.getImporteNeto());
       pstm.executeUpdate();
-      rs = pstm.executeQuery("select MAX(id_venta) as ultimo_id from ventas");
-      while (rs.next()) {
-        ultimoId = rs.getString("ultimo_id");
-      }
 
     } catch (SQLException e) {
     } finally {
       cerrarResultSet(rs);
       cerrarStatement(pstm);
     }
-    int id;
-    try {
-      id = Integer.parseInt(ultimoId);
 
-    } catch (NumberFormatException e) {
-      id = 1;
-    }
-    return id;
   }
 
   public static int insertarDetalleVenta(DetalleVenta detalleVenta) {
@@ -410,7 +424,7 @@ public class MetodosSQL extends BaseDatos {
       conexion = obtenerConexion();
       pstm = conexion.prepareStatement(sql);
       pstm.setInt(1, detalleVenta.getNumDetalle());
-      pstm.setInt(2, detalleVenta.getIdVenta());
+      pstm.setString(2, detalleVenta.getIdVenta());
       pstm.setString(3, detalleVenta.getCodigoProducto());
       pstm.setInt(4, detalleVenta.getCantidad());
       pstm.setDouble(5, detalleVenta.getPrecioProducto());
@@ -661,6 +675,59 @@ public class MetodosSQL extends BaseDatos {
     } finally {
       cerrarStatement(stmt);
     }
+    return filasAfectadas;
+  }
+
+  public static Producto obtenerProductoPorCodigo(String codigo) {
+    Connection conexion;
+    Statement pstm = null;
+    ResultSet rs = null;
+    Producto p = new Producto();
+    try {
+      conexion = obtenerConexion();
+      pstm = conexion.createStatement();
+      String sql = "SELECT * FROM productos WHERE codigo = " + codigo;
+      rs = pstm.executeQuery(sql);
+      while (rs.next()) {
+        p = new Producto();
+        p.setCodigo(codigo);
+        p.setNombre(rs.getString("nombre"));
+        p.setNombre(rs.getString("descripcion"));
+        p.setPrecioCompra(rs.getDouble("precio_compra"));
+        p.setPrecioVenta(rs.getDouble("precio_venta"));
+        p.setStock(rs.getInt("stock"));
+      }
+
+    } catch (SQLException e) {
+    } finally {
+      cerrarResultSet(rs);
+      cerrarStatement(pstm);
+    }
+    return p;
+  }
+
+  public static int actualizarStockProducto(String codigo, int cantidad) {
+    int filasAfectadas = 0;
+    Connection conexion;
+    PreparedStatement pstm = null;
+
+    try {
+
+      conexion = obtenerConexion();
+      String sql = "UPDATE productos "
+        + "SET stock = stock - ?";
+      sql += " WHERE codigo = ?";
+      pstm = conexion.prepareStatement(sql);
+      pstm.setInt(1, cantidad);
+      pstm.setString(2, codigo);
+
+      filasAfectadas = pstm.executeUpdate();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      cerrarStatement(pstm);
+    }
+
     return filasAfectadas;
   }
 }

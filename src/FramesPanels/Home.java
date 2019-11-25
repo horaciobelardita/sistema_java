@@ -311,7 +311,7 @@ public class Home extends javax.swing.JFrame implements ActionListener {
     contenedor.setLayout(contenedorLayout);
     contenedorLayout.setHorizontalGroup(
       contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGap(0, 1270, Short.MAX_VALUE)
+      .addGap(0, 1600, Short.MAX_VALUE)
     );
     contenedorLayout.setVerticalGroup(
       contenedorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

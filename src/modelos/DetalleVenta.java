@@ -12,12 +12,12 @@ package modelos;
 public class DetalleVenta {
 
   private Integer numDetalle;
-  private Integer idVenta;
+  private String idVenta;
   private String codigoProducto;
   private Integer cantidad;
   private Double precioProducto;
 
-  public DetalleVenta(Integer numDetalle, Integer idVenta, String codigoProducto, Integer cantidad, Double precioProd) {
+  public DetalleVenta(Integer numDetalle, String idVenta, String codigoProducto, Integer cantidad, Double precioProd) {
     this.numDetalle = numDetalle;
     this.idVenta = idVenta;
     this.codigoProducto = codigoProducto;
@@ -29,11 +29,11 @@ public class DetalleVenta {
     return numDetalle;
   }
 
-  public Integer getIdVenta() {
+  public String getIdVenta() {
     return idVenta;
   }
 
-  public void setIdVenta(Integer idVenta) {
+  public void setIdVenta(String idVenta) {
     this.idVenta = idVenta;
   }
 

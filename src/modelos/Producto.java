@@ -12,91 +12,74 @@ import java.io.File;
  * @author Horacio
  */
 public class Producto {
-    private String codigo;
-    private String nombre;
-    private String descripcion;
-    private Integer stock;
-    private File foto;
-    private Double precioCompra;
-    private Double precioVenta;
-    private Integer idProveedor;
 
-    public String getCodigo() {
-        return codigo;
-    }
+  private String codigo;
+  private String nombre;
+  private String descripcion;
+  private Integer stock;
+  private File foto;
+  private Double precioCompra;
+  private Double precioVenta;
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
+  public String getCodigo() {
+    return codigo;
+  }
 
-    
+  public void setCodigo(String codigo) {
+    this.codigo = codigo;
+  }
 
-    public String getNombre() {
-        return nombre;
-    }
+  public String getNombre() {
+    return nombre;
+  }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
+  public void setNombre(String nombre) {
+    this.nombre = nombre;
+  }
 
-    public String getDescripcion() {
-        return descripcion;
-    }
+  public String getDescripcion() {
+    return descripcion;
+  }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
+  public void setDescripcion(String descripcion) {
+    this.descripcion = descripcion;
+  }
 
-    public int getStock() {
-        return stock;
-    }
+  public int getStock() {
+    return stock;
+  }
 
-    public void setStock(int stock) {
-        this.stock = stock;
-    }
+  public void setStock(int stock) {
+    this.stock = stock;
+  }
 
-    public File getFoto() {
-        return foto;
-    }
+  public File getFoto() {
+    return foto;
+  }
 
-    public void setFoto(File foto) {
-        this.foto = foto;
-    }
+  public void setFoto(File foto) {
+    this.foto = foto;
+  }
 
-    public Double getPrecioCompra() {
-        return precioCompra;
-    }
+  public Double getPrecioCompra() {
+    return precioCompra;
+  }
 
-    public void setPrecioCompra(Double precioCompra) {
-        this.precioCompra = precioCompra;
-    }
+  public void setPrecioCompra(Double precioCompra) {
+    this.precioCompra = precioCompra;
+  }
 
-    public Double getPrecioVenta() {
-        return precioVenta;
-    }
+  public Double getPrecioVenta() {
+    return precioVenta;
+  }
 
-    public void setPrecioVenta(Double precioVenta) {
-        this.precioVenta = precioVenta;
-    }
+  public void setPrecioVenta(Double precioVenta) {
+    this.precioVenta = precioVenta;
+  }
 
-    public Integer getIdProveedor() {
-        return idProveedor;
-    }
+  @Override
+  public String toString() {
+    return nombre;
+  }
 
-    public void setIdProveedor(Integer idProveedor) {
-        this.idProveedor = idProveedor;
-    }
-
-   
-
-    
-
-    @Override
-    public String toString() {
-        return nombre;
-    }
-    
-    
-    
-    
 }

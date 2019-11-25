@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package modelos;
 
 import java.sql.Date;
@@ -13,51 +12,69 @@ import java.sql.Date;
  * @author horaciobelardita
  */
 public class Venta {
-    private Integer id;
-    private Date fecha;
-    private Double importe;
-    private String dni;
 
-    public String getDni() {
-        return dni;
-    }
+  private String id;
+  private Date fecha;
+  private Double importeNeto;
+  private Double importeBruto;
+  private Integer iva;
+  private String dni;
 
-    public void setDni(String dni) {
-        this.dni = dni;
-    }
-    
-    
-    public Venta(String dni, Date fecha, Double importe) {
-        this.fecha = fecha;
-        this.dni = dni;
-        this.importe = importe;
-    }
-    
-    
-    
-    public Integer getId() {
-        return id;
-    }
+  public Venta(String id, Date fecha, Double importeNeto, Double importeBruto, Integer iva, String dni) {
+    this.id = id;
+    this.fecha = fecha;
+    this.importeNeto = importeNeto;
+    this.importeBruto = importeBruto;
+    this.iva = iva;
+    this.dni = dni;
+  }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+  public String getId() {
+    return id;
+  }
 
-    public Date getFecha() {
-        return fecha;
-    }
+  public void setId(String id) {
+    this.id = id;
+  }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
+  public Date getFecha() {
+    return fecha;
+  }
 
-    public Double getImporte() {
-        return importe;
-    }
+  public void setFecha(Date fecha) {
+    this.fecha = fecha;
+  }
 
-    public void setImporte(Double importe) {
-        this.importe = importe;
-    }
-    
-    
+  public Double getImporteNeto() {
+    return importeNeto;
+  }
+
+  public void setImporteNeto(Double importeNeto) {
+    this.importeNeto = importeNeto;
+  }
+
+  public Double getImporteBruto() {
+    return importeBruto;
+  }
+
+  public void setImporteBruto(Double importeBruto) {
+    this.importeBruto = importeBruto;
+  }
+
+  public Integer getIva() {
+    return iva;
+  }
+
+  public void setIva(Integer iva) {
+    this.iva = iva;
+  }
+
+  public String getDni() {
+    return dni;
+  }
+
+  public void setDni(String dni) {
+    this.dni = dni;
+  }
+
 }
